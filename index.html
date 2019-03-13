@@ -11,7 +11,7 @@
   <title>首页</title>
   <link rel="stylesheet" href="plugin/layui/css/layui.css"/>
   <link rel="stylesheet" href="css/header.css"/>
-  <script src="js/include.js"></script>
+  <!--<script src="js/include.js"></script>-->
   <style type="text/css">
   	body{
   		background-color: #F0F0F0;
@@ -39,9 +39,7 @@
   </style>
 </head>
 <body>
-	<div class="header">
-		<include src="aaaa.html"></include>	
-	</div>
+	<div class="header"></div>
 	<div class="mainbody">
 		<div class="layui-row layui-col-space20 rowbody">
 			<div class="layui-col-md3">
@@ -100,7 +98,7 @@
 <script>
 	//JavaScript代码区域
 	layui.use(['form','element'], function(){
-//	   $(".header").load("aaaa.html");
+	   $(".header").load("header.html");
 	   var form = layui.form
   ,element = layui.element;
 	  
