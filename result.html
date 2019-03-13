@@ -42,6 +42,7 @@
 	  			width: 100%;
 	  			height: 80%;
 	  			border: 1px solid #F0F0F0;
+	  			margin-top: 10%;
 	  		}
 	  		.recommend-title{
 	  			width: 100%;
@@ -51,13 +52,18 @@
 	  			font-size: 20px;
 	  			font-weight: 600;
 	  			text-align: center;
-	  			background-color: #87CEFA;
-	  			color: #FFFFFF;
+	  			background-color: #d2d2d2;
+	  			/*color: #FFFFFF;*/
 	  		}
 	  		.recommend-body{
 	  			width: 100%;
 	  			text-align: center;
 	  			font-size: 19px;
+	  		}
+	  		.searchmodal{
+	  			width: 100%;
+	  			height: 50px;
+	  			margin-top: 10px;
 	  		}
 	  	</style>
 	</head>
@@ -79,7 +85,30 @@
 				<div class="result-body">
 					<div class="layui-row layui-col-space30">
 						<div class="layui-col-md9">
-							
+							<div class="searchmodal">
+								<form class="layui-form" action="">
+									<div class="layui-form-item">
+										<div class="layui-inline">
+											<label class="layui-form-label">类别</label>
+											<div class="layui-input-block selectblock">
+												<select name="sorts" lay-verify="required">
+													<option value=""></option>
+													<option value="0">导游</option>
+													<option value="1">代驾</option>
+													<option value="2">外卖</option>
+													<option value="3">摄影</option>
+												</select>
+											</div>
+										</div>
+										<div class="layui-inline">
+											<label class="layui-form-label">输入</label>
+											<div class="layui-input-block inputblock">
+												<input type="text" name="title" required="" lay-verify="required" placeholder="请输入查询条件" autocomplete="off" class="layui-input"/>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
 							<table class="layui-table"lay-skin="row" lay-filter="test"></table>
 							<script type="text/html" id="barDemo">
 								<a class="layui-btn layui-btn-primary layui-btn-mini" lay-event="detail">查看</a>
@@ -111,12 +140,12 @@
 	  	   	url:'',
 	  	   	page:true,
 	  	   	cols:[[
-	  	   		{field:'id',title:'ID',width:200,sort:true,fixed:'left'},
-	  	   		{field:'category',title:'类别',width:200},
-	  	   		{field:'issuer',title:'发布人',width:200},
-	  	   		{field:'telphone',title:'联系方式',width:200},
-	  	   		{field:'address',title:'地址',width:200},
-	  	   		{field:'creatTime',title:'发布时间',width:200},
+	  	   		{field:'id',title:'ID',width:150,sort:true,fixed:'left'},
+	  	   		{field:'category',title:'类别',width:150},
+	  	   		{field:'issuer',title:'发布人',width:150},
+	  	   		{field:'telphone',title:'联系方式',width:150},
+	  	   		{field:'address',title:'地址',width:150},
+	  	   		{field:'creatTime',title:'发布时间',width:150},
 	  	   		{field:'right',title:'操作',width:300,toolbar:"#barDemo"}
 	  	   	]]
 	  	   })
