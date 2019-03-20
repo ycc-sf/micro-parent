@@ -11,10 +11,13 @@
   <title>首页</title>
   <link rel="stylesheet" href="plugin/layui/css/layui.css"/>
   <link rel="stylesheet" href="css/header.css"/>
+  <link rel="stylesheet" type="text/css" href="css/common.css" />
+  <!--<link rel="stylesheet" type="text/css" href="css/iconfont.css"/>-->
+  <!--<script type="text/javascript" src="js/iconfont.js"></script>-->
   <!--<script src="js/include.js"></script>-->
   <style type="text/css">
   	body{
-  		background-color: #F0F0F0;
+  		/*background-color: #eeeeee;*/
   	}
   	.headerifm{
   		width: 100%;
@@ -22,7 +25,7 @@
   	}
   	.mainbody{
   		width: 90%;
-  		margin: 10px auto;
+  		margin: 20px auto;
   	}
   	.rowbody{
   		width: 100%;
@@ -30,24 +33,92 @@
   	.mapmodal{
   		width: 100%;
   		height: 500px;
-  		border: 1px solid #006699;
+  	/*	border: 1px solid #006699;*/
   	}
   	.mapsize{
   		width: 100%;
   		height: 100%;
   	}
+  	.cardmodal{
+  		width: 100%;
+  		height: 100%;
+  		border:1px solid #e2e2e2;
+  	}
+  	.cardmodal:hover{
+  		box-shadow: 5px 5px 5px #D8D8D8;
+  	}
+  	.cardtitle{
+  		background-color: #F0F0F0;
+  	}
+  	.cardbody{
+  		padding: 0;
+  		margin: 0;
+  	}
+  	.cardmodal ul{
+  		width: 100%;
+  		height: 100%;
+  		margin-top: 10px;
+  		margin-bottom: 10px;
+  		/*border: 1px solid #000000;*/
+  	}
+  	.cardmodal ul li{
+  		line-height: 40px;
+  		padding-left: 10px;
+  	}
+  	.cardmodal li:hover{
+  		border: 1px solid #EFF8FB;
+  		border-radius: 15px;
+  		background-color: #EFF8FB;
+  		/*padding-left: 10px;*/
+  	}
   </style>
 </head>
-<body>
-	<div class="header"></div>
+<body class="layui-anim layui-anim-scaleSpring">
+	<div class="header">
+		<div class="layui-container layui-bg-black container">
+			<div class="layui-row">
+				<div class="layui-col-md2 title">微服务</div>
+				<div class="layui-col-md4 layui-col-md-offset6">
+					<ul class="layui-nav rightnav" lay-filter="">
+						<li class="layui-nav-item">
+					        <a href="javascript:;">
+					          <img src="images/user.png" class="layui-nav-img">管理员
+					          <!--<span style="color:#2F4056;">管理员</span>-->
+					        </a>
+					        <dl class="layui-nav-child">
+					          <dd><a href="javascript:;">个人资料</a></dd>
+					          <dd><a href="javascript:;">我的发布</a></dd>
+					          <dd><a href="javascript:;">安全设置</a></dd>
+					        </dl>
+					    </li>
+					    <li class="layui-nav-item"><a href="${rc.contextPath}/logout">退出
+					    	<!--<span style="color:#2F4056;">退出</span>-->
+					    </a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="mainbody">
 		<div class="layui-row layui-col-space20 rowbody">
 			<div class="layui-col-md3">
-				<div class="layui-card">
-					<div class="layui-card-header">热门推荐</div>
-					<div class="layui-card-body">
+				<div class="layui-card cardmodal">
+					<div class="layui-card-header cardtitle">
+						<i class="iconfont iconhot" style="color:#E53939 ;font-size: 19px;"></i> 热门推荐</div>
+					<div class="layui-card-body cardbody">
 						<ul>
-							<li></li>
+							<li>
+								<div class="layui-row">
+									<div class="layui-col-md9">
+										xxx寻物启事
+									</div>
+									<div class="layui-col-md2  layui-col-md-offset1">
+										<i class="iconfont iconjiaji" style="color:#d81e06;font-size: 25px;"></i>
+									</div>
+								</div>
+							</li>
+							<li>xxx小区宠物丢失</li>
+							<li>xxx及时达寻找顺路人，有报酬！</li>
 						</ul>
 					</div>
 				</div>
@@ -58,8 +129,9 @@
 				</div>
 			</div>
 			<div class="layui-col-md3">
-				<div class="layui-card">
-					<div class="layui-card-header">搜索</div>
+				<div class="layui-card cardmodal">
+					<div class="layui-card-header cardtitle">搜索&nbsp;
+						<i class="iconfont iconsousuoxiangqing" style="font-size:20px;color:#4CADE9;"></i></div>
 					<div class="layui-card-body">
 						<form class="layui-form layui-form-pane" action="">
 							<div class="layui-form-item" pane>
@@ -98,7 +170,7 @@
 <script>
 	//JavaScript代码区域
 	layui.use(['form','element'], function(){
-	   $(".header").load("header.html");
+	  /* $(".header").load("header.html");*/
 	   var form = layui.form
   ,element = layui.element;
 	  

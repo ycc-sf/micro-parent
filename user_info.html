@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	    <meta http-equiv="Pragma" content="no-cache">
+	    <meta http-equiv="Cache-Control" content="no-cache">
+	    <meta name="renderer" content="webkit">
+	    <meta http-equiv="Expires" content="0">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	    <title>我的资料</title>
+	    <link rel="stylesheet" href="plugin/layui/css/layui.css"/>
+	    <link rel="stylesheet" href="css/header.css"/>
+	    <link rel="stylesheet" type="text/css" href="css/common.css" />
+	    <style type="text/css">
+	    	.mainbody{
+	    		width: 80%;
+  				margin: 20px auto;
+	    	}
+	    	.headcol{
+	    		/*border: 1px solid #000000;*/
+	    	}
+	    	.headimg{
+	    		width: 150px;
+	    		height: 150px;
+	    	}
+	    	.maincontent{
+	    		font-size: 15px;
+	    		padding-top: 20px;
+	    		color: #6E6E6E;
+	    	}
+	    	.commonicon{
+	    		font-size: 25px;
+	    	}
+	    	.content{
+	    		margin-bottom: 20px;
+	    	}
+	    </style>
+	</head>
+	<body>
+		<div class="header">
+			<div class="layui-container layui-bg-black container">
+				<div class="layui-row">
+					<div class="layui-col-md2 title">微服务</div>
+					<div class="layui-col-md4 layui-col-md-offset6">
+						<ul class="layui-nav rightnav" lay-filter="">
+							<li class="layui-nav-item">
+						        <a href="javascript:;">
+						          <img src="images/user.png" class="layui-nav-img">管理员
+						          <!--<span style="color:#2F4056;">管理员</span>-->
+						        </a>
+						        <dl class="layui-nav-child">
+						          <dd><a href="javascript:;">个人资料</a></dd>
+						          <dd><a href="javascript:;">我的发布</a></dd>
+						          <!--<dd><a href="javascript:;">安全设置</a></dd>-->
+						        </dl>
+						    </li>
+						    <li class="layui-nav-item"><a href="${rc.contextPath}/logout">退出</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="mainbody">
+			<div class="layui-row">
+				<div class="layui-col-md2 headcol">
+					<img src="images/head.jpeg" class="headimg"/>
+				</div>
+				<div class="layui-col-md9 layui-col-md-offset1 maincontent">
+					<div class="layui-row content">
+						<div class="layui-col-md1">
+							<i class="iconfont icon1zhenshixingming commonicon" style="color:#2E9AFE;"></i>
+						</div>
+						<div class="layui-col-md11" style="font-size: 18px;font-weight: 600;">肥嘟嘟</div>
+					</div>
+					<div class="layui-row content">
+						<div class="layui-col-md1">
+							<i class="iconfont iconxingbie commonicon" style="color:#F5A9D0;"></i>
+						</div>
+						<div class="layui-col-md11">女</div>
+					</div>
+					<div class="layui-row content">
+						<div class="layui-col-md1">
+							<i class="iconfont iconlianxifangshi commonicon" style="color:#FFBF00"></i>
+						</div>
+						<div class="layui-col-md11">1326478965</div>
+					</div>
+					<div class="layui-row content">
+						<div class="layui-col-md1">
+							<i class="iconfont iconyouxiang commonicon" style="color:#58FA82"></i>
+						</div>
+						<div class="layui-col-md11">1326478965@qq.com</div>
+					</div>
+				</div>
+			</div>
+			<div class="layui-row">
+				
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="plugin/jquery/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="plugin/layui/layui.js"></script>
+	<script>
+		//JavaScript代码区域
+		layui.use(['form','element'], function(){
+		   var form = layui.form
+	  ,element = layui.element;
+		  
+		  
+		  form.on('submit(formDemo)',function(data){
+		  	lay.msg(JSON.stringify(data.field));
+		  	return false;
+		  })
+		});
+		
+	//	function loadHtml(url){
+	//		alert(url);
+	//		url = url+"&temp="+Math.random();
+	//		$("#contentDiv").load(url,function(response,status,xhr){
+	//	        
+	//	    });
+	//	}
+	//	
+	//	$(function(){
+	//		$("ul li:first-child dl dd a:first-child").click();
+	//	});
+	</script>
+</html>

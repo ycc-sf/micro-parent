@@ -11,6 +11,7 @@
 	  	<title>发布信息页</title>
 	  	<link rel="stylesheet" href="plugin/layui/css/layui.css"/>
 	  	<link rel="stylesheet" href="css/header.css"/>
+	  	<link rel="stylesheet" type="text/css" href="css/common.css" />
 	  	<style type="text/css">
 	  		.result-main{
 	  			width: 90%;
@@ -65,7 +66,29 @@
 	  	</style>
 	</head>
 	<body>
-		<div class="header"></div>
+		<div class="header">
+			<div class="layui-container layui-bg-black container">
+				<div class="layui-row">
+					<div class="layui-col-md2 title">微服务</div>
+					<div class="layui-col-md4 layui-col-md-offset6">
+						<ul class="layui-nav  rightnav" lay-filter="">
+							<li class="layui-nav-item">
+						        <a href="javascript:;">
+						          <img src="images/user.png" class="layui-nav-img">管理员
+						        </a>
+						        <dl class="layui-nav-child">
+						          <dd><a href="javascript:;">个人资料</a></dd>
+						          <dd><a href="javascript:;">我的发布</a></dd>
+						          <dd><a href="javascript:;">安全设置</a></dd>
+						        </dl>
+						    </li>
+						    <li class="layui-nav-item"><a href="${rc.contextPath}/logout">退出
+						    </a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="result-main">
 			<div class="result-modal">
 				<div class="layui-row">
@@ -84,7 +107,9 @@
 						<form class="layui-form" action="">
 							<div class="layui-form-item">
 								<div class="layui-inline">
-									<label class="layui-form-label">类别</label>
+									<label class="layui-form-label">
+										<i class="iconfont iconleibie" style="color:#FFBF00;font-size: 25px;"></i>&nbsp;&nbsp;类别
+									</label>
 									<div class="layui-input-block selectblock">
 										<select name="sorts" lay-verify="required">
 											<option value=""></option>
@@ -109,7 +134,7 @@
 							</div>
 						</form>
 					</div>
-					<table class="layui-table"lay-skin="row" lay-filter="test"></table>
+					<table class="layui-table" lay-skin="row" lay-filter="test"></table>
 					<script type="text/html" id="barDemo">
 						<a class="layui-btn layui-btn-primary layui-btn-mini" lay-event="detail">查看</a>
 						<a class="layui-btn layui-btn-mini" lay-event="accept">接收</a>
@@ -134,24 +159,21 @@
 	  ,element = layui.element;
 	  	   var table = layui.table; 
 	  
-	  $(".header").load("header.html");
-	  
 	  table.render({
 	  	   	elem:'.layui-table',
 	  	   	height:100,
 	  	   	url:'',
 	  	   	page:true,
 	  	   	cols:[[
-	  	   		{field:'id',title:'ID',width:150,sort:true,fixed:'left'},
-	  	   		{field:'category',title:'类别',width:150},
-	  	   		{field:'issuer',title:'发布人',width:150},
-	  	   		{field:'telphone',title:'联系方式',width:150},
-	  	   		{field:'address',title:'地址',width:150},
-	  	   		{field:'creatTime',title:'发布时间',width:150},
-	  	   		{field:'right',title:'操作',width:300,toolbar:"#barDemo"}
+	  	   		{field:'id',title:'ID',width:150,sort:true,fixed:'left',align:'center'},
+	  	   		{field:'category',title:'类别',width:150,align:'center'},
+	  	   		{field:'issuer',title:'发布人',width:150,align:'center'},
+	  	   		{field:'telphone',title:'联系方式',width:150,align:'center'},
+	  	   		{field:'address',title:'地址',width:150,align:'center'},
+	  	   		{field:'creatTime',title:'发布时间',width:150,align:'center'},
+	  	   		{field:'right',title:'操作',width:300,toolbar:"#barDemo",align:'center'}
 	  	   	]]
-	  	   })
-		  $(".header").load("header.html");
+	  	  })
 	  
 	   form.on('submit(formDemo)',function(data){
 		  	lay.msg(JSON.stringify(data.field));

@@ -11,6 +11,7 @@
 	  	<title>发布信息页</title>
 	  	<link rel="stylesheet" href="plugin/layui/css/layui.css"/>
 	  	<link rel="stylesheet" href="css/header.css"/>
+	  	<link rel="stylesheet" type="text/css" href="css/common.css" />
 	  	<style type="text/css">
 	  		.submit-mian{
 	  			width: 90%;
@@ -27,50 +28,92 @@
 	  			width: 40%;
 	  			background-color: #FFFFFF;
 	  		}
+	  		.headtitle{
+	  			font-size: 20px;
+	  			font-weight: bold;
+	  		}
+	  		.submit-form{
+	  			margin-top: 20px;
+	  		}
 	  	</style>
 	</head>
 	<body>
-		<div class="header"></div>
+		<div class="header">
+			<div class="layui-container layui-bg-black container">
+				<div class="layui-row">
+					<div class="layui-col-md2 title">微服务</div>
+					<div class="layui-col-md4 layui-col-md-offset6">
+						<ul class="layui-nav  rightnav" lay-filter="">
+							<li class="layui-nav-item">
+						        <a href="javascript:;">
+						          <img src="images/user.png" class="layui-nav-img">管理员
+						        </a>
+						        <dl class="layui-nav-child">
+						          <dd><a href="javascript:;">个人资料</a></dd>
+						          <dd><a href="javascript:;">我的发布</a></dd>
+						          <dd><a href="javascript:;">安全设置</a></dd>
+						        </dl>
+						    </li>
+						    <li class="layui-nav-item"><a href="${rc.contextPath}/logout">退出
+						    </a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="submit-mian">
-			<form class="layui-form" action="">
-				<div class="layui-form-item">
-					<label class="layui-form-label">标题</label>
-					<div class="layui-input-block input-len">
-						<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" />
+			<blockquote class="layui-elem-quote headtitle">
+				发布信息&nbsp;&nbsp;<i class="iconfont iconpaperplane" style="color:#0B3861;font-size: 25px;"></i>
+			</blockquote>
+			<div class="submit-form">
+				<form class="layui-form" action="">
+					<div class="layui-form-item">
+						<label class="layui-form-label">
+							<i class="iconfont iconweibiaoti203" style="color:#E53939;font-size: 25px;"></i>&nbsp;&nbsp;标题
+						</label>
+						<div class="layui-input-block input-len">
+							<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" />
+						</div>
 					</div>
-				</div>
-				<div class="layui-form-item">
-					<label class="layui-form-label">类别</label>
-					<div class="layui-input-block input-len">
-						<select name="sorts" lay-verify="required">
-							<option value=""></option>
-							<option value="0">导游</option>
-							<option value="1">代驾</option>
-							<option value="2">外卖</option>
-							<option value="3">摄影</option>
-						</select>
+					<div class="layui-form-item">
+						<label class="layui-form-label">
+							<i class="iconfont iconleibie" style="color:#FFBF00;font-size: 25px;"></i>&nbsp;&nbsp;类别
+						</label>
+						<div class="layui-input-block input-len">
+							<select name="sorts" lay-verify="required">
+								<option value=""></option>
+								<option value="0">导游</option>
+								<option value="1">代驾</option>
+								<option value="2">外卖</option>
+								<option value="3">摄影</option>
+							</select>
+						</div>
 					</div>
-				</div>
-				<div class="layui-form-item">
-					<label class="layui-form-label">位置</label>
-					<div class="layui-input-block input-len">
-						<input type="text" name="title" required lay-verify="required" placeholder="请选择所在位置" autocomplete="off" class="layui-input" />
+					<div class="layui-form-item">
+						<label class="layui-form-label">
+							<i class="iconfont iconweizhi" style="color:#04B404;font-size: 25px;"></i>&nbsp;&nbsp;位置
+						</label>
+						<div class="layui-input-block input-len">
+							<input type="text" name="title" required lay-verify="required" placeholder="请选择所在位置" autocomplete="off" class="layui-input" />
+						</div>
+						<div class="maploaction"></div>
 					</div>
-					<div class="maploaction"></div>
-				</div>
-				<div class="layui-form-item">
-					<label class="layui-form-label">详情</label>
-					<div class="layui-input-block input-len">
-				      <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
-				    </div>
-				</div>
-				<div class="layui-form-item">
-				    <div class="layui-input-block">
-				      <button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo">立即提交</button>
-				      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-				    </div>
-				</div>
-			</form>
+					<div class="layui-form-item">
+						<label class="layui-form-label">
+							<i class="iconfont iconxiangqing" style="color:#1296db;font-size: 25px;"></i>&nbsp;&nbsp;详情
+						</label>
+						<div class="layui-input-block input-len">
+					      <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+					    </div>
+					</div>
+					<div class="layui-form-item">
+					    <div class="layui-input-block">
+					      <button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo">立即提交</button>
+					      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+					    </div>
+					</div>
+				</form>
+			</div>
 		</div>
 	</body>
 	<script type="text/javascript" src="plugin/jquery/jquery-1.11.3.min.js"></script>
@@ -80,7 +123,7 @@
 		   var form = layui.form
 	  ,element = layui.element;
 	  
-	  $(".header").load("header.html");
+//	  $(".header").load("header.html");
 	  
 	   form.on('submit(formDemo)',function(data){
 		  	lay.msg(JSON.stringify(data.field));
