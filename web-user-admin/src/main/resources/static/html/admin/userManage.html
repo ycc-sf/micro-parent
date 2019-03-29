@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>用户管理页</title>
+		<style type="text/css">
+			.inputText{
+				width: 40%;
+			}
+		</style>
+	</head>
+	<body class="layui-layout-body">
+		<div class="layui-card">
+			<div class="layui-card-header">/&nbsp;&nbsp;用户管理</div>
+	        <div class="layui-card-body">
+	        	<div class="layui-row">
+	        		<div class="layui-col-xs10 layui-col-sm8 layui-col-md8">
+	        			<form class="layui-form">
+			          	  	<label class="layui-form-label">关键词搜索</label>
+							<div class="layui-input-block">
+								<input type="text" name="" placeholder="请输入搜索词" class="layui-input inputText"/>
+							</div>
+			          	</form>
+	        		</div>
+	        		<div class="layui-col-xs2 layui-col-sm4	layui-col-md4">
+						<button class="layui-btn" style="float:right;"id="add">查询</button>
+	        		</div>
+	        	</div>
+	          <table class="userTable" id="userInfo" lay-filter="test"></table>
+	        </div>
+		</div>
+	</body>
+	<script>
+		//JavaScript代码区域
+		layui.use(['table','form'], function(){
+		  var table = layui.table;
+//		  var form = layui.form;
+		  
+		  table.render({
+		  	elem:'#userInfo',
+		  	url:'xxx',
+		  	page:true,
+		  	cols:[[
+		  		{field:'id',title:'ID',sort:'true',fixed:'left'}
+		  		,{field:'username',title:'用户名'}
+		  		,{field:'nickname',title:'昵称'}
+		  		,{field:'sex',title:'性别'}
+		  		,{field:'city',title:'城市'}
+		  		,{field:'phone',title:'手机'}
+		  		,{field:'email',title:'邮箱'}
+		  		,{title:'操作',fixed:'right',width:120,templet:function(d){
+		  			return '<select name="caozuo" lay-filter="selectbtn" lay-verify="required" data-value="'+d.caozuo+'">\n'+
+		  			'<option value="detail">详情</option>\n'+
+		  			'<option value="stop">禁言</option>\n'+
+		  			'<option vlaue="delete">注销</option>\n'+
+		  			'</select>';
+		  		}}
+		  	]]
+		  })
+		});
+	</script>
+</html>

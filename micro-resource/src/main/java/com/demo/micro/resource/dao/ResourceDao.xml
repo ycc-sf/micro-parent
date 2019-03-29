@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <!--命名空间，指定对应的Dao-->
+    <mapper namespace="com.demo.micro.resource.dao.ResourceDao">
+	<select id="selectRangeInfo" resultType="Info">
+        SELECT *
+        FROM r_info
+        WHERE location_x > #{x} - #{range}
+        AND location_y > #{y} - #{range}
+        AND location_x &lt; #{x} + #{range}
+        AND location_y &lt; #{y} + #{range}
+        <if test="title != null and title != ''" >
+            AND info_title LIKE (CONCAT('%',#{title},'%'))
+        </if>
+        <if test="infoType != null and infoType != ''" >
+            AND type_id = #{infoType}
+          </if>
+        ORDER BY id DESC
+        LIMIT 0, #{number}
+    </select>
+	
+	<select id="findUserByUsername" resultType="UserInfo">
+        SELECT * FROM r_user WHERE username = #{username}
+    </select>
+    
+    <select id="findRoleById" resultType="Role">
+        SELECT * FROM r_role WHERE id = #{id}
+    </select>
+</mapper>

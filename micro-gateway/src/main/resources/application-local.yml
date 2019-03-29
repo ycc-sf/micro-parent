@@ -1,0 +1,26 @@
+server: 
+  port: 53010
+
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:53000/eureka/  
+
+spring:
+##################### DB #####################
+  datasource: 
+    url: jdbc:mysql://123.207.54.159:3306/micro-req?useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull
+    username: root
+    password: Mysql7456321.
+
+
+            
+logging: 
+  config: classpath:log4j2-dev.xml
+  
+swagger: 
+  enable: true
+
+#apache:
+#  rocketmq:
+#    namesrvAddr: localhost:9876

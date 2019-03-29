@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	  	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	  	<meta http-equiv="Pragma" content="no-cache">
+	  	<meta http-equiv="Cache-Control" content="no-cache">
+	  	<meta name="renderer" content="webkit">
+	  	<meta http-equiv="Expires" content="0">
+	  	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	  	<title>发布信息页</title>
+	  	<link rel="stylesheet" href="../../plugin/layui/css/layui.css"/>
+	  	<link rel="stylesheet" href="../../css/resource/header.css"/>
+	  	<link rel="stylesheet" type="text/css" href="../../css/resource/common.css" />
+	  	<style type="text/css">
+	  		.result-main{
+	  			width: 90%;
+  				margin: 10px auto;
+	  		}
+	  		.result-modal{
+	  			width: 100%;
+	  			height: 100%;
+	  			border: 1px solid #FFFFFF;
+	  			background-color: #FFFFFF;
+	  		}
+	  		#title{
+	  			font-size: 20px;
+	  			font-weight: bold;
+				background-color: #FFFFFF;
+	  		}
+	  		.returnbtn{
+	  			text-align: center;
+	  			margin-top: 13px;
+	  		}
+	  		.result-body{
+	  			width: 100%;
+	  			height: 100%;
+	  		}
+	  		.recommend{
+	  			width: 100%;
+	  			height: 80%;
+	  			border: 1px solid #F0F0F0;
+	  			margin-top: 10%;
+	  		}
+	  		.recommend-title{
+	  			width: 100%;
+	  			height: 30px;
+	  			line-height: 30px;
+	  			border-bottom: 1px solid #F0F0F0;
+	  			font-size: 18px;
+	  			font-weight: 600;
+	  			text-align: center;
+	  			background-color: #d2d2d2;
+	  			/*color: #FFFFFF;*/
+	  		}
+	  		.recommend-body{
+	  			width: 100%;
+	  			text-align: center;
+	  			font-size: 15px;
+	  		}
+	  		.searchmodal{
+	  			width: 100%;
+	  			height: 50px;
+	  			margin-top: 10px;
+	  		}
+	  	</style>
+	</head>
+	<body>
+		<div class="header">
+			<div class="layui-container layui-bg-black container">
+				<div class="layui-row">
+					<div class="layui-col-xs6 layui-col-sm6 layui-col-md9 title">微服务</div>
+					<div class="layui-col-xs6 layui-col-sm6 layui-col-md3">
+						<ul class="layui-nav  rightnav" lay-filter="">
+							<li class="layui-nav-item">
+						        <a href="javascript:;">
+						          <img src="../../images/user.png" class="layui-nav-img">管理员
+						        </a>
+						        <dl class="layui-nav-child">
+						          <dd><a href="javascript:;">个人资料</a></dd>
+						          <dd><a href="javascript:;">我的发布</a></dd>
+						        </dl>
+						    </li>
+						    <li class="layui-nav-item"><a href="${rc.contextPath}/logout">退出
+						    </a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="result-main">
+			<div class="result-modal">
+				<div class="layui-row">
+					<div class="layui-col-md10">
+						<blockquote class="layui-elem-quote" id="title">我的发布</blockquote>
+					</div>
+					<!--<div class="layui-col-md2 returnbtn">
+						<button class="layui-btn layui-btn-lg layui-btn-radius layui-btn-normal">
+							<i class="layui-icon">&#xe65c;</i>返回
+						</button>
+					</div>-->
+				</div>
+				<hr>
+				<div class="result-body">
+					<div class="searchmodal">
+						<form class="layui-form" action="">
+							<div class="layui-form-item">
+								<div class="layui-inline">
+									<label class="layui-form-label">
+										<i class="iconfont iconleibie" style="color:#FFBF00;font-size: 25px;"></i>&nbsp;&nbsp;类别
+									</label>
+									<div class="layui-input-block selectblock">
+										<select name="sorts" lay-verify="required">
+											<option value=""></option>
+											<option value="0">导游</option>
+											<option value="1">代驾</option>
+											<option value="2">外卖</option>
+											<option value="3">摄影</option>
+										</select>
+									</div>
+								</div>
+								<div class="layui-inline">
+									<label class="layui-form-label">输入</label>
+									<div class="layui-input-block inputblock">
+										<input type="text" name="title" required="" lay-verify="required" placeholder="请输入查询条件" autocomplete="off" class="layui-input"/>
+									</div>
+								</div>
+								<div class="layui-inline">
+									<button class="layui-btn layui-btn-radius layui-btn-normal">
+										<i class="layui-icon">&#xe615;</i>搜索
+									</button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<table class="layui-table" lay-skin="row" lay-filter="test"></table>
+					<script type="text/html" id="barDemo">
+						<a class="layui-btn layui-btn-primary layui-btn-mini" lay-event="detail">查看</a>
+						<a class="layui-btn layui-btn-mini" lay-event="accept">接收</a>
+					</script>
+						
+						<!--<div class="layui-col-md3">
+							<div class="recommend">
+								<div class="recommend-title">热门推荐</div>
+								<div class="recommend-body">推荐内容</div>
+								<div class="recommend-body">推荐内容</div>
+							</div>
+						</div>-->
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../plugin/jquery/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="../../plugin/layui/layui.js"></script>
+	<script>
+		layui.use(['form','table','element'], function(){
+		   var form = layui.form
+	  ,element = layui.element;
+	  	   var table = layui.table; 
+	  
+	  table.render({
+	  	   	elem:'.layui-table',
+	  	   	url:'xxx',
+	  	   	page:true,
+	  	   	cols:[[
+	  	   		{field:'id',title:'ID',width:150,sort:true,fixed:'left',align:'center'},
+	  	   		{field:'category',title:'类别',width:150,align:'center'},
+	  	   		{field:'issuer',title:'发布人',width:150,align:'center'},
+	  	   		{field:'telphone',title:'联系方式',width:150,align:'center'},
+	  	   		{field:'address',title:'地址',width:150,align:'center'},
+	  	   		{field:'creatTime',title:'发布时间',width:150,align:'center'},
+	  	   		{field:'right',title:'操作',width:300,toolbar:"#barDemo",align:'center'}
+	  	   	]]
+	  	  })
+	  
+	   form.on('submit(formDemo)',function(data){
+		  	lay.msg(JSON.stringify(data.field));
+		  	return false;
+		  });
+		});
+	</script>
+</html>
