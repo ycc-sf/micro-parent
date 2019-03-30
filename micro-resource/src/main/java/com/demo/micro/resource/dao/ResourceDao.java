@@ -4,11 +4,65 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.demo.micro.common.domain.PageRequestParams;
+import com.demo.micro.resource.entity.Comment;
 import com.demo.micro.resource.entity.Info;
+import com.demo.micro.resource.entity.InfoPageParams;
 import com.demo.micro.resource.entity.Role;
 import com.demo.micro.resource.entity.UserInfo;
 
 public interface ResourceDao {
+	
+	/**
+	 * 删除留言
+	 * @param id
+	 * @return
+	 */
+	int deleteComment(Long id);
+	
+	/**
+	 * 新增留言
+	 * @param 
+	 * @return
+	 */
+	int insertComment(Comment comment);
+
+	/**
+	 * 通过id删除信息
+	 * @param id
+	 * @return
+	 */
+	int deleteInfoById(@Param("id") Long id);
+	
+	/**
+	 * 通过id获取信息
+	 * @param id
+	 * @return
+	 */
+	Info selectInfoById(Long id);
+	
+	/**
+	 * 新增信息
+	 * @param info
+	 * @return
+	 */
+	int insertInfo(Info info);
+	
+	/**
+	 * 信息分页的数据总数
+	 * @param params
+	 * @return
+	 */
+	Long countInfoByConditions(@Param("queryParams") InfoPageParams params);
+	
+	/**
+	 * 信息分页
+	 * @param pageParams
+	 * @param queryParams
+	 * @return
+	 */
+	List<Info> pageInfo(@Param("pageParams") PageRequestParams pageParams, @Param("queryParams") InfoPageParams queryParams);
+	
     /**
      * 根据位置获取指定范围内，指定数量的信息
      * @param x

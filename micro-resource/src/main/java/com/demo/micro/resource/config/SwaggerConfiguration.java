@@ -35,7 +35,7 @@ public class SwaggerConfiguration {
 	 * @methodName: buildApiInfo
 	 */
 	private ApiInfo buildApiInfo() {
-		return new ApiInfoBuilder().title("资源服务API文档")
+		return new ApiInfoBuilder().title("微服务API文档")
 				.description("包含资源服务api").contact("")
 				.version("1.0").build();
 

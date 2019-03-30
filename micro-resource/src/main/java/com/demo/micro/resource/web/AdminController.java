@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.demo.micro.common.domain.RestResponse;
 import com.demo.micro.resource.entity.Info;
+import com.demo.micro.resource.service.AdminService;
 import com.demo.micro.resource.service.ResourceService;
 
 import io.swagger.annotations.Api;
@@ -22,13 +23,13 @@ import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping(value = "/admin")
-@Api(value = "后台", tags = "ResourceApi", description="后台支持api")
+@Api(value = "后台", tags = "AdminApi", description="后台支持api")
 public class AdminController {
 
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 	
 	@Autowired
-	private ResourceService resourceService;
+	private AdminService adminService;
 	
 	@ApiOperation(value="根据位置获取指定范围内，指定数量的信息")
     @ApiImplicitParams({
@@ -45,7 +46,7 @@ public class AdminController {
                                                  @RequestParam("x") Double x, @RequestParam("y") Double y,
                                           @RequestParam("range") Double range, @RequestParam("number") Integer number){
         logger.info("[begin]title:{} infoType:{} x:{} y:{}",title, infoType, x, y);
-        List<Info> infoList = resourceService.findInfoList(infoType, title, x, y, range, number);
+        List<Info> infoList = adminService.findInfoList(infoType, title, x, y, range, number);
         logger.info("[end]成功。{}", infoList);
         return RestResponse.success(infoList);
     }

@@ -2,6 +2,11 @@ package com.demo.micro.resource.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import com.demo.micro.resource.entity.Comment;
 import com.demo.micro.resource.entity.Info;
 import com.demo.micro.resource.entity.InfoPageParams;
 import com.demo.micro.resource.entity.UserInfo;
@@ -11,6 +16,48 @@ import com.demo.micro.resource.entity.UserRole;
  * 资源服务
  */
 public interface ResourceService {
+	
+	/**
+	 * 删除留言
+	 * @param id
+	 * @return
+	 */
+	void removeComment(Long id);
+	
+	/**
+	 * 新增留言
+	 * @param 
+	 * @return
+	 */
+	Long addComment(Comment comment);
+	
+	/**
+	 * 通过用户名获取用户、角色信息
+	 * @param username
+	 * @return
+	 */
+	UserInfo getUserInfo(String username);
+	
+	/**
+	 * 通过id删除信息
+	 * @param id
+	 * @return
+	 */
+	void removeInfoById(Long id);
+	
+	/**
+	 * 通过id获取信息
+	 * @param id
+	 * @return
+	 */
+	Info getInfoById(Long id);
+	
+	/**
+	 * 新增信息
+	 * @param info
+	 * @return
+	 */
+	Long addInfo(Info info);
 	/**
 	 * 分页条件查询
 	 * @param pageNo
@@ -18,7 +65,7 @@ public interface ResourceService {
 	 * @param queryParams
 	 * @return
 	 */
-	public List<Info> pageInfo(int pageNo, int pageSize, InfoPageParams queryParams); 
+	public Page<Info> pageInfo(int pageNo, int pageSize, InfoPageParams queryParams); 
 	
     /**
      * 根据位置获取指定范围内，指定数量的信息
