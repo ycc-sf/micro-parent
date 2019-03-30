@@ -37,7 +37,7 @@
 	  		}
 	  		.detail-body{
 	  			width: 100%;
-	  			height: 600px;
+	  			height: 300px;
 	  		}
 	  		.rightdiv{
 	  			width: 100%;
@@ -56,6 +56,37 @@
 	  		.returnbtn{
 	  			text-align: center;
 	  			margin-top: 15px;
+	  		}
+	  		.infocard{
+	  			border: 1px solid #63BA79;
+	  			border-radius:10px;
+	  		}
+	  		.detail-comment{
+	  			width: 100%;
+	  			margin-top: 20px;
+	  			/*border: 1px solid #63BA79;*/
+	  		}
+	  		.comment-username{
+	  			width: 100%;
+	  			height: 100%;
+	  			/*border: 1px solid #63BA79;*/
+	  			font-size: 18px;
+	  			color: #848484;
+	  		}
+	  		.comment-body{
+	  			width: 100%;
+	  			height: 100%;
+	  			/*border: 1px solid #63BA79;*/
+	  		}
+	  		.comment-body ul{
+	  			list-style: none;
+	  		}
+	  		.comment-one{
+	  			width: 100%;
+	  			height: 40px;
+	  			display: block;
+	  			line-height: 40px;
+	  			border-bottom: 1px dashed #dddddd;	
 	  		}
 	  	</style>
 	</head>
@@ -98,29 +129,98 @@
 				</div>
 				
 				<hr>
-				<div class="detail-body">
-					<div class="layui-row layui-col-space15">
-						<div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
-							<div class="leftdiv">
-								<img src="../../images/map.png" class="mapsize"/>
-							</div>
-						</div>
-						<div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
-							<div class="rightdiv">
-								详情内容区域
+				<div class="layui-row">
+					<div class="layui-col-md12">
+						<div class="detail-body">
+							<div class="layui-row layui-col-space15">
+								<div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
+									<div class="leftdiv">
+										<img src="../../images/map.png" class="mapsize"/>
+									</div>
+								</div>
+								<div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
+									<div class="rightdiv">
+										<div class="layui-card infocard">
+											<div class="layui-card-header">发布内容</div>
+											<div class="layui-card-body">
+												本人于xxx街xxx小区丢失爱犬，品种为xxxx,如有人有相关信息，请联系我，如有帮助，将给与xxx奖励金。
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+				<div class="layui-row">
+					<div class="layui-col-md12">
+						<div class="detail-comment">
+							<div class="layui-row">
+								<div class="layui-col-md1">
+									<div class="comment-username">
+										娃哈哈:
+									</div>
+								</div>
+								<div class="layui-col-md11">
+									<div id="editor">
+										<p>想说些什么</p>
+									</div>
+								</div>
+							</div>
+							<div class="layui-row">
+								<div class="comment-body">
+									<ul>
+										<li class="comment-one">
+											<div class="layui-col-md1">
+												<div class="comment-username">
+													娃哈哈:
+												</div>
+											</div>
+											<div class="layui-col-md11">
+												请求接口全部用post方式，在后端判断请求方式是否为post
+											</div>
+										</li>
+										<li class="comment-one">
+											<div class="layui-col-md1">
+												<div class="comment-username">
+													娃哈哈:
+												</div>
+											</div>
+											<div class="layui-col-md11">
+												请求接口全部用post方式，在后端判断请求方式是否为post
+											</div>
+										</li>
+										<li class="comment-one">
+											<div class="layui-col-md1">
+												<div class="comment-username">
+													娃哈哈:
+												</div>
+											</div>
+											<div class="layui-col-md11">
+												请求接口全部用post方式，在后端判断请求方式是否为post
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
 			</div>
 		</div>
 	</body>
 	<script type="text/javascript" src="../../plugin/jquery/jquery-1.11.3.min.js"></script>
 	<script type="text/javascript" src="../../plugin/layui/layui.js"></script>
+	<script type="text/javascript" src="../../plugin/wangEditor.min.js"></script>
 	<script>
 		layui.use(['form','element'], function(){
 		   var form = layui.form
 	  ,element = layui.element;
+	  
+		  	var E = window.wangEditor
+			var editor = new E('#editor')
+			editor.create();
 		  
 		  form.on('submit(formDemo)',function(data){
 		  	lay.msg(JSON.stringify(data.field));
