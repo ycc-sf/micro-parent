@@ -5,6 +5,76 @@
     <!--命名空间，指定对应的Dao-->
     <mapper namespace="com.demo.micro.resource.dao.ResourceDao">
     
+    
+    
+    <select id="countSubscriptionByConditions" resultType="Long">
+    	SELECT COUNT(1) 
+    	FROM r_subscription
+    	<where>
+    		<if test="queryParams != null">
+	    		<if test="queryParams.infoId != null and queryParams.infoId != ''">
+	    			AND info_id = #{queryParams.infoId}
+	    		</if>
+	    		<if test="queryParams.userId != null and queryParams.userId != ''">
+	    			AND user_id = #{queryParams.userId}
+	    		</if>
+	    		<if test="queryParams.status != null and queryParams.status != ''">
+	    			AND status = #{queryParams.status}
+	    		</if>
+    		</if>
+    	</where>
+    </select>
+    
+    <select id="pageSubscription" resultType="Subscription">
+    	SELECT * 
+    	FROM r_subscription
+    	<where>
+    		<if test="queryParams != null">
+	    		<if test="queryParams.infoId != null and queryParams.infoId != ''">
+	    			AND info_id = #{queryParams.infoId}
+	    		</if>
+	    		<if test="queryParams.userId != null and queryParams.userId != ''">
+	    			AND user_id = #{queryParams.userId}
+	    		</if>
+	    		<if test="queryParams.status != null and queryParams.status != ''">
+	    			AND status = #{queryParams.status}
+	    		</if>
+    		</if>
+    	</where>
+    	limit #{pageParams.startRow}, #{pageParams.limit}
+    </select>
+    
+    <select id="countCommentByConditions" resultType="Long">
+    	SELECT COUNT(1) 
+    	FROM r_comment
+    	<where>
+    		<if test="queryParams != null">
+	    		<if test="queryParams.infoId != null and queryParams.infoId != ''">
+	    			AND info_id = #{queryParams.infoId}
+	    		</if>
+	    		<if test="queryParams.userId != null and queryParams.userId != ''">
+	    			AND user_id = #{queryParams.userId}
+	    		</if>
+    		</if>
+    	</where>
+    </select>
+    
+    <select id="pageComment" resultType="Comment">
+    	SELECT * 
+    	FROM r_comment
+    	<where>
+    		<if test="queryParams != null">
+	    		<if test="queryParams.infoId != null and queryParams.infoId != ''">
+	    			AND info_id = #{queryParams.infoId}
+	    		</if>
+	    		<if test="queryParams.userId != null and queryParams.userId != ''">
+	    			AND user_id = #{queryParams.userId}
+	    		</if>
+    		</if>
+    	</where>
+    	limit #{pageParams.startRow}, #{pageParams.limit}
+    </select>
+    
     <delete id="deleteComment" parameterType="Long">
     	delete from r_comment where id= #{id}
     </delete>

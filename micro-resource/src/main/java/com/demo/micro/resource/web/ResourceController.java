@@ -21,8 +21,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.demo.micro.common.domain.RestResponse;
 import com.demo.micro.resource.entity.Comment;
+import com.demo.micro.resource.entity.CommentPageParams;
 import com.demo.micro.resource.entity.Info;
 import com.demo.micro.resource.entity.InfoPageParams;
+import com.demo.micro.resource.entity.Subscription;
+import com.demo.micro.resource.entity.SubscriptionPageParams;
 import com.demo.micro.resource.entity.UserInfo;
 import com.demo.micro.resource.entity.UserRole;
 import com.demo.micro.resource.service.ResourceService;
@@ -42,6 +45,38 @@ public class ResourceController {
 	@Autowired
 	private ResourceService resourceService;
 	
+	
+	
+	
+	@ApiOperation(value="分页条件查询订阅")
+    @ApiImplicitParams({
+    	@ApiImplicitParam(name = "pageNo", value = "请求页码", required = true, dataType = "int", paramType="query"),
+		@ApiImplicitParam(name = "pageSize", value = "每页记录数", required = true, dataType = "int", paramType="query"),
+		@ApiImplicitParam(name = "queryParams", value = "查询条件（userId、infoId、status）", required = false, dataTypeClass = SubscriptionPageParams.class, paramType = "body")
+    })
+    @PostMapping(value = "/pageSubscription")
+    public RestResponse<Page<Subscription>> pageSubscription(@RequestBody SubscriptionPageParams queryParams
+			,@RequestParam Integer pageNo, @RequestParam Integer pageSize){
+        logger.info("[begin]pageNo:{} pageSize:{} params:{}",pageNo, pageSize, queryParams);
+        Page<Subscription> list = resourceService.pageSubscription(pageNo, pageSize, queryParams);
+        logger.info("[end]成功。{}", list);
+        return RestResponse.success(list);
+    }
+	
+	@ApiOperation(value="分页条件查询评论")
+    @ApiImplicitParams({
+    	@ApiImplicitParam(name = "pageNo", value = "请求页码", required = true, dataType = "int", paramType="query"),
+		@ApiImplicitParam(name = "pageSize", value = "每页记录数", required = true, dataType = "int", paramType="query"),
+		@ApiImplicitParam(name = "queryParams", value = "查询条件（userId和infoId）", required = false, dataTypeClass = CommentPageParams.class, paramType = "body")
+    })
+    @PostMapping(value = "/pageComment")
+    public RestResponse<Page<Comment>> pageComment(@RequestBody CommentPageParams queryParams
+			,@RequestParam Integer pageNo, @RequestParam Integer pageSize){
+        logger.info("[begin]pageNo:{} pageSize:{} params:{}",pageNo, pageSize, queryParams);
+        Page<Comment> list = resourceService.pageComment(pageNo, pageSize, queryParams);
+        logger.info("[end]成功。{}", list);
+        return RestResponse.success(list);
+    }
 	
 	@ApiOperation("通过id删除评论")
 	@ApiImplicitParams({
@@ -125,7 +160,7 @@ public class ResourceController {
     @PostMapping(value = "/pageInfo")
     public RestResponse<Page<Info>> pageInfo(@RequestBody InfoPageParams queryParams
 			,@RequestParam Integer pageNo, @RequestParam Integer pageSize){
-        logger.info("[begin]pageNo:{} pageSize:{} params:{} y:{}",pageNo, pageSize, queryParams);
+        logger.info("[begin]pageNo:{} pageSize:{} params:{}",pageNo, pageSize, queryParams);
         Page<Info> infoList = resourceService.pageInfo(pageNo, pageSize, queryParams);
         logger.info("[end]成功。{}", infoList);
         return RestResponse.success(infoList);

@@ -6,12 +6,48 @@ import org.apache.ibatis.annotations.Param;
 
 import com.demo.micro.common.domain.PageRequestParams;
 import com.demo.micro.resource.entity.Comment;
+import com.demo.micro.resource.entity.CommentPageParams;
 import com.demo.micro.resource.entity.Info;
 import com.demo.micro.resource.entity.InfoPageParams;
 import com.demo.micro.resource.entity.Role;
+import com.demo.micro.resource.entity.Subscription;
+import com.demo.micro.resource.entity.SubscriptionPageParams;
 import com.demo.micro.resource.entity.UserInfo;
 
 public interface ResourceDao {
+	
+	
+	
+	
+	/**
+	 * 信息分页的数据总数
+	 * @param params
+	 * @return
+	 */
+	Long countSubscriptionByConditions(@Param("queryParams") SubscriptionPageParams params);
+	
+	/**
+	 * 信息分页
+	 * @param pageParams
+	 * @param queryParams
+	 * @return
+	 */
+	List<Subscription> pageSubscription(@Param("pageParams") PageRequestParams pageParams, @Param("queryParams") SubscriptionPageParams queryParams);  
+	
+	/**
+	 * 信息分页的数据总数
+	 * @param params
+	 * @return
+	 */
+	Long countCommentByConditions(@Param("queryParams") CommentPageParams params);
+	
+	/**
+	 * 信息分页
+	 * @param pageParams
+	 * @param queryParams
+	 * @return
+	 */
+	List<Comment> pageComment(@Param("pageParams") PageRequestParams pageParams, @Param("queryParams") CommentPageParams queryParams);
 	
 	/**
 	 * 删除留言

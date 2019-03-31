@@ -7,8 +7,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.demo.micro.resource.entity.Comment;
+import com.demo.micro.resource.entity.CommentPageParams;
 import com.demo.micro.resource.entity.Info;
 import com.demo.micro.resource.entity.InfoPageParams;
+import com.demo.micro.resource.entity.Subscription;
+import com.demo.micro.resource.entity.SubscriptionPageParams;
 import com.demo.micro.resource.entity.UserInfo;
 import com.demo.micro.resource.entity.UserRole;
 
@@ -16,6 +19,24 @@ import com.demo.micro.resource.entity.UserRole;
  * 资源服务
  */
 public interface ResourceService {
+	
+	/**
+	 * 分页条件查询订阅
+	 * @param pageNo
+	 * @param pageSize
+	 * @param queryParams
+	 * @return
+	 */
+	Page<Subscription> pageSubscription(int pageNo, int pageSize, SubscriptionPageParams queryParams);
+	
+	/**
+	 * 分页条件查询评论  
+	 * @param pageNo
+	 * @param pageSize
+	 * @param queryParams
+	 * @return
+	 */
+	Page<Comment> pageComment(int pageNo, int pageSize, CommentPageParams queryParams);
 	
 	/**
 	 * 删除留言

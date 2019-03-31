@@ -1,13 +1,9 @@
 package com.demo.micro.resource.service;
 
 import java.sql.Blob;
-import java.sql.Date;
-import java.sql.SQLException;
-import java.text.DateFormat;
 import java.util.List;
 
 import javax.sql.rowset.serial.SerialBlob;
-import javax.sql.rowset.serial.SerialException;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -24,9 +20,12 @@ import com.demo.micro.common.domain.ErrorCode;
 import com.demo.micro.common.domain.PageRequestParams;
 import com.demo.micro.resource.dao.ResourceDao;
 import com.demo.micro.resource.entity.Comment;
+import com.demo.micro.resource.entity.CommentPageParams;
 import com.demo.micro.resource.entity.Info;
 import com.demo.micro.resource.entity.InfoPageParams;
 import com.demo.micro.resource.entity.Role;
+import com.demo.micro.resource.entity.Subscription;
+import com.demo.micro.resource.entity.SubscriptionPageParams;
 import com.demo.micro.resource.entity.UserInfo;
 import com.demo.micro.resource.entity.UserRole;
 
@@ -37,6 +36,38 @@ public class ResourceServiceImpl implements ResourceService {
 	private ResourceDao resourceDao;
 	
 	private static final Logger logger = LoggerFactory.getLogger(ResourceServiceImpl.class);
+	
+	
+	
+	
+	public Page<Subscription> pageSubscription(int pageNo, int pageSize, SubscriptionPageParams queryParams){
+		//计算分页参数
+        PageRequestParams pageRequest = PageRequestParams.of(pageNo, pageSize);
+        //条件查询
+        List<Subscription> list = resourceDao.pageSubscription(pageRequest, queryParams);
+        //查询符合条件的总数
+        Long total = resourceDao.countSubscriptionByConditions(queryParams);
+        //封装pageable
+        Pageable pageable = PageRequest.of(pageNo-1, pageSize);
+        //封装page
+        Page<Subscription> page = new PageImpl<>(list,pageable,total);
+        return page;
+	}
+	
+	@Override
+	public Page<Comment> pageComment(int pageNo, int pageSize, CommentPageParams queryParams) {
+		//计算分页参数
+        PageRequestParams pageRequest = PageRequestParams.of(pageNo, pageSize);
+        //条件查询
+        List<Comment> commentList = resourceDao.pageComment(pageRequest, queryParams);
+        //查询符合条件的总数
+        Long total = resourceDao.countCommentByConditions(queryParams);
+        //封装pageable
+        Pageable pageable = PageRequest.of(pageNo-1, pageSize);
+        //封装page
+        Page<Comment> pageComment = new PageImpl<>(commentList,pageable,total);
+        return pageComment;
+	}
 	
 	public void removeComment(Long id){
 		int deleteComment = resourceDao.deleteComment(id);
@@ -113,8 +144,6 @@ public class ResourceServiceImpl implements ResourceService {
 	
 	@Override
 	public Long addInfo(Info info) {
-		
-		
 		//将详情转为blob格式
 		String detail = info.getInfoDetailString();
 		Blob detailBlob = null;
