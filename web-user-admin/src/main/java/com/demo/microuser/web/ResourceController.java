@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,8 +25,9 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.demo.micro.common.domain.RestResponse;
 import com.demo.microuser.domain.HttpRequestMethedEnum;
+import com.demo.microuser.model.Info;
+import com.demo.microuser.model.InfoPageParams;
 import com.demo.microuser.model.UserInfo;
-import com.demo.microuser.model.UserRole;
 import com.demo.microuser.service.ResourceService;
 import com.demo.microuser.util.HttpClientUtil;
 
@@ -42,6 +44,39 @@ public class ResourceController {
     
     @Autowired
     private ResourceService resourceService;
+    
+    
+    
+    
+    
+    
+    @ApiOperation("发布信息")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "info", value="信息", required=true, dataTypeClass=Info.class, paramType="body")
+	})
+	@PostMapping("/addInfo")
+	public RestResponse<Object> addInfo(@RequestBody Info info){
+		logger.info("[begin]参数:{}",info);
+		Object addInfoId = resourceService.addInfo(info);
+        logger.info("[end]结果。{}", addInfoId);
+        return RestResponse.success(addInfoId);
+	}
+    
+    @ApiOperation(value="分页条件查询信息")
+    @ApiImplicitParams({
+    	@ApiImplicitParam(name = "pageNo", value = "请求页码", required = true, dataType = "int", paramType="query"),
+		@ApiImplicitParam(name = "pageSize", value = "每页记录数", required = true, dataType = "int", paramType="query"),
+		@ApiImplicitParam(name = "queryParams", value = "查询条件（title和infoType）", required = false, dataTypeClass = InfoPageParams.class, paramType = "body")
+    })
+    @PostMapping(value = "/pageInfo")
+    public RestResponse<Object> pageInfo(@RequestBody InfoPageParams queryParams
+			,@RequestParam Integer pageNo, @RequestParam Integer pageSize){
+        logger.info("[begin]pageNo:{} pageSize:{} params:{}",pageNo, pageSize, queryParams);
+        Object pageInfo = resourceService.pageInfo(pageNo, pageSize, queryParams);
+        logger.info("[end]成功。{}", pageInfo);
+        return RestResponse.success(pageInfo);
+    }
+	
     
     @ApiOperation(value="根据位置获取指定范围内，指定数量的信息")
     @ApiImplicitParams({

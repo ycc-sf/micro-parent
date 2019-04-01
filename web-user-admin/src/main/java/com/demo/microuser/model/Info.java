@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.sql.Blob;
 import java.sql.Timestamp;
 
 @Data
@@ -14,7 +15,9 @@ public class Info {
     @ApiModelProperty("标题")
     private String infoTitle;
     @ApiModelProperty("详情")
-    private String infoDetail;
+    private String infoDetailString;
+    @ApiModelProperty("详情(Blob格式)")
+    private Object infoDetail;
     @ApiModelProperty("经度(数值较大的)")
     private Double locationX;
     @ApiModelProperty("纬度（数值较小的）")

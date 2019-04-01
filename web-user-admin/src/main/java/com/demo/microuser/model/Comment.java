@@ -16,7 +16,9 @@ public class Comment {
     @ApiModelProperty("用户id")
     private Long userId;
     @ApiModelProperty("评论详情")
-    private String commDetail;
+    private String commDetailString;
+    @ApiModelProperty("评论详情（Blob）")
+    private Object commDetail;
     @ApiModelProperty("时间")
     private Timestamp createDate;
 }

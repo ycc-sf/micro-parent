@@ -2,7 +2,9 @@ package com.demo.microuser.util;
 
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpEntityEnclosingRequest;
@@ -16,6 +18,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
 import com.alibaba.fastjson.JSON;
+import com.demo.micro.common.domain.RestResponse;
 import com.demo.microuser.domain.HttpRequestMethedEnum;
 
 /**
@@ -57,7 +60,7 @@ public class HttpClientUtil {
     * @param header 请求头
     * @return 响应文本
     */
-   public static String sendHttp(HttpRequestMethedEnum requestMethod, String url, Map<String, Object> params, Map<String, String> header) {
+   public static String sendHttp(HttpRequestMethedEnum requestMethod, String url, Object params, Map<String, String> header) {
        //1、创建一个HttpClient对象;
        CloseableHttpClient httpClient = HttpClients.createDefault();
        CloseableHttpResponse httpResponse = null;
@@ -103,5 +106,41 @@ public class HttpClientUtil {
            }
        }
        return responseContent;
+   }
+   
+   /**
+    * 封装微服务请求
+    * @param uri
+    * @param requestMethod
+    * @param queryParams
+    * @param bodyParams
+    * @return
+    */
+   public static RestResponse myReqMethod(String uri, HttpRequestMethedEnum requestMethod, /*Map<String, String> header,*/ 
+		   			Map<String, Object> queryParams,Object bodyParams){
+	   //TODO (这个暂时没有处理) 存储相关的header值
+	   Map<String,String> header = new HashMap<String, String>();
+	   
+	   StringBuilder url = new StringBuilder(CommonUtil.GATEWAY_URL + uri);
+	   //追加路径参数
+	   if(queryParams != null){
+		   Set<String> queryParamsKeySet = queryParams.keySet();
+		   int i = 0;
+		   for(String key : queryParamsKeySet){
+			   Object value = queryParams.get(key);
+			   if(value == null ){
+				   continue;
+			   }
+			   url.append(i == 0 ? "?" : "&");
+			   url.append(key);
+			   url.append("=");
+			   url.append(value);
+			   i++;
+		   }
+	   }
+	   System.out.println("【HttpClientUil.myReqMethod】url拼接完成:" + url);
+	   String response = HttpClientUtil.sendHttp(HttpRequestMethedEnum.HttpPost,url.toString(), bodyParams,header);
+	   RestResponse restResponse = DTOUtil.convertJSONStrToObject(response);
+	   return restResponse;
    }
 }

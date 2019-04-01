@@ -16,7 +16,12 @@ import com.demo.micro.common.domain.RestResponse;
 import com.demo.microuser.domain.ApplicationException;
 import com.demo.microuser.domain.HttpRequestMethedEnum;
 import com.demo.microuser.domain.WebErrorCode;
+import com.demo.microuser.model.Comment;
+import com.demo.microuser.model.CommentPageParams;
 import com.demo.microuser.model.Info;
+import com.demo.microuser.model.InfoPageParams;
+import com.demo.microuser.model.Subscription;
+import com.demo.microuser.model.SubscriptionPageParams;
 import com.demo.microuser.model.UserInfo;
 import com.demo.microuser.model.UserRole;
 import com.demo.microuser.util.CommonUtil;
@@ -28,6 +33,90 @@ import com.demo.microuser.util.HttpClientUtil;
 public class ResourceServiceImpl implements ResourceService {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ResourceServiceImpl.class);
+	
+	
+	
+	
+	
+	@Override
+	public void removeSubscription(Long id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Long addSubscription(Subscription subscription) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object pageSubscription(int pageNo, int pageSize, SubscriptionPageParams queryParams) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object pageComment(int pageNo, int pageSize, CommentPageParams queryParams) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void removeComment(Long id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Long addComment(Comment comment) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public UserInfo getUserInfo(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void removeInfoById(Long id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Info getInfoById(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object addInfo(Info info) {
+		String uri = "/resource/addInfo";
+	    RestResponse restResponse = HttpClientUtil.myReqMethod(uri, HttpRequestMethedEnum.HttpPost, null, info);
+	    logger.info("-->{}", restResponse);
+	    if(restResponse.getCode() != 0){
+	    	throw new ApplicationException(WebErrorCode.CUSTOM, restResponse.getMsg());
+	    }
+		return restResponse.getResult();
+	}
+
+	@Override
+	public Object pageInfo(int pageNo, int pageSize, InfoPageParams queryParams) {
+		String uri = "/resource/pageInfo";
+		//query参数
+		Map<String, Object> urlParams = new HashMap<>();
+		urlParams.put("pageNo", pageNo);
+		urlParams.put("pageSize", pageSize);
+	    RestResponse restResponse = HttpClientUtil.myReqMethod(uri, HttpRequestMethedEnum.HttpPost, urlParams, queryParams);
+	    logger.info("-->{}", restResponse);
+	    if(restResponse.getCode() != 0){
+	    	throw new ApplicationException(WebErrorCode.CUSTOM, restResponse.getMsg());
+	    }
+		return restResponse.getResult();
+	}
 	
 	@Override
 	public Object findInfoList(Long infoType, String title, Double x, Double y, Double range, Integer number) {
@@ -73,9 +162,7 @@ public class ResourceServiceImpl implements ResourceService {
 	    }
 	    UserInfo userRole = JSON.toJavaObject((JSON)restResponse.getResult(), UserRole.class);
 	    logger.info("userRole:{}", userRole);
-	    System.out.println(userRole.getUsername());
 	    return userRole;
 	}
-	
 
 }
