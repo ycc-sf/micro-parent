@@ -20,6 +20,24 @@ import com.demo.micro.resource.entity.UserRole;
  */
 public interface ResourceService {
 	
+	
+	
+	
+	
+	/**
+	 * 删除订阅
+	 * @param id
+	 * @return
+	 */
+	void removeSubscription(@Param("id") Long id);
+	
+	/**
+	 * 添加订阅
+	 * @param subscription
+	 * @return
+	 */
+	Long addSubscription(Subscription subscription);
+	
 	/**
 	 * 分页条件查询订阅
 	 * @param pageNo

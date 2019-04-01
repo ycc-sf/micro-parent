@@ -6,6 +6,7 @@ import java.util.List;
 import javax.sql.rowset.serial.SerialBlob;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,20 @@ public class ResourceServiceImpl implements ResourceService {
 	
 	
 	
+	
+	public void removeSubscription(@Param("id") Long id){
+		int influence = resourceDao.deleteSubscription(id);
+		if(influence == 0){
+			throw new BusinessException(ErrorCode.E_102002);
+		}
+	}
+	
+	public Long addSubscription(Subscription subscription){
+		//默认状态为1，订阅中
+		subscription.setStatus(1);
+		int influence = resourceDao.insertSubscription(subscription);
+		return subscription.getId();
+	}
 	
 	public Page<Subscription> pageSubscription(int pageNo, int pageSize, SubscriptionPageParams queryParams){
 		//计算分页参数

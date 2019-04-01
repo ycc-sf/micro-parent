@@ -20,6 +20,20 @@ public interface ResourceDao {
 	
 	
 	/**
+	 * 删除订阅
+	 * @param id
+	 * @return
+	 */
+	int deleteSubscription(@Param("id") Long id);
+	
+	/**
+	 * 添加订阅
+	 * @param subscription
+	 * @return
+	 */
+	int insertSubscription(Subscription subscription);
+	
+	/**
 	 * 信息分页的数据总数
 	 * @param params
 	 * @return

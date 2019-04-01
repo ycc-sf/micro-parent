@@ -48,6 +48,33 @@ public class ResourceController {
 	
 	
 	
+	
+	
+	
+	@ApiOperation("通过id删除订阅")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "id", value="订阅id", required=true, dataType="Long", paramType="query")
+	})
+	@DeleteMapping("/removeSubscriptionById")
+	public RestResponse<Nullable> removeSubscriptionById(@RequestParam Long id){
+		logger.info("[begin]参数:{}",id);
+        resourceService.removeSubscription(id);
+        logger.info("[end]结果。");
+        return RestResponse.success();
+	}
+	
+	@ApiOperation("发布订阅")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "subscription", value="评论", required=true, dataTypeClass=Subscription.class, paramType="body")
+	})
+	@PostMapping("/addSubscription")
+	public RestResponse<Long> addSubscription(@RequestBody Subscription subscription){
+		logger.info("[begin]参数:{}",subscription);
+        Long newId = resourceService.addSubscription(subscription);
+        logger.info("[end]结果。{}", newId);
+        return RestResponse.success(newId);
+	}
+	
 	@ApiOperation(value="分页条件查询订阅")
     @ApiImplicitParams({
     	@ApiImplicitParam(name = "pageNo", value = "请求页码", required = true, dataType = "int", paramType="query"),

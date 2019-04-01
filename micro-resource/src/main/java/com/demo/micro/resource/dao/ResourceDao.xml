@@ -6,6 +6,15 @@
     <mapper namespace="com.demo.micro.resource.dao.ResourceDao">
     
     
+    <delete id="deleteSubscription" >
+    	delete from r_subscription where id = #{id}
+    </delete>
+    
+    <insert id="insertSubscription" parameterType="Subscription" useGeneratedKeys="true" keyProperty="id">
+    	insert into 
+    		r_subscription(user_id, info_id, status, create_date)
+    	value(#{userId}, #{infoId}, #{status}, NOW())
+    </insert>
     
     <select id="countSubscriptionByConditions" resultType="Long">
     	SELECT COUNT(1) 
