@@ -28,7 +28,7 @@ public interface ResourceService {
 	 * @param subscription
 	 * @return
 	 */
-	Long addSubscription(Subscription subscription);
+	Object addSubscription(Subscription subscription);
 	
 	/**
 	 * 分页条件查询订阅
@@ -60,7 +60,7 @@ public interface ResourceService {
 	 * @param 
 	 * @return
 	 */
-	Long addComment(Comment comment);
+	Object addComment(Comment comment);
 	
 	/**
 	 * 通过用户名获取用户、角色信息

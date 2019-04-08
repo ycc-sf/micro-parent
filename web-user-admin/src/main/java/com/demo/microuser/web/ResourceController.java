@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.lang.Nullable;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,8 +26,12 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.demo.micro.common.domain.RestResponse;
 import com.demo.microuser.domain.HttpRequestMethedEnum;
+import com.demo.microuser.model.Comment;
+import com.demo.microuser.model.CommentPageParams;
 import com.demo.microuser.model.Info;
 import com.demo.microuser.model.InfoPageParams;
+import com.demo.microuser.model.Subscription;
+import com.demo.microuser.model.SubscriptionPageParams;
 import com.demo.microuser.model.UserInfo;
 import com.demo.microuser.service.ResourceService;
 import com.demo.microuser.util.HttpClientUtil;
@@ -47,8 +52,107 @@ public class ResourceController {
     
     
     
+    @ApiOperation("发布订阅")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "subscription", value="评论", required=true, dataTypeClass=Subscription.class, paramType="body")
+	})
+	@PostMapping("/addSubscription")
+	public RestResponse<Object> addSubscription(@RequestBody Subscription subscription){
+		logger.info("[begin]参数:{}",subscription);
+		Object newId = resourceService.addSubscription(subscription);
+        logger.info("[end]结果。{}", newId);
+        return RestResponse.success(newId);
+	}
+	
+	@ApiOperation(value="分页条件查询订阅")
+    @ApiImplicitParams({
+    	@ApiImplicitParam(name = "pageNo", value = "请求页码", required = true, dataType = "int", paramType="query"),
+		@ApiImplicitParam(name = "pageSize", value = "每页记录数", required = true, dataType = "int", paramType="query"),
+		@ApiImplicitParam(name = "queryParams", value = "查询条件（userId、infoId、status）", required = false, dataTypeClass = SubscriptionPageParams.class, paramType = "body")
+    })
+    @PostMapping(value = "/pageSubscription")
+    public RestResponse<Object> pageSubscription(@RequestBody SubscriptionPageParams queryParams
+			,@RequestParam Integer pageNo, @RequestParam Integer pageSize){
+        logger.info("[begin]pageNo:{} pageSize:{} params:{}",pageNo, pageSize, queryParams);
+        Object list = resourceService.pageSubscription(pageNo, pageSize, queryParams);
+        logger.info("[end]成功。{}", list);
+        return RestResponse.success(list);
+    }
+	
+	@ApiOperation(value="分页条件查询评论")
+    @ApiImplicitParams({
+    	@ApiImplicitParam(name = "pageNo", value = "请求页码", required = true, dataType = "int", paramType="query"),
+		@ApiImplicitParam(name = "pageSize", value = "每页记录数", required = true, dataType = "int", paramType="query"),
+		@ApiImplicitParam(name = "queryParams", value = "查询条件（userId和infoId）", required = false, dataTypeClass = CommentPageParams.class, paramType = "body")
+    })
+    @PostMapping(value = "/pageComment")
+    public RestResponse<Object> pageComment(@RequestBody CommentPageParams queryParams
+			,@RequestParam Integer pageNo, @RequestParam Integer pageSize){
+        logger.info("[begin]pageNo:{} pageSize:{} params:{}",pageNo, pageSize, queryParams);
+        Object list = resourceService.pageComment(pageNo, pageSize, queryParams);
+        logger.info("[end]成功。{}", list);
+        return RestResponse.success(list);
+    }
+	
+	@ApiOperation("通过id删除评论")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "id", value="评论id", required=true, dataType="Long", paramType="query")
+	})
+	@DeleteMapping("/removeCommentById")
+	public RestResponse<Nullable> removeCommentById(@RequestParam Long id){
+		logger.info("[begin]参数:{}",id);
+        resourceService.removeComment(id);
+        logger.info("[end]结果。");
+        return RestResponse.success();
+	}
     
+    @ApiOperation("发布评论")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "comment", value="评论", required=true, dataTypeClass=Comment.class, paramType="body")
+	})
+	@PostMapping("/addComment")
+	public RestResponse<Object> addComment(@RequestBody Comment comment){
+		logger.info("[begin]参数:{}",comment);
+		Object newId = resourceService.addComment(comment);
+        logger.info("[end]结果。{}", newId);
+        return RestResponse.success(newId);
+	}
     
+    @ApiOperation("通过username获取用户信息")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "username", value="用户名", required=true, dataType="String", paramType="query")
+	})
+	@GetMapping("/getUserInfo")
+	public RestResponse<UserInfo> getUserInfo(@RequestParam String username){
+		logger.info("[begin]参数:{}",username);
+        UserInfo userInfo = resourceService.getUserInfo(username);
+        logger.info("[end]结果。{}", userInfo);
+        return RestResponse.success(userInfo);
+	}
+	
+	@ApiOperation("通过id删除信息")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "id", value="信息id", required=true, dataType="Long", paramType="query")
+	})
+	@DeleteMapping("/removeInfoById")
+	public RestResponse<Nullable> removeInfoById(@RequestParam Long id){
+		logger.info("[begin]参数:{}",id);
+        resourceService.removeInfoById(id);
+        logger.info("[end]结果。");
+        return RestResponse.success();
+	}
+    
+    @ApiOperation("通过id查询信息")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "id", value="信息id", required=true, dataType="Long", paramType="query")
+	})
+	@GetMapping("/getInfoById")
+	public RestResponse<Info> getInfoById(@RequestParam Long id){
+		logger.info("[begin]参数:{}",id);
+        Info info = resourceService.getInfoById(id);
+        logger.info("[end]结果。{}", info);
+        return RestResponse.success(info);
+	}
     
     @ApiOperation("发布信息")
 	@ApiImplicitParams({

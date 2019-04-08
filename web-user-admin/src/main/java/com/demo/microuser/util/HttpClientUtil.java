@@ -139,7 +139,7 @@ public class HttpClientUtil {
 		   }
 	   }
 	   System.out.println("【HttpClientUil.myReqMethod】url拼接完成:" + url);
-	   String response = HttpClientUtil.sendHttp(HttpRequestMethedEnum.HttpPost,url.toString(), bodyParams,header);
+	   String response = HttpClientUtil.sendHttp(requestMethod,url.toString(), bodyParams,header);
 	   RestResponse restResponse = DTOUtil.convertJSONStrToObject(response);
 	   return restResponse;
    }
