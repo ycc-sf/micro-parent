@@ -40,8 +40,16 @@ public class ResourceServiceImpl implements ResourceService {
 	
 	@Override
 	public void removeSubscription(Long id) {
-		// TODO Auto-generated method stub
-		
+		String uri = "/resource/removeSubscriptionById";
+		//query参数
+		Map<String, Object> urlParams = new HashMap<>();
+		urlParams.put("id", id);
+	    RestResponse restResponse = HttpClientUtil.myReqMethod(uri, HttpRequestMethedEnum.HttpDelete, urlParams, null);
+	    logger.info("-->{}", restResponse);
+	    if(restResponse.getCode() != 0){
+	    	throw new ApplicationException(WebErrorCode.CUSTOM, restResponse.getMsg());
+	    }
+		return;
 	}
 
 	@Override

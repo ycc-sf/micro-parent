@@ -67,26 +67,8 @@
 	</head>
 	<body>
 		<div class="header">
-			<div class="layui-container layui-bg-black container">
-				<div class="layui-row">
-					<div class="layui-col-xs6 layui-col-sm6 layui-col-md9 title">微服务</div>
-					<div class="layui-col-xs6 layui-col-sm6 layui-col-md3">
-						<ul class="layui-nav  rightnav" lay-filter="">
-							<li class="layui-nav-item">
-						        <a href="javascript:;">
-						          <img src="../../images/user.png" class="layui-nav-img">管理员
-						        </a>
-						        <dl class="layui-nav-child">
-						          <dd><a href="javascript:;">个人资料</a></dd>
-						          <dd><a href="javascript:;">我的发布</a></dd>
-						        </dl>
-						    </li>
-						    <li class="layui-nav-item"><a href="${rc.contextPath}/logout">退出
-						    </a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
+			<!-- 引入头部 -->
+			<script type="text/javascript" src="../../js/common/htmlHead.js"></script>
 		</div>
 		<div class="result-main">
 			<div class="result-modal">
@@ -152,6 +134,7 @@
 	</body>
 	<script type="text/javascript" src="../../plugin/jquery/jquery-1.11.3.min.js"></script>
 	<script type="text/javascript" src="../../plugin/layui/layui.js"></script>
+	<script type="text/javascript" src="../../js/jquery.cookie.js"></script>
 	<script>
 		layui.use(['form','table','element'], function(){
 		   var form = layui.form

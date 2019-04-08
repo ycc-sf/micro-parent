@@ -52,6 +52,18 @@ public class ResourceController {
     
     
     
+    @ApiOperation("通过id删除订阅")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "id", value="订阅id", required=true, dataType="Long", paramType="query")
+	})
+	@DeleteMapping("/removeSubscriptionById")
+	public RestResponse<Nullable> removeSubscriptionById(@RequestParam Long id){
+		logger.info("[begin]参数:{}",id);
+        resourceService.removeSubscription(id);
+        logger.info("[end]结果。");
+        return RestResponse.success();
+	}
+    
     @ApiOperation("发布订阅")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = "subscription", value="评论", required=true, dataTypeClass=Subscription.class, paramType="body")
@@ -229,9 +241,6 @@ public class ResourceController {
 		String url = "http://127.0.0.1:53010/resource/hi?str=" + str;
 	    // 存储相关的header值
 	    Map<String,String> header = new HashMap<String, String>();
-	    //username:password--->访问的用户名，密码,并使用base64进行加密，将加密的字节信息转化为string类型，encoding--->token
-//	    String encoding = DatatypeConverter.printBase64Binary("kermit:kermit".getBytes("UTF-8"));
-//	    header.put("Authorization", "Basic " + encoding);
 	    String response = HttpClientUtil.sendHttp(HttpRequestMethedEnum.HttpGet,url, null,header);
 	    logger.info("请求成功，返回信息：" + JSON.toJSONString(JSONObject.parseObject(response),true));
 		return RestResponse.success();
