@@ -14,7 +14,7 @@
 		<div class="containerT">
 			<div style="color:white;font-size: 32px">控制台-登录</div>
 			<form class="form" id="entry_form">
-				<input type="text" placeholder="用户名" id="entry_name" value="admin">
+				<input type="text" placeholder="用户名" id="entry_name">
 				<input type="password" placeholder="密码" id="entry_password">
 				<button type="button" id="entry_btn">登录</button>
 				<div id="prompt" class="prompt"></div>
@@ -25,17 +25,6 @@
 
 <script type="text/javascript" src="../../plugin/jquery/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="../../js/admin/admin_login/vector.js"></script>
-<script type="text/javascript">
-    $(function(){
-        Victor("container", "output");   //登陆背景函数
-        $("#entry_name").focus();
-        $(document).keydown(function(event){
-            if(event.keyCode==13){
-                $("#entry_btn").click();
-            }
-        });
-    });
-</script>
-
+<script type="text/javascript" src="../../js/admin/admin_login/login.js"></script>
 </body>
 </html>

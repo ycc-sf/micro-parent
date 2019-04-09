@@ -14,9 +14,6 @@ layui.use(['form','element', 'layer'], function(){
 //    var realName = $.cookie("realName");
 //    $("#realName").html(realName);
     
-    //加载最新发布
-    loadLatestInfo();
-    
     //layui初始化变量
     var form = layui.form
 		,element = layui.element
@@ -60,11 +57,14 @@ layui.use(['form','element', 'layer'], function(){
             layer.msg('由于浏览器不支持等原因导致定位失败，默认加载郑州市信息');
         }
     })
-
+    
+    //定位成功后，根据定位信息加载最新发布和地图打点
+    loadLatestInfo();
+    
     //点标记
-    var marker1 = new AMap.Marker({
-        position:[116.39, 39.9]//位置
-    })
+    // var marker1 = new AMap.Marker({
+    //    position:[116.39, 39.9]//位置
+    //})
     //map.add(marker1);//添加到地图
     //map.remove(marker)//移除标记
 
@@ -84,24 +84,31 @@ layui.use(['form','element', 'layer'], function(){
             url:uri,
             type: "get",
             contentType:"application/json;charset=utf-8",
-            success:function(date){
-            	console.log(date);
-                if(date.code == 0){
-                	//超长截取
-//                	Handlebars.registerHelper("compare1",function(v1,options){
-//        				if(v1.length>6){
-//        					return v1.substring(0,6)+"...";
-//        				}else{
-//        					return v1;
-//        				}
-//        			});
+            success:function(data){
+            	console.log(data);
+                if(data.code == 0){
+                	//handlebar遍历左侧推荐信息
         			var source = $("#latestInfoContent").html();
         			var template = Handlebars.compile(source);
-        			$("#latestInfoFrame").html(template(date.result));
+        			$("#latestInfoFrame").html(template(data.result));
+        			//在地图标记推荐信息
+        			for(var i = 0; i< data.result.length; i++){
+            		    var marker = new AMap.Marker({
+            		        position:[data.result[i].locationX, data.result[i].locationY]//位置
+            		    	,title:data.result[i].infoTitle
+            		    })
+            		    marker.setExtData(data.result[i].id);//给marker设置信息id
+            		    map.add(marker);//添加到地图
+            		    //点标记点击事件
+            		    marker.on("click",function(e) {
+            		    	var infoId = this.getExtData();//获取点标记上的文章id
+            		    	window.open("html/resource/detail.html?infoId=" + infoId, "_blank");
+            		    });
+        			}
                 }else{
                 	layer.open({
                 		title: '数据请求失败，请重试'
-                		,content: date.msg
+                		,content: data.msg
                 	});
                 }
             }

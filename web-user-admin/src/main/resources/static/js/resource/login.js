@@ -22,7 +22,7 @@ $(function(){
 
         },1000);
     }
-
+    
     //登录按钮事件
     $("#loginBtn").click(function () {
         console.log($("form").serialize()); //输出字符串
@@ -46,5 +46,11 @@ $(function(){
             }
         });
 
-    })
+    });
+    
+    $(document).keydown(function(event){
+        if(event.keyCode==13){
+            $("#loginBtn").click();
+        }
+    });
 });

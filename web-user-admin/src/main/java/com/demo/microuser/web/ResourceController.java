@@ -17,6 +17,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -204,10 +205,12 @@ public class ResourceController {
             @ApiImplicitParam(name = "number", value = "要获取信息的数量", required = true, dataType = "int", paramType = "query")
     })
     @GetMapping(value = "/findRangedInfoList")
-    public RestResponse<Object> findInfoList(@RequestParam(value="infoType", required=false) Long infoType,
-                                                 @RequestParam(value="title", required=false) String title,
-                                                 @RequestParam("x") Double x, @RequestParam("y") Double y,
-                                          @RequestParam("range") Double range, @RequestParam("number") Integer number){
+    public RestResponse<Object> findInfoList(@RequestAttribute(value="userInfo", required=false) UserInfo user,
+								@RequestParam(value="infoType", required=false) Long infoType,
+                                @RequestParam(value="title", required=false) String title,
+                                @RequestParam("x") Double x, @RequestParam("y") Double y,
+                                @RequestParam("range") Double range, @RequestParam("number") Integer number){
+    	logger.info("【【user】】" + user + "   >>" + (user == null ? "" : user.getId() ) );
         logger.info("[begin]title:{} infoType:{} x:{} y:{}",title, infoType, x, y);
         Object infoList = resourceService.findInfoList(infoType, title, x, y, range, number);
         logger.info("[end]成功。");
@@ -222,8 +225,9 @@ public class ResourceController {
                                         HttpServletRequest request, HttpSession httpSession){
         logger.info("[web-begin]登录：{}", userInfo);
         UserInfo user = resourceService.login(userInfo);
-        httpSession.setAttribute("userInfo", userInfo);
+        httpSession.setAttribute("userInfo", user);
         Cookie cookie = new Cookie("realName", user.getRealName());
+//        Cookie cookie = new Cookie("username", user.getUsername());
         cookie.setPath("/");
         response.addCookie(cookie);
         logger.info("[web-end]登陆成功。{}", user);
