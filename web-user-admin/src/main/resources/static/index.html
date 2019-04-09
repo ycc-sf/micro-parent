@@ -78,27 +78,8 @@
 </head>
 <body class="layui-anim layui-anim-scaleSpring">
 	<div class="header">
-		<div class="layui-container layui-bg-black container">
-			<div class="layui-row rowdiv">
-				<div class="layui-col-xs6 layui-col-sm6 layui-col-md9 title">基于springBoot和。。。微需求平台</div>
-				<div class="layui-col-xs6 layui-col-sm6 layui-col-md3">
-					<ul class="layui-nav rightnav" lay-filter="">
-						<li class="layui-nav-item">
-					        <a href="javascript:;">
-					          <img src="images/user.png" class="layui-nav-img">
-										<span id="realName">加载中...</span>
-					        </a>
-					        <dl class="layui-nav-child">
-					          <dd><a href="javascript:;">个人资料</a></dd>
-					          <dd><a href="javascript:;">我的发布</a></dd>
-					          <!--<dd><a href="javascript:;">安全设置</a></dd>-->
-					        </dl>
-					    </li>
-					    <li class="layui-nav-item"><a href="/login.html">退出</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
+		<!-- 引入头部 -->
+		<script type="text/javascript" src="js/common/htmlHead.js"></script>
 	</div>
 	<div class="mainbody">
 		<div class="layui-row layui-col-space20 rowbody">
@@ -107,7 +88,15 @@
 					<div class="layui-card-header cardtitle">
 						<i class="iconfont iconhot" style="color:#E53939 ;font-size: 19px;"></i> 最新发布</div>
 					<div class="layui-card-body cardbody">
-						<ul>
+						<ul id="latestInfoFrame">
+							<script id="latestInfoContent" type="text/x-handlebars-template">
+								{{#each this}}
+									<a href="html/resource/detail.html?infoId={{this.id}}"><li infoId={{this.id}}>{{this.infoTitle}}</li></a>
+								{{else}}
+									<li>加载失败</li>
+								{{/each}}
+							</script>
+							<!-- 
 							<li>
 								<div class="layui-row">
 									<div class="layui-col-xs8 layui-col-sm8 layui-col-md9">
@@ -120,6 +109,7 @@
 							</li>
 							<li>xxx小区宠物丢失</li>
 							<li>xxx及时达寻找顺路人，有报酬！</li>
+							 -->
 						</ul>
 					</div>
 				</div>
@@ -175,8 +165,10 @@
 	</div>
 </body>
 <script type="text/javascript" src="plugin/jquery/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="plugin/handlebars-v4.0.5.js"></script>
 <script type="text/javascript" src="js/jquery.cookie.js"></script>
 <script type="text/javascript" src="plugin/layui/layui.js"></script>
 <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.13&key=33520f447dfeb7c3a567752b347e92ed"></script>
+<script type="text/javascript" src="js/common/customUtil.js"></script>
 <script type="text/javascript" src="js/resource/index.js"></script>
 </html>

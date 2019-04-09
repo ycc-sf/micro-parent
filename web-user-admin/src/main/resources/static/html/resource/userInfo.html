@@ -39,27 +39,8 @@
 	</head>
 	<body>
 		<div class="header">
-			<div class="layui-container layui-bg-black container">
-				<div class="layui-row">
-					<div class="layui-col-md2 title">微服务</div>
-					<div class="layui-col-md4 layui-col-md-offset6">
-						<ul class="layui-nav rightnav" lay-filter="">
-							<li class="layui-nav-item">
-						        <a href="javascript:;">
-						          <img src="../../images/user.png" class="layui-nav-img">管理员
-						          <!--<span style="color:#2F4056;">管理员</span>-->
-						        </a>
-						        <dl class="layui-nav-child">
-						          <dd><a href="javascript:;">个人资料</a></dd>
-						          <dd><a href="javascript:;">我的发布</a></dd>
-						          <!--<dd><a href="javascript:;">安全设置</a></dd>-->
-						        </dl>
-						    </li>
-						    <li class="layui-nav-item"><a href="${rc.contextPath}/logout">退出</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
+			<!-- 引入头部 -->
+			<script type="text/javascript" src="../../js/common/htmlHead.js"></script>
 		</div>
 		<div class="mainbody">
 			<div class="layui-row">
@@ -100,6 +81,7 @@
 	</body>
 	<script type="text/javascript" src="../../plugin/jquery/jquery-1.11.3.min.js"></script>
 	<script type="text/javascript" src="../../plugin/layui/layui.js"></script>
+	<script type="text/javascript" src="../../js/jquery.cookie.js"></script>
 	<script>
 		//JavaScript代码区域
 		layui.use(['form','element'], function(){

@@ -10,6 +10,7 @@ import com.demo.micro.resource.entity.Comment;
 import com.demo.micro.resource.entity.CommentPageParams;
 import com.demo.micro.resource.entity.Info;
 import com.demo.micro.resource.entity.InfoPageParams;
+import com.demo.micro.resource.entity.InfoType;
 import com.demo.micro.resource.entity.Subscription;
 import com.demo.micro.resource.entity.SubscriptionPageParams;
 import com.demo.micro.resource.entity.UserInfo;
@@ -22,7 +23,11 @@ public interface ResourceService {
 	
 	
 	
-	
+	/**
+	 * 获取所有信息类型
+	 * @return
+	 */
+	List<InfoType> getInfoType();
 	
 	/**
 	 * 删除订阅

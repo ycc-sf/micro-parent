@@ -7,11 +7,8 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.demo.micro.common.domain.RestResponse;
 import com.demo.microuser.domain.ApplicationException;
 import com.demo.microuser.domain.HttpRequestMethedEnum;
@@ -20,6 +17,7 @@ import com.demo.microuser.model.Comment;
 import com.demo.microuser.model.CommentPageParams;
 import com.demo.microuser.model.Info;
 import com.demo.microuser.model.InfoPageParams;
+import com.demo.microuser.model.InfoType;
 import com.demo.microuser.model.Subscription;
 import com.demo.microuser.model.SubscriptionPageParams;
 import com.demo.microuser.model.UserInfo;
@@ -36,60 +34,138 @@ public class ResourceServiceImpl implements ResourceService {
 	
 	
 	
-	
+	public Object getInfoType(){
+		String uri = "/resource/getInfoType";
+	    RestResponse restResponse = HttpClientUtil.myReqMethod(uri, HttpRequestMethedEnum.HttpGet, null, null);
+	    logger.info("-->{}", restResponse);
+	    if(restResponse.getCode() != 0){
+	    	throw new ApplicationException(WebErrorCode.CUSTOM, restResponse.getMsg());
+	    }
+		return restResponse.getResult();
+	}
 	
 	@Override
 	public void removeSubscription(Long id) {
-		// TODO Auto-generated method stub
-		
+		String uri = "/resource/removeSubscriptionById";
+		//query参数
+		Map<String, Object> urlParams = new HashMap<>();
+		urlParams.put("id", id);
+	    RestResponse restResponse = HttpClientUtil.myReqMethod(uri, HttpRequestMethedEnum.HttpDelete, urlParams, null);
+	    logger.info("-->{}", restResponse);
+	    if(restResponse.getCode() != 0){
+	    	throw new ApplicationException(WebErrorCode.CUSTOM, restResponse.getMsg());
+	    }
+		return;
 	}
 
 	@Override
-	public Long addSubscription(Subscription subscription) {
-		// TODO Auto-generated method stub
-		return null;
+	public Object addSubscription(Subscription subscription) {
+		String uri = "/resource/addSubscription";
+	    RestResponse restResponse = HttpClientUtil.myReqMethod(uri, HttpRequestMethedEnum.HttpPost, null, subscription);
+	    logger.info("-->{}", restResponse);
+	    if(restResponse.getCode() != 0){
+	    	throw new ApplicationException(WebErrorCode.CUSTOM, restResponse.getMsg());
+	    }
+		return restResponse.getResult();
 	}
 
 	@Override
 	public Object pageSubscription(int pageNo, int pageSize, SubscriptionPageParams queryParams) {
-		// TODO Auto-generated method stub
-		return null;
+		String uri = "/resource/pageSubscription";
+		//query参数
+		Map<String, Object> urlParams = new HashMap<>();
+		urlParams.put("pageNo", pageNo);
+		urlParams.put("pageSize", pageSize);
+	    RestResponse restResponse = HttpClientUtil.myReqMethod(uri, HttpRequestMethedEnum.HttpPost, urlParams, queryParams);
+	    logger.info("-->{}", restResponse);
+	    if(restResponse.getCode() != 0){
+	    	throw new ApplicationException(WebErrorCode.CUSTOM, restResponse.getMsg());
+	    }
+		return restResponse.getResult();
 	}
 
 	@Override
 	public Object pageComment(int pageNo, int pageSize, CommentPageParams queryParams) {
-		// TODO Auto-generated method stub
-		return null;
+		String uri = "/resource/pageComment";
+		//query参数
+		Map<String, Object> urlParams = new HashMap<>();
+		urlParams.put("pageNo", pageNo);
+		urlParams.put("pageSize", pageSize);
+	    RestResponse restResponse = HttpClientUtil.myReqMethod(uri, HttpRequestMethedEnum.HttpPost, urlParams, queryParams);
+	    logger.info("-->{}", restResponse);
+	    if(restResponse.getCode() != 0){
+	    	throw new ApplicationException(WebErrorCode.CUSTOM, restResponse.getMsg());
+	    }
+		return restResponse.getResult();
 	}
 
 	@Override
 	public void removeComment(Long id) {
-		// TODO Auto-generated method stub
-		
+		String uri = "/resource/removeCommentById";
+		//query参数
+		Map<String, Object> urlParams = new HashMap<>();
+		urlParams.put("id", id);
+	    RestResponse restResponse = HttpClientUtil.myReqMethod(uri, HttpRequestMethedEnum.HttpDelete, urlParams, null);
+	    logger.info("-->{}", restResponse);
+	    if(restResponse.getCode() != 0){
+	    	throw new ApplicationException(WebErrorCode.CUSTOM, restResponse.getMsg());
+	    }
+		return;
 	}
 
 	@Override
-	public Long addComment(Comment comment) {
-		// TODO Auto-generated method stub
-		return null;
+	public Object addComment(Comment comment) {
+		String uri = "/resource/addComment";
+	    RestResponse restResponse = HttpClientUtil.myReqMethod(uri, HttpRequestMethedEnum.HttpPost, null, comment);
+	    logger.info("-->{}", restResponse);
+	    if(restResponse.getCode() != 0){
+	    	throw new ApplicationException(WebErrorCode.CUSTOM, restResponse.getMsg());
+	    }
+		return restResponse.getResult();
 	}
 
 	@Override
 	public UserInfo getUserInfo(String username) {
-		// TODO Auto-generated method stub
-		return null;
+		String uri = "/resource/getUserInfo";
+		//query参数
+		Map<String, Object> urlParams = new HashMap<>();
+		urlParams.put("username", username);
+	    RestResponse restResponse = HttpClientUtil.myReqMethod(uri, HttpRequestMethedEnum.HttpGet, urlParams, null);
+	    logger.info("-->{}", restResponse);
+	    if(restResponse.getCode() != 0){
+	    	throw new ApplicationException(WebErrorCode.CUSTOM, restResponse.getMsg());
+	    }
+	    UserInfo userInfo = JSON.toJavaObject((JSON)restResponse.getResult(), UserInfo.class);
+		return userInfo;
 	}
 
 	@Override
 	public void removeInfoById(Long id) {
-		// TODO Auto-generated method stub
-		
+		String uri = "/resource/removeInfoById";
+		//query参数
+		Map<String, Object> urlParams = new HashMap<>();
+		urlParams.put("id", id);
+	    RestResponse restResponse = HttpClientUtil.myReqMethod(uri, HttpRequestMethedEnum.HttpDelete, urlParams, null);
+	    logger.info("-->{}", restResponse);
+	    if(restResponse.getCode() != 0){
+	    	throw new ApplicationException(WebErrorCode.CUSTOM, restResponse.getMsg());
+	    }
+		return;
 	}
 
 	@Override
 	public Info getInfoById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		String uri = "/resource/getInfoById";
+		//query参数
+		Map<String, Object> urlParams = new HashMap<>();
+		urlParams.put("id", id);
+	    RestResponse restResponse = HttpClientUtil.myReqMethod(uri, HttpRequestMethedEnum.HttpGet, urlParams, null);
+	    logger.info("-->{}", restResponse);
+	    if(restResponse.getCode() != 0){
+	    	throw new ApplicationException(WebErrorCode.CUSTOM, restResponse.getMsg());
+	    }
+	    Info info = JSON.toJavaObject((JSON)restResponse.getResult(), Info.class);
+		return info;
 	}
 
 	@Override

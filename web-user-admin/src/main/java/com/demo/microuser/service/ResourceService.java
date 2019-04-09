@@ -1,11 +1,14 @@
 package com.demo.microuser.service;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 import com.demo.microuser.model.Comment;
 import com.demo.microuser.model.CommentPageParams;
 import com.demo.microuser.model.Info;
 import com.demo.microuser.model.InfoPageParams;
+import com.demo.microuser.model.InfoType;
 import com.demo.microuser.model.Subscription;
 import com.demo.microuser.model.SubscriptionPageParams;
 import com.demo.microuser.model.UserInfo;
@@ -15,6 +18,12 @@ import com.demo.microuser.model.UserInfo;
  */
 public interface ResourceService {
 	
+	
+	/**
+	 * 获取所有信息类型
+	 * @return
+	 */
+	Object getInfoType();
 	
 	/**
 	 * 删除订阅
@@ -28,7 +37,7 @@ public interface ResourceService {
 	 * @param subscription
 	 * @return
 	 */
-	Long addSubscription(Subscription subscription);
+	Object addSubscription(Subscription subscription);
 	
 	/**
 	 * 分页条件查询订阅
@@ -60,7 +69,7 @@ public interface ResourceService {
 	 * @param 
 	 * @return
 	 */
-	Long addComment(Comment comment);
+	Object addComment(Comment comment);
 	
 	/**
 	 * 通过用户名获取用户、角色信息
