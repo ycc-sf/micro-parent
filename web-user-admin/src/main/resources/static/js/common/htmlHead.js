@@ -1,8 +1,8 @@
-document.writeln("		<div class=\'layui-container layui-bg-black container\'>");
+document.writeln("		<div class=\'layui-container layui-bg-blue container\'>");
 document.writeln("			<div class=\'layui-row rowdiv\'>");
-document.writeln("				<div class=\'layui-col-xs6 layui-col-sm6 layui-col-md9 title\' onclick='loadIndex()'>基于springBoot和。。。微需求平台</div>");
-document.writeln("				<div class=\'layui-col-xs6 layui-col-sm6 layui-col-md3\'>");
-document.writeln("					<ul class=\'layui-nav rightnav\' lay-filter=\'\'>");
+document.writeln("				<div class=\'layui-col-xs6 layui-col-sm6 layui-col-md9 title\'><span onclick='loadIndex()'>基于springBoot和高德API的微需求平台</span></div>");
+document.writeln("				<div class=\'layui-col-xs6 layui-col-sm6 layui-col-md3 \'>");
+document.writeln("					<ul class=\'layui-nav rightnav layui-bg-blue\' lay-filter=\'\'>");
 document.writeln("						<li class=\'layui-nav-item\'>");
 document.writeln("					        <a href=\'javascript:;\'>");
 //document.writeln("					          <img src=\'images/user.png\' class=\'layui-nav-img\'>");
