@@ -6,7 +6,7 @@ document.writeln("					<ul class=\'layui-nav rightnav layui-bg-blue\' lay-filter
 document.writeln("						<li class=\'layui-nav-item\'>");
 document.writeln("					        <a href=\'javascript:;\'>");
 //document.writeln("					          <img src=\'images/user.png\' class=\'layui-nav-img\'>");
-document.writeln("										<span id=\'realName\'>加载中</span>");
+document.writeln("								<i class='iconfont icon1zhenshixingming' style='font-size: 18px;'></i>&nbsp;&nbsp;<span id=\'realName\'>加载中</span>");
 document.writeln("					        </a>");
 document.writeln("					        <dl class=\'layui-nav-child\'>");
 document.writeln("					          <dd><a href=\'/html/resource/userInfo.html\'>个人资料</a></dd>");

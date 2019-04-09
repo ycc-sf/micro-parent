@@ -91,25 +91,11 @@
 						<ul id="latestInfoFrame">
 							<script id="latestInfoContent" type="text/x-handlebars-template">
 								{{#each this}}
-									<a href="html/resource/detail.html?infoId={{this.id}}"><li infoId={{this.id}}>{{this.infoTitle}}</li></a>
+									<a href="html/resource/detail.html?infoId={{this.id}}"><li infoId={{this.id}}><i class="iconfont iconyuan" style="font-size: 10px;"></i>&nbsp;&nbsp;{{this.infoTitle}}</li></a>
 								{{else}}
 									<li>加载失败</li>
 								{{/each}}
 							</script>
-							<!-- 
-							<li>
-								<div class="layui-row">
-									<div class="layui-col-xs8 layui-col-sm8 layui-col-md9">
-										xxx寻物启事
-									</div>
-									<div class="layui-col-xs4 layui-col-sm1 layui-col-md2 layui-col-sm-offset3 layui-col-md-offset1">
-										<i class="iconfont iconjiaji" style="color:#d81e06;font-size: 25px;"></i>
-									</div>
-								</div>
-							</li>
-							<li>xxx小区宠物丢失</li>
-							<li>xxx及时达寻找顺路人，有报酬！</li>
-							 -->
 						</ul>
 					</div>
 				</div>

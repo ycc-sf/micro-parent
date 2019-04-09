@@ -61,12 +61,12 @@
 							<i class="iconfont iconleibie" style="color:#FFBF00;font-size: 25px;"></i>&nbsp;&nbsp;类别
 						</label>
 						<div class="layui-input-block input-len">
-							<select name="sorts" lay-verify="required">
-								<option value=""></option>
-								<option value="0">导游</option>
-								<option value="1">代驾</option>
-								<option value="2">外卖</option>
-								<option value="3">摄影</option>
+							<select name="sorts" lay-verify="required" id="infoTypeFrame">
+								<script id="infoTypeContent" type="text/x-handlebars-template">
+									{{#each this}}
+										<option value="{{this.id}}">{{this.typeName}}</option>
+									{{/each}}
+								</script>
 							</select>
 						</div>
 					</div>
@@ -74,23 +74,24 @@
 						<label class="layui-form-label">
 							<i class="iconfont iconweizhi" style="color:#04B404;font-size: 25px;"></i>&nbsp;&nbsp;位置
 						</label>
-						<div class="layui-input-block input-len">
+<!-- 						<div class="layui-input-block input-len">
 							<input type="text" name="title" required lay-verify="required" placeholder="请选择所在位置" autocomplete="off" class="layui-input" />
-						</div>
-						<div class="maploaction"></div>
+						</div> -->
+						<div class="maploaction" id="mapContainer"></div>
 					</div>
 					<div class="layui-form-item">
 						<label class="layui-form-label">
 							<i class="iconfont iconxiangqing" style="color:#1296db;font-size: 25px;"></i>&nbsp;&nbsp;详情
 						</label>
-						<div class="layui-input-block input-len">
-					      <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+						<div class="layui-input-block input-len" >
+							<!-- <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea> -->
+							<div id="editor" style="width:720px;"><p>想说些什么</p></div>
 					    </div>
 					</div>
 					<div class="layui-form-item">
 					    <div class="layui-input-block">
 					      <button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo">立即提交</button>
-					      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+<!-- 					      <button type="reset" class="layui-btn layui-btn-primary">重置</button> -->
 					    </div>
 					</div>
 				</form>
@@ -100,6 +101,9 @@
 	<script type="text/javascript" src="../../plugin/jquery/jquery-1.11.3.min.js"></script>
 	<script type="text/javascript" src="../../plugin/layui/layui.js"></script>
 	<script type="text/javascript" src="../../js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="../../plugin/handlebars-v4.0.5.js"></script>
+	<script type="text/javascript" src="../../plugin/wangEditor.min.js"></script>
+	<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.13&key=33520f447dfeb7c3a567752b347e92ed"></script>
 	<script type="text/javascript" src="../../js/common/customUtil.js"></script>
 	<script type="text/javascript" src="../../js/resource/createInfo.js"></script>
 </html>
