@@ -24,6 +24,7 @@ import com.demo.micro.resource.entity.Comment;
 import com.demo.micro.resource.entity.CommentPageParams;
 import com.demo.micro.resource.entity.Info;
 import com.demo.micro.resource.entity.InfoPageParams;
+import com.demo.micro.resource.entity.InfoType;
 import com.demo.micro.resource.entity.Role;
 import com.demo.micro.resource.entity.Subscription;
 import com.demo.micro.resource.entity.SubscriptionPageParams;
@@ -39,7 +40,10 @@ public class ResourceServiceImpl implements ResourceService {
 	private static final Logger logger = LoggerFactory.getLogger(ResourceServiceImpl.class);
 	
 	
-	
+	public List<InfoType> getInfoType(){
+		List<InfoType> infoType = resourceDao.selectInfoType();
+		return infoType;
+	}
 	
 	public void removeSubscription(@Param("id") Long id){
 		int influence = resourceDao.deleteSubscription(id);

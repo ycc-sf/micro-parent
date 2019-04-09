@@ -5,6 +5,9 @@
     <!--命名空间，指定对应的Dao-->
     <mapper namespace="com.demo.micro.resource.dao.ResourceDao">
     
+    <select id="selectInfoType" resultType="InfoType">
+    	select * from r_info_type
+    </select>
     
     <delete id="deleteSubscription" >
     	delete from r_subscription where id = #{id}

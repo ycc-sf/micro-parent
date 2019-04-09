@@ -2,6 +2,7 @@ package com.demo.microuser.web;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -52,6 +53,16 @@ public class ResourceController {
     private ResourceService resourceService;
     
     
+    @ApiOperation("获取所有信息类型")
+	@ApiImplicitParams({
+	})
+	@GetMapping("/getInfoType")
+	public RestResponse<Object> getInfoType(){
+		logger.info("[begin]");
+		Object infoType = resourceService.getInfoType();
+        logger.info("[end]结果。{}", infoType);
+        return RestResponse.success(infoType);
+	}
     
     @ApiOperation("通过id删除订阅")
 	@ApiImplicitParams({

@@ -7,11 +7,8 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.demo.micro.common.domain.RestResponse;
 import com.demo.microuser.domain.ApplicationException;
 import com.demo.microuser.domain.HttpRequestMethedEnum;
@@ -20,6 +17,7 @@ import com.demo.microuser.model.Comment;
 import com.demo.microuser.model.CommentPageParams;
 import com.demo.microuser.model.Info;
 import com.demo.microuser.model.InfoPageParams;
+import com.demo.microuser.model.InfoType;
 import com.demo.microuser.model.Subscription;
 import com.demo.microuser.model.SubscriptionPageParams;
 import com.demo.microuser.model.UserInfo;
@@ -36,7 +34,15 @@ public class ResourceServiceImpl implements ResourceService {
 	
 	
 	
-	
+	public Object getInfoType(){
+		String uri = "/resource/getInfoType";
+	    RestResponse restResponse = HttpClientUtil.myReqMethod(uri, HttpRequestMethedEnum.HttpGet, null, null);
+	    logger.info("-->{}", restResponse);
+	    if(restResponse.getCode() != 0){
+	    	throw new ApplicationException(WebErrorCode.CUSTOM, restResponse.getMsg());
+	    }
+		return restResponse.getResult();
+	}
 	
 	@Override
 	public void removeSubscription(Long id) {

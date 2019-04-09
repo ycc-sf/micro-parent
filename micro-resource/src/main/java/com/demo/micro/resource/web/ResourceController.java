@@ -24,6 +24,7 @@ import com.demo.micro.resource.entity.Comment;
 import com.demo.micro.resource.entity.CommentPageParams;
 import com.demo.micro.resource.entity.Info;
 import com.demo.micro.resource.entity.InfoPageParams;
+import com.demo.micro.resource.entity.InfoType;
 import com.demo.micro.resource.entity.Subscription;
 import com.demo.micro.resource.entity.SubscriptionPageParams;
 import com.demo.micro.resource.entity.UserInfo;
@@ -49,7 +50,16 @@ public class ResourceController {
 	
 	
 	
-	
+	@ApiOperation("获取所有信息类型")
+	@ApiImplicitParams({
+	})
+	@GetMapping("/getInfoType")
+	public RestResponse<List<InfoType>> getInfoType(){
+		logger.info("[begin]");
+        List<InfoType> infoType = resourceService.getInfoType();
+        logger.info("[end]结果。{}", infoType);
+        return RestResponse.success(infoType);
+	}
 	
 	@ApiOperation("通过id删除订阅")
 	@ApiImplicitParams({
