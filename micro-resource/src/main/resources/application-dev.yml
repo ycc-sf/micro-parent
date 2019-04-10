@@ -9,9 +9,9 @@ eureka:
 spring:
 ##################### DB #####################
   datasource: 
-    url: jdbc:mysql://123.207.54.159:3306/micro-req?useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull&useSSL=false
+    url: jdbc:mysql://127.0.0.1:3306/micro-req?useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull&useSSL=false
     username: root
-    password: Mysql7456321.
+    password: 1122
     
 
             

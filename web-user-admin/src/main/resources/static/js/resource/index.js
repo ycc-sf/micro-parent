@@ -1,11 +1,13 @@
 layui.use(['form','element', 'layer'], function(){
 	////////////////////////////////本页面全局变量////////////////////////////////////
-	var thisPosition = {
-	        P: 34.812260470921,
-	        R: 113.50928629557302,
-	        lat: 34.81226,
-	        lng: 113.509286
-	};//当前位置坐标
+	//当前位置坐标
+	var thisPosition = new AMap.LngLat(113.50928629557302, 34.812260470921);
+//	var thisPosition = {
+//	        P: 34.812260470921,
+//	        R: 113.50928629557302,
+//	        lat: 34.81226,
+//	        lng: 113.509286
+//	};
 	var infoRange = 200;//要加载的信息的半径
 	
 	///////////////////////////////初始化执行//////////////////////////////////////
@@ -78,7 +80,7 @@ layui.use(['form','element', 'layer'], function(){
     //加载最新发布
     function loadLatestInfo(){
     	//准备参数
-    	var uri = "/resource/findRangedInfoList?x="+thisPosition.R + "&y="+thisPosition.P +"&range="+infoRange + "&number=11";
+    	var uri = "/resource/findRangedInfoList?x="+thisPosition.getLng() + "&y="+thisPosition.getLat() +"&range="+infoRange + "&number=11";
     	//请求数据
     	$.ajax({
             url:uri,

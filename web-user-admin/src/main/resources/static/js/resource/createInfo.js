@@ -1,10 +1,13 @@
 layui.use(['form','element'], function(){
-	var thisPosition = {
-	        P: 34.812260470921,
-	        R: 113.50928629557302,
-	        lat: 34.81226,
-	        lng: 113.509286
-	};//当前位置坐标
+	
+	//当前位置坐标
+	var thisPosition = new AMap.LngLat(113.50928629557302, 34.812260470921);
+//	var thisPosition = {
+//	        P: 34.812260470921,
+//	        R: 113.50928629557302,
+//	        lat: 34.81226,
+//	        lng: 113.509286
+//	};
 	
 	//加载信息类型
 	loadInfoType();
@@ -23,13 +26,13 @@ layui.use(['form','element'], function(){
 	//初始化地图
     var map = new AMap.Map('mapContainer', {
         zoom:11,//级别
-        center: [113.50928629557302, 34.812260470921],//中心点坐标
+        center: [thisPosition.getLng(), thisPosition.getLat()],//中心点坐标
         viewMode:'3D'//使用3D视图
     });
     
     //当前位置
     var marker = new AMap.Marker({
-        position:[113.50928629557302, 34.812260470921]//位置
+        position:[thisPosition.getLng(), thisPosition.getLat()]//位置
     })
     map.add(marker);//添加到地图
     
