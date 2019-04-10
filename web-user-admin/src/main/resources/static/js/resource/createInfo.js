@@ -8,13 +8,16 @@ layui.use(['form','element'], function(){
 //	        lat: 34.81226,
 //	        lng: 113.509286
 //	};
-	
+    //向form中隐藏区域赋默认值
+    $("#locationX").val(thisPosition.getLng());
+    $("#locationY").val(thisPosition.getLat());
+    
 	//加载信息类型
 	loadInfoType();
 	//layui渲染
 	var form = layui.form
 	  ,element = layui.element;
-	
+	  
 	//初始化头部用户信息
 	CustomUtil.initUsernameInHTMLHead();
 	
@@ -22,6 +25,38 @@ layui.use(['form','element'], function(){
 	var E = window.wangEditor
 	var editor = new E('#editor')
 	editor.create();
+
+	//监听提交
+	form.on('submit()', function(data){
+		var infoDetail = editor.txt.html();;
+		data.field.infoDetailString = infoDetail;
+		var formJson = JSON.stringify(data.field);
+		console.log("提交表单：", formJson);
+		var uri = "/resource/addInfo";
+		$.ajax({
+            url:uri,
+            type: "post",
+            data: formJson,
+            contentType:"application/json;charset=utf-8",
+            success:function(data){
+            	console.log(data);
+                if(data.code == 0){
+                	$("#resBtn").click();//点击表单重置按钮
+                	editor.txt.html("");//清空富文本编辑器
+                	layer.open({
+                		title: '成功'
+                		,content: '添加成功！'
+                	});
+                }else{
+                	layer.open({
+                		title: '数据请求失败，请重试'
+                		,content: data.msg
+                	});
+                }
+            }
+        });
+	    return false;
+	});
 	
 	//初始化地图
     var map = new AMap.Map('mapContainer', {
@@ -42,6 +77,9 @@ layui.use(['form','element'], function(){
 	    marker.setPosition(e.lnglat);
 	    //更新本页地址全局变量到点击目标点
 	    thisPosition = e.lnglat;
+        //向form中隐藏区域赋值
+        $("#locationX").val(thisPosition.getLng());
+        $("#locationY").val(thisPosition.getLat());
 	    console.log("点击了：", e.lnglat);
 	});
     
@@ -72,11 +110,13 @@ layui.use(['form','element'], function(){
             map.setCenter(data.position);
             //移动点标记到当前位置
             marker.setPosition(data.position);
+            //向form中隐藏区域赋值
+            $("#locationX").val(thisPosition.getLng());
+            $("#locationY").val(thisPosition.getLat());
         }
         function onError (data) {
             // 定位出错
-            // alert("由于浏览器不支持等原因导致定位失败，默认加载郑州市信息");
-            layer.msg('由于浏览器不支持等原因导致定位失败');
+//            layer.msg('由于浏览器不支持等原因导致定位失败');
         }
     })
     

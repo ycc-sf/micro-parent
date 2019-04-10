@@ -183,7 +183,8 @@ public class ResourceController {
 		@ApiImplicitParam(name = "info", value="信息", required=true, dataTypeClass=Info.class, paramType="body")
 	})
 	@PostMapping("/addInfo")
-	public RestResponse<Object> addInfo(@RequestBody Info info){
+	public RestResponse<Object> addInfo(@RequestAttribute(value="userInfo", required=false) UserInfo user,@RequestBody Info info){
+    	info.setUserId(user.getId());
 		logger.info("[begin]参数:{}",info);
 		Object addInfoId = resourceService.addInfo(info);
         logger.info("[end]结果。{}", addInfoId);

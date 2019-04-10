@@ -55,8 +55,7 @@ layui.use(['form','element', 'layer'], function(){
         }
         function onError (data) {
             // 定位出错
-            // alert("由于浏览器不支持等原因导致定位失败，默认加载郑州市信息");
-            layer.msg('由于浏览器不支持等原因导致定位失败，默认加载郑州市信息');
+//            layer.msg('由于浏览器不支持等原因导致定位失败，默认加载郑州市信息');
         }
     })
     

@@ -22,7 +22,6 @@
 	  			height: 400px;
 	  			border: 1px solid #e2e2e2;
 	  			margin-top: 30px;
-	  			margin-left: 9%;
 	  		}
 	  		.input-len{
 	  			width: 40%;
@@ -48,12 +47,14 @@
 			</blockquote>
 			<div class="submit-form">
 				<form class="layui-form" action="">
+					<input type="text" style="display:none" name="locationX" id="locationX" />
+					<input type="text" style="display:none" name="locationY" id="locationY"/>
 					<div class="layui-form-item">
 						<label class="layui-form-label">
 							<i class="iconfont iconweibiaoti203" style="color:#E53939;font-size: 25px;"></i>&nbsp;&nbsp;标题
 						</label>
 						<div class="layui-input-block input-len">
-							<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" />
+							<input type="text" name="infoTitle" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" />
 						</div>
 					</div>
 					<div class="layui-form-item">
@@ -61,12 +62,23 @@
 							<i class="iconfont iconleibie" style="color:#FFBF00;font-size: 25px;"></i>&nbsp;&nbsp;类别
 						</label>
 						<div class="layui-input-block input-len">
-							<select name="sorts" lay-verify="required" id="infoTypeFrame">
+							<select name="typeId" lay-verify="required" id="infoTypeFrame">
 								<script id="infoTypeContent" type="text/x-handlebars-template">
 									{{#each this}}
 										<option value="{{this.id}}">{{this.typeName}}</option>
 									{{/each}}
 								</script>
+							</select>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">
+							<i class="iconfont iconleibie" style="color:#FFBF00;font-size: 25px;"></i>&nbsp;&nbsp;单次
+						</label>
+						<div class="layui-input-block input-len">
+							<select name="isSingle" lay-verify="required" id="">
+								<option value="0">否（即可以被其他用户订阅多次）</option>
+								<option value="1">是（即被其他用户订阅一次之后失效）</option>
 							</select>
 						</div>
 					</div>
@@ -85,13 +97,13 @@
 						</label>
 						<div class="layui-input-block input-len" >
 							<!-- <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea> -->
-							<div id="editor" style="width:720px;"><p>想说些什么</p></div>
+							<div id="editor" name="infoDetail" style="width:720px;"></div>
 					    </div>
 					</div>
 					<div class="layui-form-item">
 					    <div class="layui-input-block">
 					      <button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo">立即提交</button>
-<!-- 					      <button type="reset" class="layui-btn layui-btn-primary">重置</button> -->
+ 					      <button type="reset" class="layui-btn layui-btn-primary" id="resBtn" style="display:none">重置</button>
 					    </div>
 					</div>
 				</form>
