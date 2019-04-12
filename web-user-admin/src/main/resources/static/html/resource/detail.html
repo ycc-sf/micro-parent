@@ -34,20 +34,22 @@
 	  		.headtitle{
 	  			font-size: 20px;
 	  			font-weight: bold;
+	  			background-color:#FFFFFF;
 	  		}
 	  		.detail-body{
 	  			width: 100%;
 	  			height: 300px;
 	  		}
+	  		
 	  		.rightdiv{
 	  			width: 100%;
 	  			height: 100%;
 	  			border-left: 1px solid #F0F0F0;
-	  			background-color:#63BA79 ;
+	  			background-color:#f2f2f2;
 	  		}
 	  		.leftdiv{
 	  			width: 100%;
-	  			height: 100%;
+	  			height: 350px;
 	  		}
 	  		.mapsize{
 	  			width: 100%;
@@ -58,8 +60,10 @@
 	  			margin-top: 15px;
 	  		}
 	  		.infocard{
-	  			border: 1px solid #63BA79;
+	  			/*border: 1px solid #63BA79;*/
 	  			border-radius:10px;
+	  			background-color:#FAFAFA;
+	  			padding:20px;
 	  		}
 	  		.detail-comment{
 	  			width: 100%;
@@ -88,6 +92,9 @@
 	  			line-height: 40px;
 	  			border-bottom: 1px dashed #dddddd;	
 	  		}
+	  		.commentEditor{
+	  			min-height:50px;
+	  		}
 	  	</style>
 	</head>
 	<body >
@@ -99,38 +106,36 @@
 			<div class="detail-modal">
 				<div class="layui-row">
 					<div class="layui-col-xs6 layui-col-sm6 layui-col-md10">
-						<blockquote class="layui-elem-quote headtitle" id="title">
-							详情信息&nbsp;&nbsp;<i class="iconfont iconxiangqing" style="color:#0B3861;font-size: 25px;"></i>
+						<blockquote class="layui-elem-quote headtitle" >
+							<sapn id="title"></sapn>&nbsp;&nbsp;<i class="iconfont iconxiangqing" style="color:#0B3861;font-size: 25px;"></i>
 						</blockquote>
 					</div>
 					<div class="layui-col-xs6 layui-col-sm6 layui-col-md2 returnbtn">
-						<button class="layui-btn layui-btn-primary layui-btn-radius">
+						<button class="layui-btn layui-btn-primary layui-btn-radius" onclick="window.history.back()">
 							<i class="layui-icon">&#xe65c;</i>返回
 						</button>
 					</div>
 				</div>
 				
-				<hr>
-				<div class="layui-row">
+				<div class="layui-row" mainContainer>
 					<div class="layui-col-md12">
 						<div class="detail-body">
 							<div class="layui-row layui-col-space15">
-								<div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
-									<div class="leftdiv">
-										<img src="../../images/map.png" class="mapsize"/>
-									</div>
-								</div>
-								<div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
+								<div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
 									<div class="rightdiv">
 										<div class="layui-card infocard" id="infoContent">
 											<div class="layui-card-header">加载中</div>
 										</div>
 									</div>
 								</div>
+								<div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+									<div class="leftdiv" id="detailMap"></div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+				
 				<div class="layui-row">
 					<div class="layui-col-md12">
 						<div class="detail-comment">
@@ -141,7 +146,7 @@
 									</div>
 								</div>
 								<div class="layui-col-md11">
-									<div id="editor">
+									<div id="editor" class="commentEditor">
 										<p>想说些什么</p>
 									</div>
 								</div>
@@ -193,6 +198,8 @@
 	<script type="text/javascript" src="../../js/common/customUtil.js"></script>
 	<script type="text/javascript" src="../../plugin/layui/layui.js"></script>
 	<script type="text/javascript" src="../../plugin/wangEditor.min.js"></script>
+	<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.13&key=33520f447dfeb7c3a567752b347e92ed"></script>
 	<script type="text/javascript" src="../../js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="../../js/resource/detail.js"></script>
+	
 </html>

@@ -1,9 +1,23 @@
-layui.use(['form','element'], function(){
+layui.use(['form','element','layer'], function(){
 	//初始化页面姓名
 	CustomUtil.initUsernameInHTMLHead();
+	 
+	//当前位置坐标
+	var thisPosition = new AMap.LngLat(113.50928629557302, 34.812260470921);
 	
 	var form = layui.form
-  		,element = layui.element;
+  		,element = layui.element
+  		,layer = layui.layer;
+	
+//	alert(11111);
+	//创建地图
+	var map = new AMap.Map('detailMap',{
+		zoom:11,
+		center:[113.6347424, 34.7218855],
+		viewMode:'3D'
+	});
+	
+	
 	var E = window.wangEditor
 	var editor = new E('#editor')
 	editor.create();
@@ -13,7 +27,7 @@ layui.use(['form','element'], function(){
 	//读取暂存参数
 	var infoId = CustomUtil.requestValue("infoId");
 	
-	
+//	console.log(infoId);
 	
 	//加载内容
 	loadInfoDetail(infoId);
@@ -32,7 +46,14 @@ layui.use(['form','element'], function(){
             success:function(date){
             	console.log(date);
                 if(date.code == 0){
+                	$('#title').html(date.result.infoTitle);
                 	$('#infoContent').html(date.result.infoDetailString);
+                	var marker = new AMap.Marker({
+                		position: [date.result.locationX,date.result.locationY],
+                		title:date.result.infoTitle
+                	});
+                	map.add(marker);
+                	map.setCenter([date.result.locationX,date.result.locationY]);
                 }else{
                 	layer.open({
                 		title: '数据请求失败，请重试'
@@ -41,6 +62,10 @@ layui.use(['form','element'], function(){
                 }
             }
         });
+	}
+	
+	function mapInfo(){
+		
 	}
 	
 });
