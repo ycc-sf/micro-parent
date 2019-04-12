@@ -128,8 +128,8 @@
 	    		<if test="queryParams.title != null and queryParams.title != ''">
 	    			AND info_title LIKE (CONCAT('%',#{queryParams.title},'%'))
 	    		</if>
-	    		<if test="queryParams.infoType != null and queryParams.infoType != ''">
-	    			AND info_type = #{queryParams.infoType}
+	    		<if test="queryParams.infoType != null and queryParams.infoType != '' and queryParams.infoType != 0">
+	    			AND type_id = #{queryParams.infoType}
 	    		</if>
     		</if>
     	</where>
@@ -143,8 +143,8 @@
 	    		<if test="queryParams.title != null and queryParams.title != ''">
 	    			AND info_title LIKE (CONCAT('%',#{queryParams.title},'%'))
 	    		</if>
-	    		<if test="queryParams.infoType != null and queryParams.infoType != ''">
-	    			AND info_type = #{queryParams.infoType}
+	    		<if test="queryParams.infoType != null and queryParams.infoType != '' and queryParams.infoType != 0">
+	    			AND type_id = #{queryParams.infoType}
 	    		</if>
     		</if>
     	</where>
@@ -161,7 +161,7 @@
         <if test="title != null and title != ''" >
             AND info_title LIKE (CONCAT('%',#{title},'%'))
         </if>
-        <if test="infoType != null and infoType != ''" >
+        <if test="infoType != null and infoType != '' and queryParams.infoType != 0" >
             AND type_id = #{infoType}
           </if>
         ORDER BY id DESC

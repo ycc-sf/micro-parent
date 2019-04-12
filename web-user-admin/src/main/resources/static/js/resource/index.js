@@ -2,24 +2,24 @@ layui.use(['form','element', 'layer'], function(){
 	////////////////////////////////本页面全局变量////////////////////////////////////
 	//当前位置坐标
 	var thisPosition = new AMap.LngLat(113.50928629557302, 34.812260470921);
-//	var thisPosition = {
-//	        P: 34.812260470921,
-//	        R: 113.50928629557302,
-//	        lat: 34.81226,
-//	        lng: 113.509286
-//	};
 	var infoRange = 200;//要加载的信息的半径
 	
 	///////////////////////////////初始化执行//////////////////////////////////////
     //初始化页面姓名
 	CustomUtil.initUsernameInHTMLHead();
-//    var realName = $.cookie("realName");
-//    $("#realName").html(realName);
     
     //layui初始化变量
     var form = layui.form
 		,element = layui.element
 		,layer = layui.layer;
+    //加载搜索框的下拉内容
+    loadInfoType();
+    
+    form.on('submit()',function(data){
+       window.open("html/resource/result.html?infoType=" + data.field.infoType
+    		   	 + "&title=" + data.field.title, "_blank");
+       return false;
+    })
     
     //初始化地图
     var map = new AMap.Map('mapContainer', {
@@ -61,18 +61,6 @@ layui.use(['form','element', 'layer'], function(){
     
     //定位成功后，根据定位信息加载最新发布和地图打点
     loadLatestInfo();
-    
-    //点标记
-    // var marker1 = new AMap.Marker({
-    //    position:[116.39, 39.9]//位置
-    //})
-    //map.add(marker1);//添加到地图
-    //map.remove(marker)//移除标记
-
-    // form.on('submit(formDemo)',function(data){
-    //     lay.msg(JSON.stringify(data.field));
-    //     return false;
-    // })
     
     
     ////////////////////////////////自定义函数//////////////////////////////////////
@@ -116,5 +104,34 @@ layui.use(['form','element', 'layer'], function(){
         });
     }
     
-
+    //加载信息类型
+    function loadInfoType(){
+    	//准备参数
+    	var uri = "/resource/getInfoType";
+    	//请求数据
+    	$.ajax({
+            url:uri,
+            type: "get",
+            contentType:"application/json;charset=utf-8",
+            success:function(data){
+            	console.log(data);
+                if(data.code == 0){
+                	console.log("下拉列表", data);
+                	//handlebar遍历左侧推荐信息
+        			var source = $("#infoTypeContent").html();
+        			var template = Handlebars.compile(source);
+        			$("#infoTypeFrame").html(template(data.result));
+        			//select重新渲染
+        			form.render('select');
+                }else{
+                	layer.open({
+                		title: '数据请求失败，请重试'
+                		,content: data.msg
+                	});
+                }
+            }
+        });
+    }
+	
+	
 });

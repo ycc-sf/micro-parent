@@ -199,7 +199,7 @@ public class ResourceController {
     })
     @PostMapping(value = "/pageInfo")
     public RestResponse<Object> pageInfo(@RequestBody InfoPageParams queryParams
-			,@RequestParam Integer pageNo, @RequestParam Integer pageSize){
+			,@RequestParam(name="pageNo", required=false, defaultValue="1") Integer pageNo, @RequestParam(name="pageSize", required=false, defaultValue="10") Integer pageSize){
         logger.info("[begin]pageNo:{} pageSize:{} params:{}",pageNo, pageSize, queryParams);
         Object pageInfo = resourceService.pageInfo(pageNo, pageSize, queryParams);
         logger.info("[end]成功。{}", pageInfo);

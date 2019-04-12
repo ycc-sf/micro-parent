@@ -110,9 +110,10 @@
 						<blockquote class="layui-elem-quote" id="title">查询详情</blockquote>
 					</div>
 					<div class="layui-col-xs6 layui-col-sm6 layui-col-md2 returnbtn">
-						<button class="layui-btn layui-btn-radius layui-btn-primary">
+						<a href="/index.html"><button class="layui-btn layui-btn-radius layui-btn-primary">
 							<i class="layui-icon">&#xe65c;</i>返回
 						</button>
+						</a>
 					</div>
 				</div>
 				<hr>
@@ -128,21 +129,21 @@
 														<i class="iconfont iconleibie" style="color:#FFBF00;font-size: 25px;"></i>&nbsp;&nbsp;类别
 												</label>
 												<div class="layui-input-block selectblock">
-													<select name="sorts" lay-verify="required">
-														<option value=""></option>
-														<option value="0">导游</option>
-														<option value="1">代驾</option>
-														<option value="2">外卖</option>
-														<option value="3">摄影</option>
+													<select id="infoTypeFrame" name="infoType" lay-verify="required">
+														<script id="infoTypeContent" type="text/x-handlebars-template">
+															{{#each this}}
+																<option value="{{this.id}}">{{this.typeName}}</option>
+															{{/each}}
+														</script>
 													</select>
 												</div>
 											</div>
 										</div>
 										<div class="layui-col-xs6 layui-col-sm6 layui-col-md5">
 											<div class="layui-form-item">
-												<label class="layui-form-label">输入</label>
+												<label class="layui-form-label">标题</label>
 												<div class="layui-input-block inputblock">
-													<input type="text" name="title" required="" lay-verify="required" placeholder="请输入查询条件" autocomplete="off" class="layui-input"/>
+													<input type="text" name="title" placeholder="请输入查询条件" autocomplete="off" class="layui-input"/>
 												</div>
 											</div>
 										</div>
@@ -154,30 +155,19 @@
 									</form>
 								</div>
 							</div>
-							<table class="layui-table"lay-skin="row" lay-filter="test"></table>
-							<script type="text/html" id="barDemo">
-								<a class="layui-btn layui-btn-primary layui-btn-mini" lay-event="detail">查看详情</a>
-								<a class="layui-btn layui-btn-mini" lay-event="accept">接收</a>
-							</script>
+							<table class="layui-table" id="infoTable" lay-skin="row" lay-filter="test"></table>
 						</div>
 						<div class="layui-col-xs12 layui-col-sm12 layui-col-md3">
 							<div class="layui-card cardmodal">
 							<div class="layui-card-header cardtitle">
 								<i class="iconfont iconhot" style="color:#E53939 ;font-size: 19px;"></i> 热门推荐</div>
 									<div class="layui-card-body cardbody">
-										<ul>
-											<li>
-												<div class="layui-row">
-													<div class="layui-col-xs8 layui-col-sm8 layui-col-md9">
-														xxx寻物启事
-													</div>
-													<div class="layui-col-xs4 layui-col-sm1 layui-col-md2 layui-col-sm-offset3 layui-col-md-offset1">
-														<i class="iconfont iconjiaji" style="color:#d81e06;font-size: 25px;"></i>
-													</div>
-												</div>
-											</li>
-											<li>xxx小区宠物丢失</li>
-											<li>xxx及时达寻找顺路人，有报酬！</li>
+										<ul id="latestInfoFrame">
+											<script id="latestInfoContent" type="text/x-handlebars-template">
+												{{#each this}}
+													<a href="/html/resource/detail.html?infoId={{this.id}}"><li infoId={{this.id}}><i class="iconfont iconyuan" style="font-size: 10px;"></i>&nbsp;&nbsp;{{this.infoTitle}}</li></a>
+												{{/each}}
+											</script>
 										</ul>
 									</div>
 								</div>
@@ -189,6 +179,8 @@
 		</div>
 	</body>
 	<script type="text/javascript" src="../../plugin/jquery/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="../../plugin/handlebars-v4.0.5.js"></script>
+	<script type="text/javascript" src="../../js/common/customUtil.js"></script>
 	<script type="text/javascript" src="../../plugin/layui/layui.js"></script>
 	<script type="text/javascript" src="../../js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="../../js/resource/result.js"></script>
