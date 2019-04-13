@@ -96,7 +96,7 @@ public class ResourceController {
     })
     @PostMapping(value = "/pageSubscription")
     public RestResponse<Object> pageSubscription(@RequestBody SubscriptionPageParams queryParams
-			,@RequestParam Integer pageNo, @RequestParam Integer pageSize){
+			,@RequestParam(name="pageNo", required=false, defaultValue="1") Integer pageNo, @RequestParam(name="pageSize", required=false, defaultValue="20") Integer pageSize){
         logger.info("[begin]pageNo:{} pageSize:{} params:{}",pageNo, pageSize, queryParams);
         Object list = resourceService.pageSubscription(pageNo, pageSize, queryParams);
         logger.info("[end]成功。{}", list);
@@ -111,7 +111,7 @@ public class ResourceController {
     })
     @PostMapping(value = "/pageComment")
     public RestResponse<Object> pageComment(@RequestBody CommentPageParams queryParams
-			,@RequestParam Integer pageNo, @RequestParam Integer pageSize){
+			,@RequestParam(name="pageNo", required=false, defaultValue="1") Integer pageNo, @RequestParam(name="pageSize", required=false, defaultValue="20") Integer pageSize){
         logger.info("[begin]pageNo:{} pageSize:{} params:{}",pageNo, pageSize, queryParams);
         Object list = resourceService.pageComment(pageNo, pageSize, queryParams);
         logger.info("[end]成功。{}", list);
@@ -135,7 +135,8 @@ public class ResourceController {
 		@ApiImplicitParam(name = "comment", value="评论", required=true, dataTypeClass=Comment.class, paramType="body")
 	})
 	@PostMapping("/addComment")
-	public RestResponse<Object> addComment(@RequestBody Comment comment){
+	public RestResponse<Object> addComment(@RequestAttribute(value="userInfo", required=false) UserInfo user,@RequestBody Comment comment){
+    	comment.setUserId(user.getId());
 		logger.info("[begin]参数:{}",comment);
 		Object newId = resourceService.addComment(comment);
         logger.info("[end]结果。{}", newId);
@@ -198,9 +199,13 @@ public class ResourceController {
 		@ApiImplicitParam(name = "queryParams", value = "查询条件（title和infoType）", required = false, dataTypeClass = InfoPageParams.class, paramType = "body")
     })
     @PostMapping(value = "/pageInfo")
-    public RestResponse<Object> pageInfo(@RequestBody InfoPageParams queryParams
-			,@RequestParam(name="pageNo", required=false, defaultValue="1") Integer pageNo, @RequestParam(name="pageSize", required=false, defaultValue="10") Integer pageSize){
+    public RestResponse<Object> pageInfo(@RequestAttribute(value="userInfo", required=false) UserInfo user,@RequestBody InfoPageParams queryParams
+			,@RequestParam(name="pageNo", required=false, defaultValue="1") Integer pageNo, @RequestParam(name="pageSize", required=false, defaultValue="20") Integer pageSize){
         logger.info("[begin]pageNo:{} pageSize:{} params:{}",pageNo, pageSize, queryParams);
+        //如果查询参数中的userid为null或者为0，则为查询所有信息，否则查询指定userId的信息
+        if(queryParams.getUserId() != null && queryParams.getUserId() != 0){
+        	queryParams.setUserId(user.getId());
+        }
         Object pageInfo = resourceService.pageInfo(pageNo, pageSize, queryParams);
         logger.info("[end]成功。{}", pageInfo);
         return RestResponse.success(pageInfo);
@@ -252,7 +257,7 @@ public class ResourceController {
 		@ApiImplicitParam(name = "str", value = "str", required = false, dataType = "String", paramType="query")
 	})
 	@GetMapping(value = "/hi")
-	public RestResponse<Nullable> pageApplicationByConditions(@RequestParam String str) throws UnsupportedEncodingException{
+	public RestResponse<Nullable> hi(@RequestParam String str) throws UnsupportedEncodingException{
     	logger.info("Hi! This is web-user." + str);
 		String url = "http://127.0.0.1:53010/resource/hi?str=" + str;
 	    // 存储相关的header值
