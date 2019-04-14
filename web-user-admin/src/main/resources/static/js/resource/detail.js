@@ -1,7 +1,9 @@
 layui.use(['form','element','layer'], function(){
 	//初始化页面姓名
 	CustomUtil.initUsernameInHTMLHead();
-	 
+	var realName = $.cookie("realName");
+    $("#commentUser").html(realName);
+
 	//当前位置坐标
 	var thisPosition = new AMap.LngLat(113.50928629557302, 34.812260470921);
 	
@@ -9,29 +11,29 @@ layui.use(['form','element','layer'], function(){
   		,element = layui.element
   		,layer = layui.layer;
 	
-//	alert(11111);
+	//暂存通过uri传递过来的参数
+	CustomUtil.receiveData();
+	//读取暂存参数
+	var infoId = CustomUtil.requestValue("infoId");
+	
+	//加载
+	layer.load();
+	//加载内容
+	loadInfoDetail(infoId);
+	
 	//创建地图
 	var map = new AMap.Map('detailMap',{
 		zoom:11,
 		center:[113.6347424, 34.7218855],
 		viewMode:'3D'
 	});
+	//关闭加载
+	layer.closeAll('loading');
+	//评论提交监听事件
+	$("#commentBtn").click(publishComment);
 	
-	
-	var E = window.wangEditor
-	var editor = new E('#editor')
-	editor.create();
-	
-	//暂存通过uri传递过来的参数
-	CustomUtil.receiveData();
-	//读取暂存参数
-	var infoId = CustomUtil.requestValue("infoId");
-	
-//	console.log(infoId);
-	
-	//加载内容
-	loadInfoDetail(infoId);
-	
+	//加载评论内容
+	commentInfos(infoId);
 	
 	
     ////////////////////////////////自定义函数//////////////////////////////////////
@@ -64,8 +66,64 @@ layui.use(['form','element','layer'], function(){
         });
 	}
 	
-	function mapInfo(){
+	//发布评论
+	function publishComment(){
+//		console.log();$("#userName").attr("value")
 		
+		var url = "/resource/addComment";
+		var param = {
+			infoId:infoId,
+			commDetailString:$("#editor").val()
+		};
+//		console.log(param);
+		$.ajax({
+			url:url,
+			data:JSON.stringify(param),
+			type:"post",
+			contentType:"application/json;charset=utf-8",
+			success:function(data){
+				if(data.code === 0){
+					console.log("发表", data);
+					$("#editor").val('');
+					layer.msg('发表成功');
+					commentInfos(infoId);
+				}else{
+					layer.open({
+                		title: '失败！'
+                		,content: data.msg
+                	});
+				}
+			}
+		});
+	}
+	
+	//加载评论内容
+	function commentInfos(id){
+			console.log(id);
+			var url = "/resource/pageComment?pageNo=1&pageSize=100";
+			var param = {
+				infoId:id	
+			};
+			$.ajax({
+				url:url,
+				data:JSON.stringify(param),
+				type:"post",
+				contentType:"application/json;charset=utf-8",
+				success:function(data){
+					console.log(data);
+					if(data.code == 0){
+						var source = $("#commentInfoBody").html();
+	        			var template = Handlebars.compile(source);
+	        			$("#commentModalInfo").html(template(data.result.content));
+	        			
+					}else{
+						layer.open({
+	                		title: '评论加载失败！'
+	                		,content: data.msg
+	                	});
+					}
+				}
+			});
 	}
 	
 });
