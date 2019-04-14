@@ -12,7 +12,38 @@ var CustomUtil = (function() {
 			var realName = $.cookie("realName");
 		    $("#realName").html(realName);
 		},
-	
+		
+		
+		//加载信息类型
+		loadInfoType : function(){
+	    	//准备参数
+	    	var uri = "/resource/getInfoType";
+	    	//请求数据
+	    	$.ajax({
+	            url:uri,
+	            type: "get",
+	            contentType:"application/json;charset=utf-8",
+	            success:function(data){
+	            	console.log(data);
+	                if(data.code == 0){
+	                	console.log("下拉列表", data);
+	                	//handlebar遍历左侧推荐信息
+	        			var source = $("#infoTypeContent").html();
+	        			var template = Handlebars.compile(source);
+	        			$("#infoTypeFrame").html(template(data.result));
+	        			//select重新渲染
+	        			form.render('select');
+	                }else{
+	                	layer.open({
+	                		title: '数据请求失败，请重试'
+	                		,content: data.msg
+	                	});
+	                }
+	            }
+	        });
+	    },
+		
+		
 		// 接收uri参数
 		receiveData : function(){
 			var url = decodeURI(window.location.href);  

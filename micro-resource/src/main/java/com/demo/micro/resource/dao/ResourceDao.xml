@@ -38,18 +38,18 @@
     </select>
     
     <select id="pageSubscription" resultType="Subscription">
-    	SELECT * 
-    	FROM r_subscription
+    	SELECT s.*, i.info_title AS 'infoTitle' 
+    	FROM r_subscription s LEFT JOIN r_info i ON s.info_id = i.id  
     	<where>
     		<if test="queryParams != null">
 	    		<if test="queryParams.infoId != null and queryParams.infoId != ''">
-	    			AND info_id = #{queryParams.infoId}
+	    			AND s.info_id = #{queryParams.infoId}
 	    		</if>
 	    		<if test="queryParams.userId != null and queryParams.userId != ''">
-	    			AND user_id = #{queryParams.userId}
+	    			AND s.user_id = #{queryParams.userId}
 	    		</if>
 	    		<if test="queryParams.status != null and queryParams.status != ''">
-	    			AND status = #{queryParams.status}
+	    			AND s.status = #{queryParams.status}
 	    		</if>
     		</if>
     	</where>
@@ -58,7 +58,7 @@
     
     <select id="countCommentByConditions" resultType="Long">
     	SELECT COUNT(1) 
-    	FROM r_comment
+    	FROM r_comment 
     	<where>
     		<if test="queryParams != null">
 	    		<if test="queryParams.infoId != null and queryParams.infoId != ''">
@@ -72,15 +72,15 @@
     </select>
     
     <select id="pageComment" resultType="Comment">
-    	SELECT * 
-    	FROM r_comment
+    	SELECT c.*, u.username AS 'username', u.real_name AS 'realName' 
+    	FROM r_comment c LEFT JOIN r_user u ON c.user_id = u.id
     	<where>
     		<if test="queryParams != null">
 	    		<if test="queryParams.infoId != null and queryParams.infoId != ''">
-	    			AND info_id = #{queryParams.infoId}
+	    			AND c.info_id = #{queryParams.infoId}
 	    		</if>
 	    		<if test="queryParams.userId != null and queryParams.userId != ''">
-	    			AND user_id = #{queryParams.userId}
+	    			AND c.user_id = #{queryParams.userId}
 	    		</if>
     		</if>
     	</where>
@@ -131,6 +131,9 @@
 	    		<if test="queryParams.infoType != null and queryParams.infoType != '' and queryParams.infoType != 0">
 	    			AND type_id = #{queryParams.infoType}
 	    		</if>
+	    		<if test="queryParams.userId != null and queryParams.userId != '' and queryParams.userId != 0">
+	    			AND user_id = #{queryParams.userId}
+	    		</if>
     		</if>
     	</where>
     </select>
@@ -145,6 +148,9 @@
 	    		</if>
 	    		<if test="queryParams.infoType != null and queryParams.infoType != '' and queryParams.infoType != 0">
 	    			AND type_id = #{queryParams.infoType}
+	    		</if>
+	    		<if test="queryParams.userId != null and queryParams.userId != '' and queryParams.userId != 0">
+	    			AND user_id = #{queryParams.userId}
 	    		</if>
     		</if>
     	</where>

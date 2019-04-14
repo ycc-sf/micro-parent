@@ -79,6 +79,16 @@ public class ResourceServiceImpl implements ResourceService {
         PageRequestParams pageRequest = PageRequestParams.of(pageNo, pageSize);
         //条件查询
         List<Comment> commentList = resourceDao.pageComment(pageRequest, queryParams);
+        //字节内容转为字符
+        for(Comment c : commentList){
+        	Object detailBlob = c.getCommDetail();
+    		logger.info("[runing]detailBlob:{}", detailBlob);
+    		if(detailBlob != null){
+    			String detailString = new String((byte[])detailBlob);
+    			c.setCommDetailString(detailString);
+    			logger.info("[runing]detailString:{}", detailString);
+    		}
+        }
         //查询符合条件的总数
         Long total = resourceDao.countCommentByConditions(queryParams);
         //封装pageable

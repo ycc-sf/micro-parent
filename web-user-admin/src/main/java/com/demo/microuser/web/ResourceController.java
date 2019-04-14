@@ -81,7 +81,8 @@ public class ResourceController {
 		@ApiImplicitParam(name = "subscription", value="评论", required=true, dataTypeClass=Subscription.class, paramType="body")
 	})
 	@PostMapping("/addSubscription")
-	public RestResponse<Object> addSubscription(@RequestBody Subscription subscription){
+	public RestResponse<Object> addSubscription(@RequestAttribute(value="userInfo", required=false) UserInfo user,@RequestBody Subscription subscription){
+    	subscription.setUserId(user.getId());
 		logger.info("[begin]参数:{}",subscription);
 		Object newId = resourceService.addSubscription(subscription);
         logger.info("[end]结果。{}", newId);
@@ -95,9 +96,14 @@ public class ResourceController {
 		@ApiImplicitParam(name = "queryParams", value = "查询条件（userId、infoId、status）", required = false, dataTypeClass = SubscriptionPageParams.class, paramType = "body")
     })
     @PostMapping(value = "/pageSubscription")
-    public RestResponse<Object> pageSubscription(@RequestBody SubscriptionPageParams queryParams
+    public RestResponse<Object> pageSubscription(@RequestAttribute(value="userInfo", required=false) UserInfo user,@RequestBody SubscriptionPageParams queryParams
 			,@RequestParam(name="pageNo", required=false, defaultValue="1") Integer pageNo, @RequestParam(name="pageSize", required=false, defaultValue="20") Integer pageSize){
         logger.info("[begin]pageNo:{} pageSize:{} params:{}",pageNo, pageSize, queryParams);
+        //如果查询参数中的userid为null或者为0，则为查询所有信息，否则查询指定userId的信息
+        if(queryParams.getUserId() != null && queryParams.getUserId() != 0){
+        	queryParams.setUserId(user.getId());
+        	logger.info("[设置用户id]params:{}",queryParams);
+        }
         Object list = resourceService.pageSubscription(pageNo, pageSize, queryParams);
         logger.info("[end]成功。{}", list);
         return RestResponse.success(list);
@@ -110,9 +116,14 @@ public class ResourceController {
 		@ApiImplicitParam(name = "queryParams", value = "查询条件（userId和infoId）", required = false, dataTypeClass = CommentPageParams.class, paramType = "body")
     })
     @PostMapping(value = "/pageComment")
-    public RestResponse<Object> pageComment(@RequestBody CommentPageParams queryParams
+    public RestResponse<Object> pageComment(@RequestAttribute(value="userInfo", required=false) UserInfo user,@RequestBody CommentPageParams queryParams
 			,@RequestParam(name="pageNo", required=false, defaultValue="1") Integer pageNo, @RequestParam(name="pageSize", required=false, defaultValue="20") Integer pageSize){
         logger.info("[begin]pageNo:{} pageSize:{} params:{}",pageNo, pageSize, queryParams);
+        //如果查询参数中的userid为null或者为0，则为查询所有信息，否则查询指定userId的信息
+        if(queryParams.getUserId() != null && queryParams.getUserId() != 0){
+        	queryParams.setUserId(user.getId());
+        	logger.info("[设置用户id]params:{}",queryParams);
+        }
         Object list = resourceService.pageComment(pageNo, pageSize, queryParams);
         logger.info("[end]成功。{}", list);
         return RestResponse.success(list);
@@ -205,6 +216,7 @@ public class ResourceController {
         //如果查询参数中的userid为null或者为0，则为查询所有信息，否则查询指定userId的信息
         if(queryParams.getUserId() != null && queryParams.getUserId() != 0){
         	queryParams.setUserId(user.getId());
+        	logger.info("[设置用户id]params:{}",queryParams);
         }
         Object pageInfo = resourceService.pageInfo(pageNo, pageSize, queryParams);
         logger.info("[end]成功。{}", pageInfo);

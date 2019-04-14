@@ -84,7 +84,7 @@
 				</div>
 				<hr>
 				<div class="result-body">
-					<div class="searchmodal">
+					<!-- <div class="searchmodal">
 						<form class="layui-form" action="">
 							<div class="layui-form-item">
 								<div class="layui-inline">
@@ -114,11 +114,11 @@
 								</div>
 							</div>
 						</form>
-					</div>
-					<table class="layui-table" lay-skin="row" lay-filter="test"></table>
+					</div> -->
+					<table class="layui-table" id="infoTable" lay-skin="row" lay-filter="test"></table>
 					<script type="text/html" id="barDemo">
-						<a class="layui-btn layui-btn-primary layui-btn-mini" lay-event="detail">查看</a>
-						<a class="layui-btn layui-btn-mini" lay-event="accept">接收</a>
+						<a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="detail">详情</a>
+						<a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="delete">删除</a>
 					</script>
 						
 						<!--<div class="layui-col-md3">
@@ -133,33 +133,9 @@
 		</div>
 	</body>
 	<script type="text/javascript" src="../../plugin/jquery/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="../../plugin/handlebars-v4.0.5.js"></script>
+	<script type="text/javascript" src="../../js/common/customUtil.js"></script>
 	<script type="text/javascript" src="../../plugin/layui/layui.js"></script>
 	<script type="text/javascript" src="../../js/jquery.cookie.js"></script>
-	<script>
-		layui.use(['form','table','element'], function(){
-		   var form = layui.form
-	  ,element = layui.element;
-	  	   var table = layui.table; 
-	  
-	  table.render({
-	  	   	elem:'.layui-table',
-	  	   	url:'xxx',
-	  	   	page:true,
-	  	   	cols:[[
-	  	   		{field:'id',title:'ID',width:150,sort:true,fixed:'left',align:'center'},
-	  	   		{field:'category',title:'类别',width:150,align:'center'},
-	  	   		{field:'issuer',title:'发布人',width:150,align:'center'},
-	  	   		{field:'telphone',title:'联系方式',width:150,align:'center'},
-	  	   		{field:'address',title:'地址',width:150,align:'center'},
-	  	   		{field:'creatTime',title:'发布时间',width:150,align:'center'},
-	  	   		{field:'right',title:'操作',width:300,toolbar:"#barDemo",align:'center'}
-	  	   	]]
-	  	  })
-	  
-	   form.on('submit(formDemo)',function(data){
-		  	lay.msg(JSON.stringify(data.field));
-		  	return false;
-		  });
-		});
-	</script>
+	<script type="text/javascript" src="../../js/resource/mySubscription.js"></script>
 </html>

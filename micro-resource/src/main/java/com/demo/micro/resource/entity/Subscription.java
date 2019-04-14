@@ -15,6 +15,8 @@ public class Subscription {
     private Long userId;
     @ApiModelProperty("信息id")
     private Long infoId;
+    @ApiModelProperty("信息标题")
+    private String infoTitle;
     @ApiModelProperty("1:订阅中；2：已完成")
     private int status;
     @ApiModelProperty("时间")
