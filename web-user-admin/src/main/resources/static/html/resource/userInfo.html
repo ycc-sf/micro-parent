@@ -10,7 +10,7 @@
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	    <title>我的资料</title>
 	    <link rel="stylesheet" href="../../plugin/layui/css/layui.css"/>
-	    <link rel="stylesheet" href="../../css/resource/header.css"/>
+	     <link rel="stylesheet" href="../../css/resource/header.css"/>
 	    <link rel="stylesheet" type="text/css" href="../../css/resource/common.css" />
 	    <style type="text/css">
 	    	.mainbody{
@@ -28,12 +28,29 @@
 	    		font-size: 15px;
 	    		padding-top: 20px;
 	    		color: #6E6E6E;
+	    		
+	    	}
+	    	.resetContent{
+	    		font-size: 15px;
+	    		padding-top: 20px;
+	    		color: #6E6E6E;
+	    		display:none;
 	    	}
 	    	.commonicon{
 	    		font-size: 25px;
+	    		float:left;
 	    	}
 	    	.content{
 	    		margin-bottom: 20px;
+	    	}
+	    	.labelIcon{
+	    		width:20px;
+	    	}
+	    	.inputBlock{
+	    		width:50%;
+	    	}
+	    	.btngroup{
+	    		margin-left:46%;
 	    	}
 	    </style>
 	</head>
@@ -56,9 +73,15 @@
 					</div>
 					<div class="layui-row content">
 						<div class="layui-col-md1">
-							<i class="iconfont iconxingbie commonicon" style="color:#F5A9D0;"></i>
+							<i class="iconfont iconshiming commonicon" style="color:#9A2EFE;"></i>
 						</div>
-						<div class="layui-col-md11">女</div>
+						<div class="layui-col-md11" style="font-size: 18px;font-weight: 600;">肥嘟嘟</div>
+					</div>
+					<div class="layui-row content">
+						<div class="layui-col-md1">
+							<i class="iconfont iconmima commonicon" style="color:#F5A9D0;"></i>
+						</div>
+						<div class="layui-col-md11" style="font-size:22px;">........</div>
 					</div>
 					<div class="layui-row content">
 						<div class="layui-col-md1">
@@ -72,39 +95,98 @@
 						</div>
 						<div class="layui-col-md11">1326478965@qq.com</div>
 					</div>
+					<div class="layui-row btngroup">
+						<button class="layui-btn layui-btn-normal" id="updateBtn">修改</button>
+					</div>
 				</div>
+				<!-- 修改模块 -->
+				<div class="layui-col-md9 layui-col-md-offset1 resetContent">
+					<form class="layui-form" action="">
+						<div class="layui-form-item content">
+						   <label class="layui-form-label labelIcon"><i class="iconfont icon1zhenshixingming commonicon" style="color:#2E9AFE;"></i></label>
+						   <div class="layui-input-block inputBlock">
+						     <input type="text" name="title" required  lay-verify="required" placeholder="请输入昵称" autocomplete="off" class="layui-input">
+						   </div>
+						 </div>
+						 <div class="layui-form-item content">
+						   <label class="layui-form-label labelIcon"><i class="iconfont iconshiming commonicon" style="color:#9A2EFE;"></i></label>
+						   <div class="layui-input-block inputBlock">
+						     <input type="text" name="title" required  lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+						   </div>
+						 </div>
+						 <div class="layui-form-item content">
+						    <label class="layui-form-label"><i class="iconfont iconmima commonicon" style="color:#F5A9D0;"></i></label>
+						    <div class="layui-input-block inputBlock">
+						     <input type="password" name="password" lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+						   </div>
+						 </div>
+						 <div class="layui-form-item content">
+						   <label class="layui-form-label labelIcon"><i class="iconfont iconlianxifangshi commonicon" style="color:#FFBF00"></i></label>
+						   <div class="layui-input-block inputBlock">
+						     <input type="text" name="title" required  lay-verify="required" placeholder="请输入联系电话" autocomplete="off" class="layui-input">
+						   </div>
+						 </div>
+						 <div class="layui-form-item content">
+						   <label class="layui-form-label labelIcon"><i class="iconfont iconyouxiang commonicon" style="color:#58FA82"></i></label>
+						   <div class="layui-input-block inputBlock">
+						     <input type="text" name="title" required  lay-verify="required" placeholder="请输入联系邮箱" autocomplete="off" class="layui-input">
+						   </div>
+						 </div>
+						 <div class="layui-row btngroup">
+						 	<button class="layui-btn layui-btn-normal">提交</button>
+						 	<button class="layui-btn layui-btn-primary" id="cancelBtn">取消</button>
+						 	<!-- <div class="layui-col-md6">
+						 		<button class="layui-btn layui-btn-normal">提交</button>
+						 	</div>
+							<div class="layui-col-md6">
+								<button class="layui-btn layui-btn-primary">取消</button>
+							</div> -->
+						</div>
+					</form>
+					
+					<!-- <div class="layui-row content">
+						<div class="layui-col-md1">
+							<i class="iconfont iconshiming commonicon" style="color:#9A2EFE;"></i>
+						</div>
+						<div class="layui-col-md11" style="font-size: 18px;font-weight: 600;">肥嘟嘟</div>
+						<div class="layui-col-md11" style="width:50%;display:none;">
+							 <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-row content">
+						<div class="layui-col-md1">
+							<i class="iconfont iconxingbie commonicon" style="color:#F5A9D0;"></i>
+						</div>
+						<div class="layui-col-md11">女</div>
+						<div class="layui-col-md11" style="width:50%;">
+							 <input type="radio" name="sex" value="男" title="男">
+      						 <input type="radio" name="sex" value="女" title="女" checked>
+						</div>
+					</div>
+					<div class="layui-row content">
+						<div class="layui-col-md1">
+							<i class="iconfont iconlianxifangshi commonicon" style="color:#FFBF00"></i>
+						</div>
+						<div class="layui-col-md11">1326478965</div>
+					</div>
+					<div class="layui-row content">
+						<div class="layui-col-md1">
+							<i class="iconfont iconyouxiang commonicon" style="color:#58FA82"></i>
+						</div>
+						<div class="layui-col-md11">1326478965@qq.com</div>
+					</div>
+					<div class="layui-row">
+						<button class="layui-btn layui-btn-normal resetBtn">修改</button>
+					</div>
+				</div> -->
 			</div>
-			<div class="layui-row">
-				
-			</div>
+			
+			
 		</div>
 	</body>
 	<script type="text/javascript" src="../../plugin/jquery/jquery-1.11.3.min.js"></script>
 	<script type="text/javascript" src="../../plugin/layui/layui.js"></script>
 	<script type="text/javascript" src="../../js/jquery.cookie.js"></script>
-	<script>
-		//JavaScript代码区域
-		layui.use(['form','element'], function(){
-		   var form = layui.form
-	  ,element = layui.element;
-		  
-		  
-		  form.on('submit(formDemo)',function(data){
-		  	lay.msg(JSON.stringify(data.field));
-		  	return false;
-		  })
-		});
-		
-	//	function loadHtml(url){
-	//		alert(url);
-	//		url = url+"&temp="+Math.random();
-	//		$("#contentDiv").load(url,function(response,status,xhr){
-	//	        
-	//	    });
-	//	}
-	//	
-	//	$(function(){
-	//		$("ul li:first-child dl dd a:first-child").click();
-	//	});
-	</script>
+	<script type="text/javascript" src="../../js/common/customUtil.js"></script>
+	<script type="text/javascript" src="../../js/resource/userInfo.js"></script>
 </html>
