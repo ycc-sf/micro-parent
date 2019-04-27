@@ -130,6 +130,13 @@ public interface ResourceDao {
                                @Param("range") double range, @Param("number") int number);
 
     /**
+     * 修改用户信息
+     * @param user
+     * @return
+     */
+    int updateUserById(UserInfo user);
+    
+    /**
      * 通过用户名查找用户
      * @param username
      * @return

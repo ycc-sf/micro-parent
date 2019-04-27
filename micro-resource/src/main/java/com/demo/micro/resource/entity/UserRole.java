@@ -11,4 +11,8 @@ public class UserRole extends UserInfo{
     private String roleName;
     @ApiModelProperty("角色等级")
     private int level;
+    @Override
+	public String toString() {
+		return super.toString() + "UserRole [roleName=" + roleName + ", level=" + level + "]";
+	}
 }

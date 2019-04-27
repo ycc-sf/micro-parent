@@ -20,5 +20,11 @@ public class UserInfo {
     private String password;
     @ApiModelProperty("角色id")
     private Long roleId;
+    @ApiModelProperty("性别（1：保密；2：男；3：女）")
+    private Integer gender;
+    @ApiModelProperty("手机号")
+    private String phonenum;
+    @ApiModelProperty("邮箱")
+    private String email;
 
 }

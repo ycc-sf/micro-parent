@@ -14,6 +14,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -48,7 +49,16 @@ public class ResourceController {
 	
 	
 	
-	
+	@ApiOperation("根据id修改用户信息")
+	@ApiImplicitParams({
+	})
+	@PutMapping("/updateUserById")
+	public RestResponse<Nullable> updateUserById(@RequestBody UserInfo user){
+		logger.info("[begin]");
+        resourceService.updateUserById(user);
+        logger.info("[end]结果。");
+        return RestResponse.success();
+	}
 	
 	@ApiOperation("获取所有信息类型")
 	@ApiImplicitParams({

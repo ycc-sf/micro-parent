@@ -40,6 +40,13 @@ public class ResourceServiceImpl implements ResourceService {
 	private static final Logger logger = LoggerFactory.getLogger(ResourceServiceImpl.class);
 	
 	
+	public void updateUserById(UserInfo user){
+		int influence = resourceDao.updateUserById(user);
+		if(influence == 0){
+			throw new BusinessException(ErrorCode.E_102002);
+		}
+	}
+	
 	public List<InfoType> getInfoType(){
 		List<InfoType> infoType = resourceDao.selectInfoType();
 		return infoType;
@@ -129,21 +136,21 @@ public class ResourceServiceImpl implements ResourceService {
         if(users.size() > 1){
             throw new BusinessException(ErrorCode.E_101004);
         }
-        //获取角色
-        Role role = resourceDao.findRoleById(users.get(0).getRoleId());
-        logger.info("[service-]获取角色。{}", role);
-        if(role == null){
-            throw new BusinessException(ErrorCode.E_101005);
-        }
-        UserRole userRole = new UserRole();
-        userRole.setId(users.get(0).getId());
-        userRole.setUsername(users.get(0).getUsername());
-        userRole.setRealName(users.get(0).getRealName());
-        userRole.setRoleId(users.get(0).getRoleId());
-        userRole.setRoleName(role.getRoleName());
-        userRole.setLevel(role.getLevel());
-        logger.info("[service-end]登录。{}", userRole);
-        return userRole;
+//        //获取角色
+//        Role role = resourceDao.findRoleById(users.get(0).getRoleId());
+//        logger.info("[service-]获取角色。{}", role);
+//        if(role == null){
+//            throw new BusinessException(ErrorCode.E_101005);
+//        }
+//        UserRole userRole = new UserRole();
+//        userRole.setId(users.get(0).getId());
+//        userRole.setUsername(users.get(0).getUsername());
+//        userRole.setRealName(users.get(0).getRealName());
+//        userRole.setRoleId(users.get(0).getRoleId());
+//        userRole.setRoleName(role.getRoleName());
+//        userRole.setLevel(role.getLevel());
+        logger.info("[service-end]登录。{}", users.get(0));
+        return users.get(0);
 		
 	}
 	

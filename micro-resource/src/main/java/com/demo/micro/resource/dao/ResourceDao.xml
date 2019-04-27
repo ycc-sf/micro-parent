@@ -154,6 +154,7 @@
 	    		</if>
     		</if>
     	</where>
+    	ORDER BY id DESC
     	limit #{pageParams.startRow}, #{pageParams.limit}
     </select>
     
@@ -174,8 +175,21 @@
         LIMIT 0, #{number}
     </select>
 	
+	<update id="updateUserById" parameterType="UserInfo">
+		UPDATE r_user
+		SET password = #{password},
+			real_name = #{realName},
+			role_id = #{roleId},
+			gender = #{gender},
+			phonenum = #{phonenum},
+			email = #{email}
+		WHERE id = #{id}
+	</update>
+	
 	<select id="findUserByUsername" resultType="UserInfo">
-        SELECT * FROM r_user WHERE username = #{username}
+        SELECT u.*, r.* 
+        FROM r_user u LEFT JOIN r_role r ON u.role_id = r.id
+        WHERE username = #{username}
     </select>
     
     <select id="findRoleById" resultType="Role">

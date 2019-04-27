@@ -22,6 +22,12 @@ import com.demo.micro.resource.entity.UserRole;
 public interface ResourceService {
 	
 	
+	/**
+     * 修改用户信息
+     * @param user
+     * @return
+     */
+    void updateUserById(UserInfo user);
 	
 	/**
 	 * 获取所有信息类型

@@ -5,7 +5,23 @@ layui.use(['form','element', 'layer'], function(){
 	var infoRange = 200;//要加载的信息的半径
 	
 	///////////////////////////////初始化执行//////////////////////////////////////
-    //初始化页面姓名
+	//加载动画
+    $('html').loading({
+		loadingWidth:240,
+		title:'加载中',
+		name:'mapLoading',
+		discription:'',
+		direction:'column',
+		type:'origin',
+		// originBg:'#71EA71',
+		originDivWidth:40,
+		originDivHeight:40,
+		originWidth:6,
+		originHeight:6,
+		smallLoading:false,
+		loadingMaskBg:'rgba(0,0,0,0.2)'
+	});
+	//初始化页面姓名
 	CustomUtil.initUsernameInHTMLHead();
     
     //layui初始化变量
@@ -21,48 +37,51 @@ layui.use(['form','element', 'layer'], function(){
        return false;
     })
     
-    //初始化地图
-    var map = new AMap.Map('mapContainer', {
-        zoom:11,//级别
-        center: [113.6347424, 34.7218855],//中心点坐标
-        viewMode:'3D'//使用3D视图
-    });
-
-    //定位
-    map.plugin('AMap.Geolocation', function() {
-        var geolocation = new AMap.Geolocation({
-            // 是否使用高精度定位，默认：true
-            enableHighAccuracy: true,
-            // 设置定位超时时间，默认：无穷大
-            timeout: 10000,
-            // 定位按钮的停靠位置的偏移量，默认：Pixel(10, 20)
-            buttonOffset: new AMap.Pixel(10, 20),
-            //  定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
-            zoomToAccuracy: true,
-            //  定位按钮的排放位置,  RB表示右下
-            buttonPosition: 'RB'
+    var map;
+    setTimeout(function () {
+    	//初始化地图
+        map = new AMap.Map('mapContainer', {
+            zoom:11,//级别
+            center: [113.6347424, 34.7218855],//中心点坐标
+            viewMode:'3D'//使用3D视图
+        });
+        //定位
+        map.plugin('AMap.Geolocation', function() {
+            var geolocation = new AMap.Geolocation({
+                // 是否使用高精度定位，默认：true
+                enableHighAccuracy: true,
+                // 设置定位超时时间，默认：无穷大
+                timeout: 10000,
+                // 定位按钮的停靠位置的偏移量，默认：Pixel(10, 20)
+                buttonOffset: new AMap.Pixel(10, 20),
+                //  定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+                zoomToAccuracy: true,
+                //  定位按钮的排放位置,  RB表示右下
+                buttonPosition: 'RB'
+            })
+            geolocation.getCurrentPosition()
+            AMap.event.addListener(geolocation, 'complete', onComplete)
+            AMap.event.addListener(geolocation, 'error', onError)
+            function onComplete (data) {
+                // data是具体的定位信息
+                console.log("定位成功", data);
+                layer.msg("定位成功");
+                //修改当前位置
+                thisPosition = data.position;
+                map.setCenter(data.position);
+            }
+            function onError (data) {
+                // 定位出错
+//                layer.msg('由于浏览器不支持等原因导致定位失败，默认加载郑州市信息');
+            }
         })
-        geolocation.getCurrentPosition()
-        AMap.event.addListener(geolocation, 'complete', onComplete)
-        AMap.event.addListener(geolocation, 'error', onError)
-        function onComplete (data) {
-            // data是具体的定位信息
-            console.log("定位成功", data);
-            layer.msg("定位成功");
-            //修改当前位置
-            thisPosition = data.position;
-            map.setCenter(data.position);
-        }
-        function onError (data) {
-            // 定位出错
-//            layer.msg('由于浏览器不支持等原因导致定位失败，默认加载郑州市信息');
-        }
-    })
-    
-    //定位成功后，根据定位信息加载最新发布和地图打点
-    loadLatestInfo();
-    
-    
+        
+        //定位成功后，根据定位信息加载最新发布和地图打点
+        loadLatestInfo();
+        //去除加载动画
+        removeLoading('mapLoading');
+	}, 500);
+
     ////////////////////////////////自定义函数//////////////////////////////////////
     //加载最新发布
     function loadLatestInfo(){

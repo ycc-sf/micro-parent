@@ -17,9 +17,10 @@ layui.use(['form','table','element'], function(){
         , page : true
         , cols: [[ //标题栏
             {field:'id',title:'ID',width:120,sort:true,align:'center'},
-	          {field:'infoTitle',title:'订阅标题',align:'center'},
-	          {field:'createDate',title:'发布时间',width:120,align:'center'},
-	          {title:'操作',width:200,toolbar:"#barDemo",align:'center'}
+            {field:'infoId',hide:true},
+	        {field:'infoTitle',title:'订阅标题',align:'center'},
+	        {field:'createDate',title:'发布时间',width:120,align:'center'},
+	        {title:'操作',width:200,toolbar:"#barDemo",align:'center'}
         ]]
         , contentType: 'application/json'
         , method: 'post'
@@ -30,7 +31,7 @@ layui.use(['form','table','element'], function(){
         , done: function (res) {
         }
         ,parseData: function(res){ //res 即为原始返回的数据
-        	console.log("res", res);
+        	console.log("table", res);
         	if(res.code != 0){
           	  layer.open({
             		title: '数据请求失败，请重试'
@@ -53,7 +54,7 @@ layui.use(['form','table','element'], function(){
     	var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
     	if(layEvent === 'detail'){
     		//新标签页打开详情
-    		window.open("/html/resource/detail.html?infoId=" + obj.data.id, "_blank");
+    		window.open("/html/resource/detail.html?infoId=" + obj.data.infoId, "_blank");
     	} else if(layEvent === 'delete'){
     		//删除
     		layer.confirm('真的要删除吗？', {icon:3, title:"提示"}, function(index){

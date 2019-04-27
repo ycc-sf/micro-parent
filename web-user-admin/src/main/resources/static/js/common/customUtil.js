@@ -6,6 +6,26 @@ var CustomUtil = (function() {
 	var currentTime = new Date().getTime(); 
 	//公有方法
 	return {
+		/**
+		 * 我的弹窗
+		 * 依赖css：<link rel="stylesheet" href="../../plugin/jq22iziModal/css/iziModal.css"/>
+		 * 依赖js：<script type="text/javascript" src="../../plugin/jq22iziModal/js/iziModal.js"></script>
+		 */
+		myAlert : function(str, width){
+			var model = $('#modal-alert');
+			console.log("model:", model);
+			if(model.length <= 0){
+				$('body').append('<div id="modal-alert" class="iziModal"></div>');
+			}
+			$("#modal-alert").iziModal({
+		        title: str,
+		        iconClass: 'icon-check',
+		        headerColor: 'rgba(7, 14, 9, 0.8)',
+		        overlayColor: "rgba(0, 0, 0, 0)",
+		        width: width
+		    });
+			$('#modal-alert').iziModal('open');
+		},
 		
 		//初始化网页头部用户名
 		initUsernameInHTMLHead : function(){

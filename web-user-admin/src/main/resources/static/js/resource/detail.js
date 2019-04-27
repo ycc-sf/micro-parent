@@ -6,37 +6,85 @@ layui.use(['form','element','layer'], function(){
 
 	//当前位置坐标
 	var thisPosition = new AMap.LngLat(113.50928629557302, 34.812260470921);
-	
 	var form = layui.form
   		,element = layui.element
   		,layer = layui.layer;
+	
+	//加载动画
+    $('html').loading({
+		loadingWidth:240,
+		title:'加载中',
+		name:'infoLoading',
+		discription:'',
+		direction:'column',
+		type:'origin',
+		// originBg:'#71EA71',
+		originDivWidth:40,
+		originDivHeight:40,
+		originWidth:6,
+		originHeight:6,
+		smallLoading:false,
+		loadingMaskBg:'rgba(0,0,0,0.2)'
+	});
 	
 	//暂存通过uri传递过来的参数
 	CustomUtil.receiveData();
 	//读取暂存参数
 	var infoId = CustomUtil.requestValue("infoId");
-	
-	//加载
-	layer.load();
 	//加载内容
 	loadInfoDetail(infoId);
 	
-	//创建地图
-	var map = new AMap.Map('detailMap',{
-		zoom:11,
-		center:[113.6347424, 34.7218855],
-		viewMode:'3D'
-	});
-	//关闭加载
-	layer.closeAll('loading');
+	var map;
+	setTimeout(function () {
+		//创建地图
+		map = new AMap.Map('detailMap',{
+			zoom:11,
+			center:[113.6347424, 34.7218855],
+			viewMode:'3D'
+		});
+	}, 500);
+		
 	//评论提交监听事件
 	$("#commentBtn").click(publishComment);
 	
 	//加载评论内容
 	commentInfos(infoId);
+	//去除加载动画
+    removeLoading('infoLoading');
+    
+	$("#subscribBtn").click(function(){
+		addSub(infoId);
+	});
 	
 	
     ////////////////////////////////自定义函数//////////////////////////////////////
+	//添加订阅
+	function addSub(infoId){
+		//准备参数
+    	var uri = "/resource/addSubscription";
+    	//请求数据
+    	$.ajax({
+            url:uri,
+            type: "POST",
+            contentType:"application/json;charset=utf-8",
+            data:JSON.stringify({
+            	"infoId":infoId
+            }),
+            success:function(date){
+            	console.log(date);
+                if(date.code == 0){
+                	layer.msg("订阅成功");
+                }else{
+                	layer.open({
+                		title: '数据请求失败，请重试'
+                		,content: date.msg
+                	});
+                }
+            }
+        });
+	}
+	
+	
 	function loadInfoDetail(id){
 		//准备参数
     	var uri = "/resource/getInfoById?id="+id;
@@ -54,8 +102,10 @@ layui.use(['form','element','layer'], function(){
                 		position: [date.result.locationX,date.result.locationY],
                 		title:date.result.infoTitle
                 	});
-                	map.add(marker);
-                	map.setCenter([date.result.locationX,date.result.locationY]);
+                	setTimeout(function () {
+                		map.add(marker);
+                    	map.setCenter([date.result.locationX,date.result.locationY]);
+                	}, 500);
                 }else{
                 	layer.open({
                 		title: '数据请求失败，请重试'

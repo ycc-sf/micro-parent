@@ -18,11 +18,13 @@ import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -53,6 +55,19 @@ public class ResourceController {
     private ResourceService resourceService;
     
     
+    @ApiOperation("根据id修改用户信息")
+	@ApiImplicitParams({
+	})
+	@PutMapping("/updateUserById")
+	public RestResponse<Nullable> updateUserById(@SessionAttribute(name="userInfo", required=false) UserInfo suser
+					,@RequestBody UserInfo user){
+    	user.setId(suser.getId());
+		logger.info("[begin]");
+        resourceService.updateUserById(user);
+        logger.info("[end]结果。");
+        return RestResponse.success();
+	}
+    
     @ApiOperation("获取所有信息类型")
 	@ApiImplicitParams({
 	})
@@ -78,7 +93,7 @@ public class ResourceController {
     
     @ApiOperation("发布订阅")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = "subscription", value="评论", required=true, dataTypeClass=Subscription.class, paramType="body")
+		@ApiImplicitParam(name = "subscription", value="订阅", required=true, dataTypeClass=Subscription.class, paramType="body")
 	})
 	@PostMapping("/addSubscription")
 	public RestResponse<Object> addSubscription(@RequestAttribute(value="userInfo", required=false) UserInfo user,@RequestBody Subscription subscription){
@@ -156,10 +171,14 @@ public class ResourceController {
     
     @ApiOperation("通过username获取用户信息")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = "username", value="用户名", required=true, dataType="String", paramType="query")
+		@ApiImplicitParam(name = "username", value="用户名", required=false, dataType="String", paramType="query")
 	})
 	@GetMapping("/getUserInfo")
-	public RestResponse<UserInfo> getUserInfo(@RequestParam String username){
+	public RestResponse<UserInfo> getUserInfo(@SessionAttribute(name="userInfo", required=false) UserInfo suer
+							, @RequestParam(required=false) String username){
+    	if(username == null){
+    		username = suer.getUsername();
+    	}
 		logger.info("[begin]参数:{}",username);
         UserInfo userInfo = resourceService.getUserInfo(username);
         logger.info("[end]结果。{}", userInfo);

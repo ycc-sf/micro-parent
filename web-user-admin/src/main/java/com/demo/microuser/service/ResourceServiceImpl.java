@@ -32,7 +32,15 @@ public class ResourceServiceImpl implements ResourceService {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ResourceServiceImpl.class);
 	
-	
+	public void updateUserById(UserInfo user){
+		String uri = "/resource/updateUserById";
+	    RestResponse restResponse = HttpClientUtil.myReqMethod(uri, HttpRequestMethedEnum.HttpPut, null, user);
+	    logger.info("-->{}", restResponse);
+	    if(restResponse.getCode() != 0){
+	    	throw new ApplicationException(WebErrorCode.CUSTOM, restResponse.getMsg());
+	    }
+		return ;
+	}
 	
 	public Object getInfoType(){
 		String uri = "/resource/getInfoType";
