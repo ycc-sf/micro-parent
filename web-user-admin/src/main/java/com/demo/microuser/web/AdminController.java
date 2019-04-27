@@ -45,10 +45,9 @@ public class AdminController {
     public RestResponse<Object> login(@RequestBody UserInfo userInfo, HttpServletResponse response,
                                         HttpServletRequest request, HttpSession httpSession){
         logger.info("[web-begin]登录：{}", userInfo);
-        UserInfo user = resourceService.login(userInfo);
+        UserInfo user = adminService.login(userInfo);
         httpSession.setAttribute("userInfo", user);
         Cookie cookie = new Cookie("realName", user.getRealName());
-//        Cookie cookie = new Cookie("username", user.getUsername());
         cookie.setPath("/");
         response.addCookie(cookie);
         logger.info("[web-end]登陆成功。{}", user);

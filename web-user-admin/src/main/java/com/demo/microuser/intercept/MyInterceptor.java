@@ -46,6 +46,9 @@ public class MyInterceptor implements HandlerInterceptor {
         }else if(user == null && requestURI.indexOf("/index.html") == 0){//如果未登录且访问前台主页，则返回登录页面
         	response.sendRedirect("/login.html");
         	return false;
+        }else if(user == null && requestURI.indexOf("/html/admin/index.html") == 0){//如果未登录且访问后台主页，则返回登录页面
+        	response.sendRedirect("/html/admin/login.html");
+        	return false;
         }else if(user == null){
         	response.sendRedirect("/login.html");
         	return false;
