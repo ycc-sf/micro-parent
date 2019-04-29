@@ -25,6 +25,8 @@ import com.demo.micro.resource.entity.CommentPageParams;
 import com.demo.micro.resource.entity.Info;
 import com.demo.micro.resource.entity.InfoPageParams;
 import com.demo.micro.resource.entity.InfoType;
+import com.demo.micro.resource.entity.Report;
+import com.demo.micro.resource.entity.ReportPageParams;
 import com.demo.micro.resource.entity.Role;
 import com.demo.micro.resource.entity.Subscription;
 import com.demo.micro.resource.entity.SubscriptionPageParams;
@@ -38,6 +40,33 @@ public class ResourceServiceImpl implements ResourceService {
 	private ResourceDao resourceDao;
 	
 	private static final Logger logger = LoggerFactory.getLogger(ResourceServiceImpl.class);
+	
+	
+	public void updateReport(Long id){
+		int influence = resourceDao.updateReport(id);
+		if(influence == 0){
+			throw new BusinessException(ErrorCode.E_102002);
+		}
+	}
+	
+	public Long addReport(Report report){
+		int influence = resourceDao.insertReport(report);
+		return report.getId();
+	}
+	
+	public Page<Report> pageReport(int pageNo, int pageSize, ReportPageParams queryParams){
+		//计算分页参数
+        PageRequestParams pageRequest = PageRequestParams.of(pageNo, pageSize);
+        //条件查询
+        List<Report> list = resourceDao.pageReport(pageRequest, queryParams);
+        //查询符合条件的总数
+        Long total = resourceDao.countReportByConditions(queryParams);
+        //封装pageable
+        Pageable pageable = PageRequest.of(pageNo-1, pageSize);
+        //封装page
+        Page<Report> page = new PageImpl<>(list,pageable,total);
+        return page;
+	}
 	
 	
 	public void updateUserById(UserInfo user){

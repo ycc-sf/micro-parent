@@ -4,21 +4,64 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     <!--命名空间，指定对应的Dao-->
     <mapper namespace="com.demo.micro.resource.dao.AdminDao">
-	<select id="selectRangeInfo" resultType="Info">
-        SELECT *
-        FROM r_info
-        WHERE location_x > #{x} - #{range}
-        AND location_y > #{y} - #{range}
-        AND location_x &lt; #{x} + #{range}
-        AND location_y &lt; #{y} + #{range}
-        <if test="title != null and title != ''" >
-            AND info_title LIKE (CONCAT('%',#{title},'%'))
-        </if>
-        <if test="infoType != null and infoType != ''" >
-            AND type_id = #{infoType}
-          </if>
-        ORDER BY id DESC
-        LIMIT 0, #{number}
+    
+    <update id="updateUserPassword">
+    	UPDATE r_user SET password = #{password} WHERE id = #{userId}
+    </update>
+    
+    <update id="updateUserRoleById">
+    	UPDATE r_user SET role_id = #{roleId} WHERE id = #{userId} 
+    </update>
+    
+    <delete id="deleteUserById" parameterType="Long">
+    	DELETE FROM r_user WHERE id = #{id}
+    </delete>
+    
+    <select id="countUserByConditions" resultType="Long">
+    	SELECT COUNT(1)
+    	FROM r_user u LEFT JOIN r_role r ON u.role_id = r.id  
+    	<where>
+    		<if test="queryParams != null">
+	    		<if test="queryParams.username != null and queryParams.username != ''">
+	    			AND u.username = #{queryParams.username}
+	    		</if>
+	    		<if test="queryParams.realName != null and queryParams.realName != ''">
+	    			AND u.real_name = #{queryParams.realName}
+	    		</if>
+	    		<if test="queryParams.roleId != null and queryParams.roleId != ''">
+	    			AND u.role_id = #{queryParams.roleId}
+	    		</if>
+	    		<if test="queryParams.phonenum != null and queryParams.phonenum != ''">
+	    			AND u.phonenum = #{queryParams.phonenum}
+	    		</if>
+    		</if>
+    	</where>
+    </select>
+    
+    <select id="pageUser" resultType="UserRole">
+    	SELECT  u.*, r.role_name AS 'roleName'
+    	FROM r_user u LEFT JOIN r_role r ON u.role_id = r.id  
+    	<where>
+    		<if test="queryParams != null">
+	    		<if test="queryParams.username != null and queryParams.username != ''">
+	    			AND u.username = #{queryParams.username}
+	    		</if>
+	    		<if test="queryParams.realName != null and queryParams.realName != ''">
+	    			AND u.real_name = #{queryParams.realName}
+	    		</if>
+	    		<if test="queryParams.roleId != null and queryParams.roleId != ''">
+	    			AND u.role_id = #{queryParams.roleId}
+	    		</if>
+	    		<if test="queryParams.phonenum != null and queryParams.phonenum != ''">
+	    			AND u.phonenum = #{queryParams.phonenum}
+	    		</if>
+    		</if>
+    	</where>
+    	limit #{pageParams.startRow}, #{pageParams.limit}
+    </select>
+    
+	<select id="selectAllRole" resultType="Role">
+		select * from r_role
     </select>
 	
 </mapper>

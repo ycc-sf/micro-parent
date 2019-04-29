@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-@ApiModel(value = "Userrole", description = "用户角色详情")
+@ApiModel(value = "UserRole", description = "用户角色详情")
 public class UserRole extends UserInfo{
     @ApiModelProperty("角色名称")
     private String roleName;

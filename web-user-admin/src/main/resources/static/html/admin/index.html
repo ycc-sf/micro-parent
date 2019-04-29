@@ -37,25 +37,29 @@
       <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
       <ul class="layui-nav layui-nav-tree"  lay-filter="test">
        	<li class="layui-nav-item layui-nav-itemed">
-				  <a class="" href="javascript:;">发布管理</a>
-				  <dl class="layui-nav-child">
-						<dd><a href="javascript:;" onclick="loadHtml('html/userInfo.html')">title1</a></dd>
-						<dd><a href="javascript:;" onclick="loadHtml('html/userInfo.html')">title2</a></dd>
-				  </dl>
-				</li>
-				<li class="layui-nav-item layui-nav-itemed">
-				  <a class="" href="javascript:;">举报管理</a>
-				  <dl class="layui-nav-child">
-						<dd><a href="javascript:;" onclick="loadHtml('userManage.html')">title1</a></dd>
-						<dd><a href="javascript:;" onclick="loadHtml('userManage.html')">title2</a></dd>
-				  </dl>
-				</li>
-        <li class="layui-nav-item">
-            <a href="javascript:;" onclick="loadHtml('whitePage.html')">所有订阅</a>
-        </li>
-        <li class="layui-nav-item">
-            <a href="javascript:;" onclick="loadHtml('userManage.html')">用户管理</a>
-        </li>
+			<a class="" href="javascript:;" onclick="loadHtml('/html/admin/infoManage.html')">信息管理</a>
+		</li>
+		<li class="layui-nav-item layui-nav-itemed">
+			<a class="" href="javascript:;" onclick="loadHtml('/html/admin/subscriptionManage.html')">订阅管理</a>
+		</li>
+		<li class="layui-nav-item layui-nav-itemed">
+			<a class="" href="javascript:;" onclick="loadHtml('/html/admin/commentManage.html')">评论管理</a>
+		</li>
+		<li class="layui-nav-item layui-nav-itemed">
+			<a class="" href="javascript:;" onclick="loadHtml('/html/admin/reportManage.html')">举报管理</a>
+		</li>
+		<li class="layui-nav-item layui-nav-itemed">
+			<a class="" href="javascript:;" onclick="loadHtml('/html/admin/userManage.html')">用户管理</a>
+		</li>
+		
+		
+		<!-- <li class="layui-nav-item layui-nav-itemed">
+		  <a class="" href="javascript:;">举报管理</a>
+		  <dl class="layui-nav-child">
+				<dd><a href="javascript:;" onclick="loadHtml('userManage.html')">title1</a></dd>
+				<dd><a href="javascript:;" onclick="loadHtml('userManage.html')">title2</a></dd>
+		  </dl>
+		</li> -->
       </ul>
     </div>
   </div>
