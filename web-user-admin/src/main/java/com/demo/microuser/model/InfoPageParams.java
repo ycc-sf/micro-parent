@@ -16,4 +16,5 @@ public class InfoPageParams {
 	
 	@ApiModelProperty("信息发布者id")
 	private Long userId;
+	
 }

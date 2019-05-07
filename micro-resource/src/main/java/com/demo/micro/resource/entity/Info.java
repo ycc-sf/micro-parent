@@ -24,6 +24,8 @@ public class Info {
     private Double locationY;
     @ApiModelProperty("类型id")
     private Long typeId;
+    @ApiModelProperty("类型名称")
+    private String typeName;
     @ApiModelProperty("时间")
     private Timestamp createDate;
     @ApiModelProperty("是否单次可用。0：不是。1：是")

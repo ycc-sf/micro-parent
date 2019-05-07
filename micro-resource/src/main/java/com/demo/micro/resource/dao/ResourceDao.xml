@@ -204,8 +204,8 @@
     </select>
     
     <select id="pageInfo" resultType="Info">
-    	SELECT * 
-    	FROM r_info
+    	SELECT i.*, t.type_name AS 'typeName' 
+    	FROM r_info i LEFT JOIN r_info_type t ON i.type_id = t.id
     	<where>
     		<if test="queryParams != null">
 	    		<if test="queryParams.title != null and queryParams.title != ''">
@@ -219,7 +219,7 @@
 	    		</if>
     		</if>
     	</where>
-    	ORDER BY id DESC
+    	ORDER BY i.id DESC
     	limit #{pageParams.startRow}, #{pageParams.limit}
     </select>
     
