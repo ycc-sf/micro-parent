@@ -9,6 +9,7 @@ import com.demo.microuser.model.CommentPageParams;
 import com.demo.microuser.model.Info;
 import com.demo.microuser.model.InfoPageParams;
 import com.demo.microuser.model.InfoType;
+import com.demo.microuser.model.Report;
 import com.demo.microuser.model.Subscription;
 import com.demo.microuser.model.SubscriptionPageParams;
 import com.demo.microuser.model.UserInfo;
@@ -127,4 +128,6 @@ public interface ResourceService {
      * @return
      */
     UserInfo login(UserInfo userInfo);
+
+	Object addReport(Report report);
 }

@@ -18,6 +18,7 @@ import com.demo.microuser.model.CommentPageParams;
 import com.demo.microuser.model.Info;
 import com.demo.microuser.model.InfoPageParams;
 import com.demo.microuser.model.InfoType;
+import com.demo.microuser.model.Report;
 import com.demo.microuser.model.Subscription;
 import com.demo.microuser.model.SubscriptionPageParams;
 import com.demo.microuser.model.UserInfo;
@@ -31,6 +32,17 @@ import com.demo.microuser.util.HttpClientUtil;
 public class ResourceServiceImpl implements ResourceService {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ResourceServiceImpl.class);
+	
+	@Override
+	public Object addReport(Report report) {
+		String uri = "/resource/addReport";
+	    RestResponse restResponse = HttpClientUtil.myReqMethod(uri, HttpRequestMethedEnum.HttpPost, null, report);
+	    logger.info("-->{}", restResponse);
+	    if(restResponse.getCode() != 0){
+	    	throw new ApplicationException(WebErrorCode.CUSTOM, restResponse.getMsg());
+	    }
+		return restResponse.getResult();
+	}
 	
 	public void updateUserById(UserInfo user){
 		String uri = "/resource/updateUserById";

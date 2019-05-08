@@ -2,7 +2,6 @@ package com.demo.microuser.web;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -13,7 +12,6 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +32,7 @@ import com.demo.microuser.model.Comment;
 import com.demo.microuser.model.CommentPageParams;
 import com.demo.microuser.model.Info;
 import com.demo.microuser.model.InfoPageParams;
+import com.demo.microuser.model.Report;
 import com.demo.microuser.model.Subscription;
 import com.demo.microuser.model.SubscriptionPageParams;
 import com.demo.microuser.model.UserInfo;
@@ -54,6 +53,18 @@ public class ResourceController {
     @Autowired
     private ResourceService resourceService;
     
+    @ApiOperation("发布举报")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "report", value="举报", required=true, dataTypeClass=Report.class, paramType="body")
+	})
+	@PostMapping("/addReport")
+	public RestResponse<Object> addReport(@SessionAttribute(name="userInfo", required=false) UserInfo suser, @RequestBody Report report){
+    	report.setUserId(suser.getId());
+		logger.info("[begin]参数:{}",report);
+        Object newId = resourceService.addReport(report);
+        logger.info("[end]结果。{}", newId);
+        return RestResponse.success(newId);
+	}
     
     @ApiOperation("根据id修改用户信息")
 	@ApiImplicitParams({

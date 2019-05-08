@@ -62,7 +62,7 @@
 	    		<if test="queryParams.createDate != null and queryParams.createDate != ''">
 	    			AND r.create_date = #{queryParams.createDate}
 	    		</if>
-	    		<if test="queryParams.isDeal != null and queryParams.isDeal != ''">
+	    		<if test="queryParams.isDeal != null and queryParams.isDeal != '' and queryParams.isDeal != '999' ">
 	    			AND r.is_deal = #{queryParams.isDeal}
 	    		</if>
     		</if>
@@ -103,8 +103,11 @@
     </select>
     
     <select id="pageSubscription" resultType="Subscription">
-    	SELECT s.*, i.info_title AS 'infoTitle' 
-    	FROM r_subscription s LEFT JOIN r_info i ON s.info_id = i.id  
+    	SELECT s.*, i.info_title AS 'infoTitle', u.real_name AS 'realName'
+    	FROM 
+    		r_subscription s 
+    		LEFT JOIN r_info i ON s.info_id = i.id
+    		LEFT JOIN r_user u ON s.user_id = u.id
     	<where>
     		<if test="queryParams != null">
 	    		<if test="queryParams.infoId != null and queryParams.infoId != ''">
@@ -118,6 +121,7 @@
 	    		</if>
     		</if>
     	</where>
+    	ORDER BY s.id DESC
     	limit #{pageParams.startRow}, #{pageParams.limit}
     </select>
     

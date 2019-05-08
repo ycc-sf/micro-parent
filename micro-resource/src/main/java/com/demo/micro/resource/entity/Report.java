@@ -17,6 +17,8 @@ public class Report {
     private String reportDetail;
     @ApiModelProperty("信息id")
     private int infoId;
+    @ApiModelProperty("信息标题")
+    private String infoTitle;
     @ApiModelProperty("时间")
     private Timestamp createDate;
     @ApiModelProperty("是否处理.0:未处理，1：已处理")
