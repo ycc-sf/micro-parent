@@ -10,5 +10,5 @@ public class InfoType {
     @ApiModelProperty("id")
     private Long id;
     @ApiModelProperty("类型名称")
-    private String typeName; 
+    private String typeName;
 }

@@ -5,6 +5,71 @@
     <!--命名空间，指定对应的Dao-->
     <mapper namespace="com.demo.micro.resource.dao.ResourceDao">
     
+    <update id="updateReport">
+    	UPDATE r_report SET is_deal = 1 WHERE id = #{id};
+    </update>
+    
+    <insert id="insertReport" parameterType="Report" useGeneratedKeys="true" keyProperty="id">
+    	insert into 
+    		r_report(user_id, report_detail, info_id, create_date, is_deal)
+    	value(#{userId}, #{reportDetail}, #{infoId}, NOW(), 0)
+    </insert>
+    
+    <select id="countReportByConditions" resultType="Long">
+    	SELECT COUNT(1) 
+    	FROM r_report r LEFT JOIN r_info i ON r.info_id = i.id  
+    	<where>
+    		<if test="queryParams != null">
+	    		<if test="queryParams.userId != null and queryParams.userId != ''">
+	    			AND r.user_id = #{queryParams.userId}
+	    		</if>
+	    		<if test="queryParams.infoId != null and queryParams.infoId != ''">
+	    			AND r.info_id = #{queryParams.infoId}
+	    		</if>
+	    		<if test="queryParams.reportDetail != null and queryParams.reportDetail != ''">
+	    			AND r.report_detail LIKE (CONCAT('%',#{queryParams.reportDetail},'%'))
+	    		</if>
+	    		<if test="queryParams.infoTitle != null and queryParams.infoTitle != ''">
+	    			AND i.info_title LIKE (CONCAT('%',#{queryParams.infoTitle},'%'))
+	    		</if>
+	    		<if test="queryParams.createDate != null and queryParams.createDate != ''">
+	    			AND r.create_date = #{queryParams.createDate}
+	    		</if>
+	    		<if test="queryParams.isDeal != null and queryParams.isDeal != ''">
+	    			AND r.is_deal = #{queryParams.isDeal}
+	    		</if>
+    		</if>
+    	</where>
+    </select>
+    
+    <select id="pageReport" resultType="Report">
+    	SELECT r.*, i.info_title AS 'infoTitle' 
+    	FROM r_report r LEFT JOIN r_info i ON r.info_id = i.id  
+    	<where>
+    		<if test="queryParams != null">
+	    		<if test="queryParams.userId != null and queryParams.userId != ''">
+	    			AND r.user_id = #{queryParams.userId}
+	    		</if>
+	    		<if test="queryParams.infoId != null and queryParams.infoId != ''">
+	    			AND r.info_id = #{queryParams.infoId}
+	    		</if>
+	    		<if test="queryParams.reportDetail != null and queryParams.reportDetail != ''">
+	    			AND r.report_detail LIKE (CONCAT('%',#{queryParams.reportDetail},'%'))
+	    		</if>
+	    		<if test="queryParams.infoTitle != null and queryParams.infoTitle != ''">
+	    			AND i.info_title LIKE (CONCAT('%',#{queryParams.infoTitle},'%'))
+	    		</if>
+	    		<if test="queryParams.createDate != null and queryParams.createDate != ''">
+	    			AND r.create_date = #{queryParams.createDate}
+	    		</if>
+	    		<if test="queryParams.isDeal != null and queryParams.isDeal != '' and queryParams.isDeal != '999' ">
+	    			AND r.is_deal = #{queryParams.isDeal}
+	    		</if>
+    		</if>
+    	</where>
+    	limit #{pageParams.startRow}, #{pageParams.limit}
+    </select>
+    
     <select id="selectInfoType" resultType="InfoType">
     	select * from r_info_type
     </select>
@@ -38,8 +103,11 @@
     </select>
     
     <select id="pageSubscription" resultType="Subscription">
-    	SELECT s.*, i.info_title AS 'infoTitle' 
-    	FROM r_subscription s LEFT JOIN r_info i ON s.info_id = i.id  
+    	SELECT s.*, i.info_title AS 'infoTitle', u.real_name AS 'realName'
+    	FROM 
+    		r_subscription s 
+    		LEFT JOIN r_info i ON s.info_id = i.id
+    		LEFT JOIN r_user u ON s.user_id = u.id
     	<where>
     		<if test="queryParams != null">
 	    		<if test="queryParams.infoId != null and queryParams.infoId != ''">
@@ -53,6 +121,7 @@
 	    		</if>
     		</if>
     	</where>
+    	ORDER BY s.id DESC
     	limit #{pageParams.startRow}, #{pageParams.limit}
     </select>
     
@@ -139,8 +208,8 @@
     </select>
     
     <select id="pageInfo" resultType="Info">
-    	SELECT * 
-    	FROM r_info
+    	SELECT i.*, t.type_name AS 'typeName' 
+    	FROM r_info i LEFT JOIN r_info_type t ON i.type_id = t.id
     	<where>
     		<if test="queryParams != null">
 	    		<if test="queryParams.title != null and queryParams.title != ''">
@@ -154,7 +223,7 @@
 	    		</if>
     		</if>
     	</where>
-    	ORDER BY id DESC
+    	ORDER BY i.id DESC
     	limit #{pageParams.startRow}, #{pageParams.limit}
     </select>
     

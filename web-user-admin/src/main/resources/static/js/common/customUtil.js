@@ -33,6 +33,20 @@ var CustomUtil = (function() {
 		    $("#realName").html(realName);
 		},
 		
+		//获得信息类型
+		getInfoType : function(){
+	    	//准备参数
+	    	var uri = "/resource/getInfoType";
+	    	//请求数据
+	    	$.ajax({
+	            url:uri,
+	            type: "get",
+	            contentType:"application/json;charset=utf-8",
+	            success:function(data){
+	            	return data;
+	            }
+	        });
+	    },
 		
 		//加载信息类型
 		loadInfoType : function(){

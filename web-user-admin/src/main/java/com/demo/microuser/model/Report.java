@@ -11,8 +11,10 @@ import java.sql.Timestamp;
 public class Report {
     @ApiModelProperty("id")
     private Long id;
+    @ApiModelProperty("举报人id")
+    private Long userId;
     @ApiModelProperty("举报详情")
-    private String reportDeatil;
+    private String reportDetail;
     @ApiModelProperty("信息id")
     private int infoId;
     @ApiModelProperty("时间")

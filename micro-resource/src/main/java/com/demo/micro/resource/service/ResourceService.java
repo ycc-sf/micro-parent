@@ -4,13 +4,14 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.demo.micro.resource.entity.Comment;
 import com.demo.micro.resource.entity.CommentPageParams;
 import com.demo.micro.resource.entity.Info;
 import com.demo.micro.resource.entity.InfoPageParams;
 import com.demo.micro.resource.entity.InfoType;
+import com.demo.micro.resource.entity.Report;
+import com.demo.micro.resource.entity.ReportPageParams;
 import com.demo.micro.resource.entity.Subscription;
 import com.demo.micro.resource.entity.SubscriptionPageParams;
 import com.demo.micro.resource.entity.UserInfo;
@@ -20,6 +21,29 @@ import com.demo.micro.resource.entity.UserRole;
  * 资源服务
  */
 public interface ResourceService {
+	
+	/**
+	 * 修改举报状态为解决
+	 * @param id
+	 * @return
+	 */
+	void updateReport(Long id);
+	
+	/**
+	 * 添加举报
+	 * @param report
+	 * @return
+	 */
+	Long addReport(Report report);
+	
+	/**
+	 * 分页条件查询举报
+	 * @param pageNo
+	 * @param pageSize
+	 * @param queryParams
+	 * @return
+	 */
+	Page<Report> pageReport(int pageNo, int pageSize, ReportPageParams queryParams);
 	
 	
 	/**

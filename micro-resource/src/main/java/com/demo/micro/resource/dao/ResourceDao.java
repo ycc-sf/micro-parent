@@ -10,12 +10,44 @@ import com.demo.micro.resource.entity.CommentPageParams;
 import com.demo.micro.resource.entity.Info;
 import com.demo.micro.resource.entity.InfoPageParams;
 import com.demo.micro.resource.entity.InfoType;
+import com.demo.micro.resource.entity.Report;
+import com.demo.micro.resource.entity.ReportPageParams;
 import com.demo.micro.resource.entity.Role;
 import com.demo.micro.resource.entity.Subscription;
 import com.demo.micro.resource.entity.SubscriptionPageParams;
 import com.demo.micro.resource.entity.UserInfo;
 
 public interface ResourceDao {
+	
+	/**
+	 * 修改举报状态为解决
+	 * @param id
+	 * @return
+	 */
+	int updateReport(@Param("id") Long id);
+	
+	/**
+	 * 添加举报
+	 * @param Report
+	 * @return
+	 */
+	int insertReport(Report report);
+	
+	/**
+	 * 举报分页的数据总数
+	 * @param params
+	 * @return
+	 */
+	Long countReportByConditions(@Param("queryParams") ReportPageParams params);
+	
+	/**
+	 * 举报分页
+	 * @param pageParams
+	 * @param queryParams
+	 * @return
+	 */
+	List<Report> pageReport(@Param("pageParams") PageRequestParams pageParams, @Param("queryParams") ReportPageParams queryParams);  
+	
 	
 	/**
 	 * 获取所有信息类型

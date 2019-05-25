@@ -26,6 +26,8 @@ import com.demo.micro.resource.entity.CommentPageParams;
 import com.demo.micro.resource.entity.Info;
 import com.demo.micro.resource.entity.InfoPageParams;
 import com.demo.micro.resource.entity.InfoType;
+import com.demo.micro.resource.entity.Report;
+import com.demo.micro.resource.entity.ReportPageParams;
 import com.demo.micro.resource.entity.Subscription;
 import com.demo.micro.resource.entity.SubscriptionPageParams;
 import com.demo.micro.resource.entity.UserInfo;
@@ -47,7 +49,44 @@ public class ResourceController {
 	@Autowired
 	private ResourceService resourceService;
 	
+	@ApiOperation("根据id修改举报状态为解决")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "id", value="举报id", required=true, dataType="Long", paramType="query")
+	})
+	@PutMapping("/updateReportById")
+	public RestResponse<Nullable> updateReportById(@RequestParam Long id){
+		logger.info("[begin]{}" , id);
+        resourceService.updateReport(id);
+        logger.info("[end]结果。");
+        return RestResponse.success();
+	}
 	
+	@ApiOperation("发布举报")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "report", value="举报", required=true, dataTypeClass=Report.class, paramType="body")
+	})
+	@PostMapping("/addReport")
+	public RestResponse<Long> addReport(@RequestBody Report report){
+		logger.info("[begin]参数:{}",report);
+        Long newId = resourceService.addReport(report);
+        logger.info("[end]结果。{}", newId);
+        return RestResponse.success(newId);
+	}
+	
+	@ApiOperation(value="分页条件查询举报")
+    @ApiImplicitParams({
+    	@ApiImplicitParam(name = "pageNo", value  = "请求页码", required = true, dataType = "int", paramType="query"),
+		@ApiImplicitParam(name = "pageSize", value = "每页记录数", required = true, dataType = "int", paramType="query"),
+		@ApiImplicitParam(name = "queryParams", value = "查询条件", required = false, dataTypeClass = ReportPageParams.class, paramType = "body")
+    })
+    @PostMapping(value = "/pageReport")
+    public RestResponse<Page<Report>> pageReport(@RequestBody ReportPageParams queryParams
+			,@RequestParam Integer pageNo, @RequestParam Integer pageSize){
+        logger.info("[begin]pageNo:{} pageSize:{} params:{}",pageNo, pageSize, queryParams);
+        Page<Report> page = resourceService.pageReport(pageNo, pageSize, queryParams);
+        logger.info("[end]成功。{}", page);
+        return RestResponse.success(page);
+    }
 	
 	@ApiOperation("根据id修改用户信息")
 	@ApiImplicitParams({

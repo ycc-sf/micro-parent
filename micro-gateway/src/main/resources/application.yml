@@ -98,12 +98,12 @@ zuul:
   retryable: true
   ignoredServices: '*'
   routes: 
-    micro-user:
-      stripPrefix: false
-      path: /user/**
+    #micro-user:
+     # stripPrefix: false
+     # path: /user/**
     micro-resource:
       stripPrefix: false
-      path: /resource/**
+      path: /**
 
 security: 
   basic: 

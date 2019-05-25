@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>订阅管理</title>
+	</head>
+	<body class="layui-layout-body animated slideInLeft" >
+		<div class="layui-card">
+			<div class="layui-card-header">订阅管理</div>
+	        <div class="layui-card-body">
+	        	<div class="layui-row">
+	        		<div class="layui-col-xs10 layui-col-sm8 layui-col-md8">
+	        			<form class="layui-form">
+			          	  	<div class="layui-form-item">
+			          	  		<div class="layui-inline">
+					          	  	<label class="layui-form-label">信息id</label>
+									<div class="layui-input-inline ">
+										<input type="text" name="infoId" placeholder="请输入" class="layui-input inputText"/>
+									</div>
+								</div>
+								<div class="layui-inline">
+									<label class="layui-form-label">用户id</label>
+									<div class="layui-input-inline ">
+										<input type="text" name="userId" placeholder="请输入" class="layui-input inputText"/>
+									</div>
+								</div>
+								<div class="layui-inline">
+									<button class="layui-btn"  lay-submit lay-filter="formDemo">查询</button>
+								</div>
+							</div>
+			          	</form>
+	        		</div>
+	        	</div>
+	          <table class="layui-table" id="layuiTable" lay-filter="test"></table>
+	          	<script type="text/html" id="barDemo">
+					<a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="detail">信息详情</a>
+					<a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="delete">删除</a>
+				</script>
+	        </div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../js/admin/subscriptionManage.js"></script>
+</html>

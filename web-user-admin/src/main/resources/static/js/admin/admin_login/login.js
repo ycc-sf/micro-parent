@@ -38,8 +38,8 @@ $(function(){
                 if(result.code == 0){
                     location.href = "/html/admin/index.html";
                 }else{
+                	CustomUtil.myAlert(result.msg, 180);
                 	removeLoading('loginLoading');
-                    alert("失败：" + result.msg);
                 }
             }
         });

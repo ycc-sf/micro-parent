@@ -46,6 +46,10 @@ layui.use(['form','element','layer'], function(){
 		
 	//评论提交监听事件
 	$("#commentBtn").click(publishComment);
+	//举报按钮
+	$("#reportBtn").click(function(){
+		addReport();
+	});
 	
 	//加载评论内容
 	commentInfos(infoId);
@@ -58,6 +62,45 @@ layui.use(['form','element','layer'], function(){
 	
 	
     ////////////////////////////////自定义函数//////////////////////////////////////
+	//添加举报
+	function addReport(){
+		layer.open({
+			  title:'举报'
+			  ,content: "<input type='text' id='reportText' placeholder='请输入' class='layui-input inputText'/>"
+			  ,btn: ['提交']
+			  ,yes: function(index, layero){
+				  console.log('举报内容：', $('#reportText').val());
+				//准备参数
+			    	var uri = "/resource/addReport";
+			    	//请求数据
+			    	$.ajax({
+			            url:uri,
+			            type: "POST",
+			            contentType:"application/json;charset=utf-8",
+			            data:JSON.stringify({
+			            	"infoId":infoId,
+			            	"reportDetail":$('#reportText').val()
+			            }),
+			            success:function(date){
+			            	console.log(date);
+			                if(date.code == 0){
+			                	layer.msg("举报成功");
+			                }else{
+			                	layer.open({
+			                		title: '数据请求失败，请重试'
+			                		,content: date.msg
+			                	});
+			                }
+			            }
+			        });
+			  }
+			  ,cancel: function(){ 
+			    //右上角关闭回调
+			    //return false 开启该代码可禁止点击该按钮关闭
+			  }
+			});
+	}
+	
 	//添加订阅
 	function addSub(infoId){
 		//准备参数

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>举报管理</title>
+	</head>
+	<body class="layui-layout-body animated slideInLeft" >
+		<div class="layui-card">
+			<div class="layui-card-header">举报管理</div>
+	        <div class="layui-card-body">
+	        	<div class="layui-row">
+	        		<div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+	        			<form class="layui-form">
+			          	  	<div class="layui-form-item">
+			          	  		<div class="layui-inline layui-col-md3" >
+					          	  	<label class="layui-form-label">信息标题</label>
+									<div class="layui-input-block ">
+										<input type="text" name="infoTitle" placeholder="请输入" class="layui-input inputText"/>
+									</div>
+								</div>
+								<div class="layui-inline layui-col-md3">
+									<label class="layui-form-label">举报内容</label>
+									<div class="layui-input-block">
+										<input type="text" name="reportDetail" placeholder="请输入" class="layui-input inputText"/>
+									</div>
+								</div>
+								<div class="layui-inline layui-col-md2">
+									<label class="layui-form-label">状态</label>
+									<div class="layui-input-block">
+										<select id="infoTypeFrame" name="isDeal" lay-verify="required">
+											<option value="999">全部</option>
+											<option value="0">未处理</option>
+											<option value="1">已处理</option>
+										</select>
+									</div>
+								</div>
+								<div class="layui-inline layui-col-md2 layui-col-md-offset1">
+									<button class="layui-btn"  lay-submit lay-filter="formDemo">查询</button>
+								</div>
+							</div>
+			          	</form>
+	        		</div>
+	        	</div>
+	          <table class="layui-table" id="layuiTable" lay-filter="test"></table>
+	          	<script type="text/html" id="barDemo">
+					<a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="detail">信息详情</a>
+					<a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="deal">标记解决</a>
+				</script>
+	        </div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../js/admin/reportManage.js"></script>
+</html>

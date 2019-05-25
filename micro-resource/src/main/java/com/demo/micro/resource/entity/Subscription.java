@@ -13,6 +13,8 @@ public class Subscription {
     private Long id;
     @ApiModelProperty("用户id")
     private Long userId;
+    @ApiModelProperty("用户姓名")
+    private String realName;
     @ApiModelProperty("信息id")
     private Long infoId;
     @ApiModelProperty("信息标题")
