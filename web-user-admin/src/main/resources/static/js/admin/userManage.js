@@ -1,39 +1,21 @@
 layui.use(['table','form'], function(){
   var table = layui.table;
   var form = layui.form;
-
+  
   var pageNo = 1;
   var infoTable = {
-      elem: '#layuiTable' //指定原始表格元素选择器（推荐id选择器）
-      , url: '/admin/pageReport'
+      elem: '#infoTable' //指定原始表格元素选择器（推荐id选择器）
+      , url: '/admin/pageUser'
       , where: {
       }
       , page : true
       , cols: [[ //标题栏
           {field:'id',title:'ID',width:120,sort:true,align:'center'}
-          ,{field:'infoId', hide:true}
-          ,{field:'isDeal',title:'状态',width:120,align:'center'
-        	  ,templet: function (data){
-	        	  console.log("moban:", data);
-	        	  if(data.isDeal == 0){
-	        		  return "未解决";
-	        	  }
-	        	  return "解决";
-	          }
-          }
-          ,{field:'userId',title:'举报人id',width:120,align:'center'}
-          ,{field:'infoTitle',title:'信息标题',align:'center'}
-	      ,{field:'reportDetail',title:'举报详情',align:'center'}
-	      ,{field:'createDate',title:'发布时间',width:120,align:'center'}
-	      ,{title:'操作',width:220,/*toolbar:"#barDemo",*/align:'center'
-	    	  ,templet: function (data){
-	        	  var btns = "<a class='layui-btn layui-btn-normal layui-btn-sm' lay-event='detail'>信息详情</a>";
-	        	  if(data.isDeal == 1){
-	        		  return btns += "";
-	        	  }
-	        	  return btns += "<a class='layui-btn layui-btn-danger layui-btn-sm' lay-event='deal'>标记解决</a>";
-	    	  }
-	      }
+          ,{field:'username',title:'用户名',width:120,align:'center'}
+	      ,{field:'realName',title:'真实姓名',width:120,align:'center'}
+	      ,{field:'phonenum',title:'手机号',width:220,align:'center'}
+	      ,{field:'email',title:'邮箱地址',align:'center'}
+	      ,{title:'操作',width:200,toolbar:"#barDemo",align:'center'}
       ]]
       , contentType: 'application/json'
       , method: 'post'
@@ -65,15 +47,12 @@ layui.use(['table','form'], function(){
   //监听表格按钮
   table.on('tool(test)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
   	var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
-  	if(layEvent === 'detail'){
-  		//新标签页打开详情
-  		window.open("/html/resource/detail.html?infoId=" + obj.data.infoId, "_blank");
-  	} else if(layEvent === 'deal'){
-  		//删除
-  		layer.confirm('要标记解决吗？', {icon:3, title:"提示"}, function(index){
+  	if(layEvent === 'resetPass'){
+  		//重置密码
+  		layer.confirm('将密码重置为“12345”？', {icon:3, title:"提示"}, function(index){
   			  //获取当前行的appCode
   			  $.ajax({
-  		    	  url:"/admin/updateReportById?id=" + obj.data.id,
+  		    	  url:"/resource/resetUserPassword?userId=" + obj.data.id,
   		    	  type:"put",
   		    	  success:function(res){
   		    		  if(res.code == 0){
@@ -86,6 +65,31 @@ layui.use(['table','form'], function(){
   		    		      });
   		    			  layer.close(index);
   		    			  layer.msg("成功");
+  		    		  }else{
+  		    			  layer.close(index);
+  		    			  layer.msg(res.msg);
+  		    		  }
+  		    	  }
+  		      });
+  		  });
+  	} else if(layEvent === 'delete'){
+  		//删除
+  		layer.confirm('真的要删除吗？', {icon:3, title:"提示"}, function(index){
+  			  //获取当前行的appCode
+  			  $.ajax({
+  		    	  url:"/resource/removeUserById?id=" + obj.data.id,
+  		    	  type:"delete",
+  		    	  success:function(res){
+  		    		  if(res.code == 0){
+  		    			  //重载table数据
+  		    			  infoTableRender.reload({ //此处是上文提到的 初始化标识id
+//  		    				  where: data.field,
+  		    		          page: {
+  		    		              curr: 1 //重新从第 1 页开始
+  		    		          }
+  		    		      });
+  		    			  layer.close(index);
+  		    			  layer.msg("删除成功");
   		    		  }else{
   		    			  layer.close(index);
   		    			  layer.msg(res.msg);
@@ -108,6 +112,9 @@ layui.use(['table','form'], function(){
       });
       return false;
   });
+
   
-  form.render('select');
+  
+  ////////////////////////////////////////自定义函数////////////////////////////////////////////
+  
 });

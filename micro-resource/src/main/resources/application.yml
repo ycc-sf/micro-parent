@@ -2,7 +2,7 @@ spring:
   application:
     name: micro-resource
   profiles: 
-    active: local
+    active: dev
 ##################### DB #####################
   datasource: 
     type: com.alibaba.druid.pool.DruidDataSource
